@@ -2,6 +2,8 @@
 <html lang="ms"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kelas Cilik Alfaqeh</title>
+<!-- Favicon / Logo Tab Browser -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='30' fill='%23FF6B4A'/><path d='M18 74V36Q34 30 50 40Q66 30 82 36V74Q66 68 50 78Q34 68 18 74Z' fill='%23fff'/><path d='M50 8l12.9 26.2 28.9 4.2-20.9 20.4 4.9 28.8L50 74l-25.8 13.6 4.9-28.8L8.3 38.4l28.9-4.2z' transform='translate(32 4) scale(.36)' fill='%23FFC93C'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#FFF6E5;--ink:#22305A;--card:#fff;--mut:#7a84a6;--line:#EFE3C8;--c0:#FF6B4A;--c1:#7B5CFA;--c2:#1FA2A6;--c3:#FFA51F;--c4:#3C8DFF;--c5:#3DBE7A;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -83,49 +85,40 @@ tembikai:'<path d="M8 36A42 42 0 0092 36Z" fill="#3DBE7A"/><path d="M16 36A34 34
 kereta:'<rect x="8" y="48" width="84" height="26" rx="10" fill="#E5384A"/><path d="M24 48L34 26H66L78 48Z" fill="#E5384A"/><path d="M37 46L42 31H50V46ZM54 46V31H63L71 46Z" fill="#CFE8FF"/><circle cx="28" cy="76" r="11" fill="#22305A"/><circle cx="72" cy="76" r="11" fill="#22305A"/><circle cx="28" cy="76" r="4" fill="#ddd"/><circle cx="72" cy="76" r="4" fill="#ddd"/>',
 rumah:'<rect x="20" y="46" width="60" height="42" fill="#FFC93C"/><path d="M8 50L50 12L92 50Z" fill="#E5384A"/><rect x="42" y="62" width="16" height="26" rx="4" fill="#7B5CFA"/><rect x="26" y="54" width="12" height="12" rx="2" fill="#CFE8FF"/>',
 bunga:'<rect x="47" y="50" width="6" height="42" fill="#3DBE7A"/>'+[0,72,144,216,288].map(a=>`<circle cx="${(50+18*Math.cos(a*Math.PI/180)).toFixed(1)}" cy="${(36+18*Math.sin(a*Math.PI/180)).toFixed(1)}" r="14" fill="#FF7FA8"/>`).join('')+'<circle cx="50" cy="36" r="10" fill="#FFC93C"/>'};
-const art=k=>`<svg viewBox="0 0 100 100" aria-hidden="true">${ART[k]||`<circle cx="50" cy="50" r="40" fill="${COL[k]}"/><circle cx="36" cy="36" r="8" fill="#fff" opacity=".45"/>`}</svg>`;
+const art=k=>`<svg viewBox="0 0 100 100" aria-hidden="true">${ART[k]||`<circle cx="50" cy="50" r="40" fill="${COL[k]||'#3C8DFF'}"/><circle cx="36" cy="36" r="8" fill="#fff" opacity=".45"/>`}</svg>`;
 const W={bola:['bo','la'],buku:['bu','ku'],topi:['to','pi'],mata:['ma','ta'],meja:['me','ja'],baju:['ba','ju'],kopi:['ko','pi'],dadu:['da','du']};
 const WK=Object.keys(W),L='ABCDEFGHIJKLMNOPQRSTUVWXYZ',V='aeiou';
 const OB={haiwan:['ikan','itik','kucing','katak'],buah:['epal','pisang','oren','tembikai'],warna:Object.keys(COL),objek:['kereta','rumah','bunga','buku']};
 
-// --- BUNYI HOREY (WEB AUDIO SYNTHESIZER) ---
+// --- BUNYI BASIC BETUL (CHIME) ---
 let actx;
-function playHoreySound(){
+function playCorrectSound(){
   try{
     if(!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
     if(actx.state === 'suspended') actx.resume();
     
-    // Bunyi Fanfare Arpeggio
-    const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C4, E4, G4, C5, E5, G5
     const now = actx.currentTime;
+    const osc1 = actx.createOscillator();
+    const osc2 = actx.createOscillator();
+    const gain = actx.createGain();
     
-    notes.forEach((freq, idx) => {
-      const osc = actx.createOscillator();
-      const gain = actx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, now + idx * 0.08);
-      
-      gain.gain.setValueAtTime(0.3, now + idx * 0.08);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
-      
-      osc.connect(gain);
-      gain.connect(actx.destination);
-      
-      osc.start(now + idx * 0.08);
-      osc.stop(now + idx * 0.08 + 0.3);
-    });
-
-    // Sebut "Horey!" dengan SpeechSynthesis
-    setTimeout(() => {
-      try {
-        speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance('Horey!');
-        u.lang = 'ms-MY';
-        u.pitch = 1.4;
-        u.rate = 1.1;
-        speechSynthesis.speak(u);
-      } catch(e) {}
-    }, 150);
+    osc1.type = 'sine';
+    osc2.type = 'sine';
+    
+    osc1.frequency.setValueAtTime(523.25, now);
+    osc2.frequency.setValueAtTime(783.99, now + 0.08);
+    
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+    
+    osc1.connect(gain);
+    osc2.connect(gain);
+    gain.connect(actx.destination);
+    
+    osc1.start(now);
+    osc1.stop(now + 0.08);
+    osc2.start(now + 0.08);
+    osc2.stop(now + 0.35);
   } catch(e) {}
 }
 
@@ -140,35 +133,195 @@ const SUBJECTS = [
 
 const Q=(t,v,ans,dis,say,r=x=>x)=>({t,v,say,o:sh([ans,...dis]).map(k=>({h:r(k),ok:k===ans}))});
 
+// KUMPULAN DATA SUKU KATA PELBAGAI (BM)
+const SUKU_KATA_LIST = [
+  { full: 'bola', s1: 'bo', s2: 'la' },
+  { full: 'buku', s1: 'bu', s2: 'ku' },
+  { full: 'topi', s1: 'to', s2: 'pi' },
+  { full: 'mata', s1: 'ma', s2: 'ta' },
+  { full: 'meja', s1: 'me', s2: 'ja' },
+  { full: 'baju', s1: 'ba', s2: 'ju' },
+  { full: 'kopi', s1: 'ko', s2: 'pi' },
+  { full: 'dadu', s1: 'da', s2: 'du' },
+  { full: 'cawan', s1: 'ca', s2: 'wan' },
+  { full: 'kasut', s1: 'ka', s2: 'sut' },
+  { full: 'paku', s1: 'pa', s2: 'ku' },
+  { full: 'sudu', s1: 'su', s2: 'du' },
+  { full: 'roti', s1: 'ro', s2: 'ti' },
+  { full: 'nasik', s1: 'na', s2: 'sik' },
+  { full: 'gigi', s1: 'gi', s2: 'gi' }
+];
+
+// SENARAI HURUF JAWI LENGKAP UTK MENGELAKKAN SOALAN BERULANG (E.G. KAF)
+const ALL_JAWI = [
+  { j: 'ا', r: 'Alif' }, { j: 'ب', r: 'Ba' }, { j: 'ت', r: 'Ta' }, { j: 'ث', r: 'Tha' },
+  { j: 'ج', r: 'Jim' }, { j: 'ح', r: 'Ha' }, { j: 'خ', r: 'Kha' }, { j: 'د', r: 'Dal' },
+  { j: 'ذ', r: 'Dzal' }, { j: 'ر', r: 'Ra' }, { j: 'ز', r: 'Zai' }, { j: 'س', r: 'Sin' },
+  { j: 'ش', r: 'Syin' }, { j: 'ص', r: 'Sad' }, { j: 'ض', r: 'Ddad' }, { j: 'ط', r: 'Ta' },
+  { j: 'ظ', r: 'Zha' }, { j: 'ع', r: 'Ain' }, { j: 'غ', r: 'Ghain' }, { j: 'ف', r: 'Fa' },
+  { j: 'ق', r: 'Qaf' }, { j: 'ك', r: 'Kaf' }, { j: 'ل', r: 'Lam' }, { j: 'م', r: 'Mim' },
+  { j: 'ن', r: 'Nun' }, { j: 'و', r: 'Wau' }, { j: 'هـ', r: 'Ha' }, { j: 'ي', r: 'Ya' }
+];
+
 const ALL_GAMES = {
   bm: [
-    {id:'huruf',n:'Kenal Huruf',c:'var(--c0)',ic:'Aa',N:8,gen(s){const p=sh([...L].slice(s*3,s===7?26:s*3+3));return Array.from({length:5},(_,i)=>{const x=p[i%p.length],up=s<4||i%2==0,f=up?(c=>c.toLowerCase()):(c=>c);const dis=sh([...L].filter(l=>l!==x)).slice(0,2).map(f);return Q(up?'Pilih huruf kecil yang sama':'Pilih huruf besar yang sama',`<span class="big">${up?x:x.toLowerCase()}</span>`,up?x.toLowerCase():x,dis,x)})}},
-    {id:'suku',n:'Suku Kata',c:'var(--c1)',ic:'ba',N:8,gen(s){const c='bdklmstp'[s],SY=[...new Set(Object.values(W).flat())];return Array.from({length:5},(_,i)=>{if(i%2==0){const t=c+rnd(V);return Q('Cari suku kata yang sama',`<span class="big">${t}</span>`,t,sh([...V].map(v=>c+v).filter(x=>x!==t)).slice(0,2),t)}const w=rnd(WK),a=W[w][1];return Q('Lengkapkan perkataan ini',art(w)+`<span class="wd">${W[w][0]} - _</span>`,a,sh(SY.filter(x=>x!==a)).slice(0,2),w)})}},
-    {id:'baca',n:'Baca Perkataan',c:'var(--c2)',ic:art('buku'),N:8,gen(s){const n=s<3?2:s<6?3:4;return sh(WK).slice(0,5).map((w,i)=>{const d=sh(WK.filter(k=>k!==w)).slice(0,n-1);return s>=4&&i%2?Q('Cari gambar bagi perkataan ini',`<span class="big sm">${w}</span>`,w,d,w,art):Q('Baca dan pilih perkataan yang betul',art(w),w,d,w)})}},
-    {id:'eja',n:'Eja Perkataan',c:'var(--c3)',ic:art('topi'),N:8,gen(s){return sh(WK).slice(0,5).map(w=>{const ans=s<4?W[w]:[...w],ex=s>=6?[rnd([...'bdklmst'].filter(x=>!w.includes(x)))]:[];return{sp:1,t:s<4?'Susun suku kata untuk mengeja':'Susun huruf untuk mengeja',v:art(w),ans,tiles:sh([...ans,...ex]),say:w}})}},
-    {id:'benda',n:'Kenal Benda',c:'var(--c5)',ic:art('kucing'),N:9,gen(s){const cat=['haiwan','haiwan','buah','buah','warna','warna','objek','objek','campur'][s],all=[...OB.haiwan,...OB.buah,...OB.objek],pool=cat==='campur'?[...all,...OB.warna]:OB[cat];return sh(pool).concat(sh(pool)).slice(0,5).map(k=>{const c=k in COL,d=sh((cat==='campur'?(c?OB.warna:all):pool).filter(x=>x!==k&&(x in COL)===c)).slice(0,2);return Q(c?'Apakah warna ini?':'Apakah ini?',art(k),k,d,cap(k),cap)})}}
+    {id:'huruf',n:'Kenal Huruf',c:'var(--c0)',ic:'Aa',N:8,gen(s){
+      const p=sh([...L]);
+      return Array.from({length:5},(_,i)=>{
+        const x=p[i%p.length],up=s<4||i%2===0,f=up?(c=>c.toLowerCase()):(c=>c);
+        const dis=sh([...L].filter(l=>l!==x)).slice(0,2).map(f);
+        return Q(up?'Pilih huruf kecil yang sama':'Pilih huruf besar yang sama',`<span class="big">${up?x:x.toLowerCase()}</span>`,up?x.toLowerCase():x,dis,x)
+      })
+    }},
+    {id:'suku',n:'Suku Kata',c:'var(--c1)',ic:'ba',N:8,gen(s){
+      const pool = sh([...SUKU_KATA_LIST]);
+      return pool.slice(0, 5).map((item, i) => {
+        if(i % 2 === 0) {
+          const target = item.s1;
+          const dis = sh(SUKU_KATA_LIST.filter(x => x.s1 !== target).map(x => x.s1)).slice(0, 2);
+          return Q('Cari suku kata yang sama', `<span class="big">${target}</span>`, target, dis, target);
+        } else {
+          const hasImg = ART[item.full] ? art(item.full) : `<span class="big sm">${item.full.toUpperCase()}</span>`;
+          const dis = sh(SUKU_KATA_LIST.filter(x => x.s2 !== item.s2).map(x => x.s2)).slice(0, 2);
+          return Q('Lengkapkan suku kata ini', hasImg + `<span class="wd">${item.s1} - _</span>`, item.s2, dis, item.full);
+        }
+      });
+    }},
+    {id:'baca',n:'Baca Perkataan',c:'var(--c2)',ic:art('buku'),N:8,gen(s){
+      const list = sh(WK);
+      return list.slice(0,5).map((w,i)=>{
+        const d=sh(WK.filter(k=>k!==w)).slice(0,2);
+        return s>=4&&i%2?Q('Cari gambar bagi perkataan ini',`<span class="big sm">${w}</span>`,w,d,w,art):Q('Baca dan pilih perkataan yang betul',art(w),w,d,w)
+      })
+    }},
+    {id:'eja',n:'Eja Perkataan',c:'var(--c3)',ic:art('topi'),N:8,gen(s){
+      return sh(WK).slice(0,5).map(w=>{
+        const ans=s<4?W[w]:[...w],ex=s>=6?[rnd([...'bdklmst'].filter(x=>!w.includes(x)))]:[];
+        return{sp:1,t:s<4?'Susun suku kata untuk mengeja':'Susun huruf untuk mengeja',v:art(w),ans,tiles:sh([...ans,...ex]),say:w}
+      })
+    }},
+    {id:'benda',n:'Kenal Benda',c:'var(--c5)',ic:art('kucing'),N:9,gen(s){
+      const cat=['haiwan','haiwan','buah','buah','warna','warna','objek','objek','campur'][s],all=[...OB.haiwan,...OB.buah,...OB.objek],pool=cat==='campur'?[...all,...OB.warna]:OB[cat];
+      return sh(pool).concat(sh(pool)).slice(0,5).map(k=>{
+        const c=k in COL,d=sh((cat==='campur'?(c?OB.warna:all):pool).filter(x=>x!==k&&(x in COL)===c)).slice(0,2);
+        return Q(c?'Apakah warna ini?':'Apakah ini?',art(k),k,d,cap(k),cap)
+      })
+    }}
   ],
   bi: [
-    {id:'bi_abc',n:'Alphabet',c:'var(--c4)',ic:'ABC',N:8,gen(s){return Array.from({length:5},()=>{const x=rnd([...L]);const dis=sh([...L].filter(l=>l!==x)).slice(0,2);return Q('Choose the matching letter',`<span class="big">${x}</span>`,x,dis,x)})}},
-    {id:'bi_phonic',n:'Phonics & Words',c:'var(--c0)',ic:'Cat',N:8,gen(s){const words=[{w:'cat',a:'kucing'},{w:'duck',a:'itik'},{w:'fish',a:'ikan'},{w:'apple',a:'epal'},{w:'car',a:'kereta'}];return sh(words).map(item=>{const dis=sh(words.filter(x=>x.w!==item.w)).slice(0,2).map(x=>x.w);return Q('Select the correct English word',art(item.a),item.w,dis,item.w)})}},
-    {id:'bi_vocab',n:'Vocabulary',c:'var(--c2)',ic:art('epal'),N:8,gen(s){const map={epal:'Apple',pisang:'Banana',oren:'Orange',kucing:'Cat',ikan:'Fish',kereta:'Car'};const keys=Object.keys(map);return sh(keys).slice(0,5).map(k=>{const ans=map[k];const dis=sh(Object.values(map).filter(v=>v!==ans)).slice(0,2);return Q('What is this in English?',art(k),ans,dis,ans)})}},
-    {id:'bi_spell',n:'Simple Spelling',c:'var(--c1)',ic:'Spell',N:8,gen(s){const pool=['cat','dog','sun','box','pen'];return sh(pool).slice(0,5).map(w=>{const ans=[...w];return{sp:1,t:'Spell the word correctly',v:`<span class="big sm">${w.toUpperCase()}</span>`,ans,tiles:sh(ans),say:w}})}}
+    {id:'bi_abc',n:'Alphabet',c:'var(--c4)',ic:'ABC',N:8,gen(s){
+      const pick = sh([...L]);
+      return Array.from({length:5},(_, i)=>{
+        const x=pick[i];
+        const dis=sh([...L].filter(l=>l!==x)).slice(0,2);
+        return Q('Choose the matching letter',`<span class="big">${x}</span>`,x,dis,x)
+      })
+    }},
+    {id:'bi_phonic',n:'Phonics & Words',c:'var(--c0)',ic:'Cat',N:8,gen(s){
+      const words=[{w:'cat',a:'kucing'},{w:'duck',a:'itik'},{w:'fish',a:'ikan'},{w:'apple',a:'epal'},{w:'car',a:'kereta'},{w:'ball',a:'bola'},{w:'book',a:'buku'},{w:'house',a:'rumah'}];
+      return sh(words).slice(0,5).map(item=>{
+        const dis=sh(words.filter(x=>x.w!==item.w)).slice(0,2).map(x=>x.w);
+        return Q('Select the correct English word',art(item.a),item.w,dis,item.w)
+      })
+    }},
+    {id:'bi_vocab',n:'Vocabulary',c:'var(--c2)',ic:art('epal'),N:8,gen(s){
+      const map={epal:'Apple',pisang:'Banana',oren:'Orange',kucing:'Cat',ikan:'Fish',kereta:'Car',rumah:'House',bunga:'Flower',topi:'Hat'};
+      const keys=sh(Object.keys(map));
+      return keys.slice(0,5).map(k=>{
+        const ans=map[k];
+        const dis=sh(Object.values(map).filter(v=>v!==ans)).slice(0,2);
+        return Q('What is this in English?',art(k),ans,dis,ans)
+      })
+    }},
+    {id:'bi_spell',n:'Simple Spelling',c:'var(--c1)',ic:'Spell',N:8,gen(s){
+      const pool=['cat','dog','sun','box','pen','hat','bus','cup'];
+      return sh(pool).slice(0,5).map(w=>{
+        const ans=[...w];
+        return{sp:1,t:'Spell the word correctly',v:`<span class="big sm">${w.toUpperCase()}</span>`,ans,tiles:sh(ans),say:w}
+      })
+    }}
   ],
   math: [
-    {id:'m_num',n:'Nombor 1-10',c:'var(--c3)',ic:'123',N:9,gen(s){const mx=[3,3,5,5,7,7,10,10,10][s],it=['epal','bola','ikan','bunga','itik'][s%5];return Array.from({length:5},()=>{const n=1+Math.random()*mx|0,pool=Array.from({length:Math.max(mx,3)},(_,i)=>String(i+1));return Q('Hitung, berapakah semuanya?',`<div class="cnt">${art(it).repeat(n)}</div>`,String(n),sh(pool.filter(x=>x!=n)).slice(0,2),String(n))})}},
-    {id:'m_add',n:'Tambah (+)',c:'var(--c5)',ic:'1+1',N:8,gen(s){return Array.from({length:5},()=>{const a=1+Math.random()*(s+2)|0,b=1+Math.random()*(s+2)|0,ans=a+b;const dis=[ans+1,Math.max(1,ans-1),ans+2].map(String);return Q('Berapakah jumlahnya?',`<span class="big sm">${a} + ${b} = ?</span>`,String(ans),dis,`${a} tambah ${b}`)})}},
-    {id:'m_sub',n:'Tolak (-)',c:'var(--c0)',ic:'3-1',N:8,gen(s){return Array.from({length:5},()=>{const a=2+Math.random()*(s+3)|0,b=1+Math.random()*a|0,ans=a-b;const dis=[ans+1,Math.max(0,ans-1),ans+2].map(String);return Q('Berapakah bakinya?',`<span class="big sm">${a} - ${b} = ?</span>`,String(ans),dis,`${a} tolak ${b}`)})}},
-    {id:'m_shape',n:'Bentuk',c:'var(--c2)',ic:'📐',N:6,gen(s){const shp=[{n:'Bulat',v:'🔴'},{n:'Segi Empat',v:'🟥'},{n:'Segi Tiga',v:'🔺'},{n:'Bintang',v:'⭐'}];return sh(shp).concat(sh(shp)).slice(0,5).map(item=>{const dis=sh(shp.filter(x=>x.n!==item.n)).slice(0,2).map(x=>x.n);return Q('Apakah bentuk ini?',`<span class="big">${item.v}</span>`,item.n,dis,item.n)})}}
+    {id:'m_num',n:'Nombor 1-10',c:'var(--c3)',ic:'123',N:9,gen(s){
+      const mx=[3,3,5,5,7,7,10,10,10][s],it=['epal','bola','ikan','bunga','itik'][s%5];
+      return Array.from({length:5},()=>{
+        const n=1+Math.random()*mx|0,pool=Array.from({length:Math.max(mx,3)},(_,i)=>String(i+1));
+        return Q('Hitung, berapakah semuanya?',`<div class="cnt">${art(it).repeat(n)}</div>`,String(n),sh(pool.filter(x=>x!=n)).slice(0,2),String(n))
+      })
+    }},
+    {id:'m_add',n:'Tambah (+)',c:'var(--c5)',ic:'1+1',N:8,gen(s){
+      return Array.from({length:5},()=>{
+        const a=1+Math.random()*(s+2)|0,b=1+Math.random()*(s+2)|0,ans=a+b;
+        const dis=[ans+1,Math.max(1,ans-1),ans+2].map(String);
+        return Q('Berapakah jumlahnya?',`<span class="big sm">${a} + ${b} = ?</span>`,String(ans),dis,`${a} tambah ${b}`)
+      })
+    }},
+    {id:'m_sub',n:'Tolak (-)',c:'var(--c0)',ic:'3-1',N:8,gen(s){
+      return Array.from({length:5},()=>{
+        const a=2+Math.random()*(s+3)|0,b=1+Math.random()*a|0,ans=a-b;
+        const dis=[ans+1,Math.max(0,ans-1),ans+2].map(String);
+        return Q('Berapakah bakinya?',`<span class="big sm">${a} - ${b} = ?</span>`,String(ans),dis,`${a} tolak ${b}`)
+      })
+    }},
+    {id:'m_shape',n:'Bentuk',c:'var(--c2)',ic:'📐',N:6,gen(s){
+      const shp=[{n:'Bulat',v:'🔴'},{n:'Segi Empat',v:'🟥'},{n:'Segi Tiga',v:'🔺'},{n:'Bintang',v:'⭐'},{n:'Bujur',v:'🥚'},{n:'Hati',v:'❤️'}];
+      return sh(shp).slice(0,5).map(item=>{
+        const dis=sh(shp.filter(x=>x.n!==item.n)).slice(0,2).map(x=>x.n);
+        return Q('Apakah bentuk ini?',`<span class="big">${item.v}</span>`,item.n,dis,item.n)
+      })
+    }}
   ],
   sains: [
-    {id:'s_hidup',n:'Benda Hidup',c:'var(--c5)',ic:'🌱',N:6,gen(s){const data=[{n:'Kucing',h:true},{n:'Bunga',h:true},{n:'Kereta',h:false},{n:'Meja',h:false},{n:'Ikan',h:true},{n:'Buku',h:false}];return sh(data).slice(0,5).map(d=>{const ans=d.h?'Benda Hidup':'Benda Bukan Hidup';return Q('Adakah ini benda hidup atau bukan?',`<span class="big sm">${d.n}</span>`,ans,d.h?['Benda Bukan Hidup']:['Benda Hidup'],d.n)})}},
-    {id:'s_badan',n:'Bahagian Badan',c:'var(--c0)',ic:art('mata'),N:6,gen(s){const items=[{n:'Mata',a:'mata'},{n:'Topi',a:'topi'},{n:'Baju',a:'baju'}];return sh(items).concat(sh(items)).slice(0,5).map(i=>{const dis=sh(items.filter(x=>x.n!==i.n)).slice(0,2).map(i.n);return Q('Mana satu bahagian badan?',art(i.a),i.n,dis,i.n)})}},
-    {id:'s_deria',n:'Organ Deria',c:'var(--c1)',ic:'👂',N:6,gen(s){const data=[{q:'Deria Penglihatan',a:'Mata'},{q:'Deria Pendengaran',a:'Telinga'},{q:'Deria Rasa',a:'Lidah'},{q:'Deria Bau',a:'Hidung'}];return sh(data).concat(sh(data)).slice(0,5).map(d=>{const dis=sh(data.filter(x=>x.a!==d.a)).slice(0,2).map(x=>x.a);return Q('Organ manakah untuk:',`<span class="big sm" style="font-size:36px">${d.q}</span>`,d.a,dis,d.q)})}}
+    {id:'s_hidup',n:'Benda Hidup',c:'var(--c5)',ic:'🌱',N:6,gen(s){
+      const data=[{n:'Kucing',h:true},{n:'Bunga',h:true},{n:'Kereta',h:false},{n:'Meja',h:false},{n:'Ikan',h:true},{n:'Buku',h:false},{n:'Burung',h:true},{n:'Batu',h:false}];
+      return sh(data).slice(0,5).map(d=>{
+        const ans=d.h?'Benda Hidup':'Benda Bukan Hidup';
+        return Q('Adakah ini benda hidup atau bukan?',`<span class="big sm">${d.n}</span>`,ans,d.h?['Benda Bukan Hidup']:['Benda Hidup'],d.n)
+      })
+    }},
+    {id:'s_badan',n:'Bahagian Badan',c:'var(--c0)',ic:art('mata'),N:6,gen(s){
+      const items=[{n:'Mata',a:'mata'},{n:'Topi',a:'topi'},{n:'Baju',a:'baju'},{n:'Meja',a:'meja'}];
+      return sh(items).slice(0,5).map(i=>{
+        const dis=sh(items.filter(x=>x.n!==i.n)).slice(0,2).map(x=>x.n);
+        return Q('Mana satu bahagian badan?',art(i.a),i.n,dis,i.n)
+      })
+    }},
+    {id:'s_deria',n:'Organ Deria',c:'var(--c1)',ic:'👂',N:6,gen(s){
+      const data=[{q:'Deria Penglihatan',a:'Mata'},{q:'Deria Pendengaran',a:'Telinga'},{q:'Deria Rasa',a:'Lidah'},{q:'Deria Bau',a:'Hidung'},{q:'Deria Sentuhan',a:'Kulit'}];
+      return sh(data).slice(0,5).map(d=>{
+        const dis=sh(data.filter(x=>x.a!==d.a)).slice(0,2).map(x=>x.a);
+        return Q('Organ manakah untuk:',`<span class="big sm" style="font-size:36px">${d.q}</span>`,d.a,dis,d.q)
+      })
+    }}
   ],
   jawi: [
-    {id:'j_huruf',n:'Huruf Hijaiyah',c:'var(--c1)',ic:'ا ب ت',N:8,gen(s){const jawi=['ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','و','هـ','ي'];const item=rnd(jawi);const dis=sh(jawi.filter(x=>x!==item)).slice(0,2);return Array.from({length:5},()=>Q('Pilih huruf Jawi/Hijaiyah yang sama',`<span class="big">${item}</span>`,item,dis,item))}},
-    {id:'j_suku',n:'Suku Kata Jawi',c:'var(--c3)',ic:'با',N:8,gen(s){const items=[{j:'با',r:'ba'},{j:'بو',r:'bu'},{j:'بي',r:'bi'},{j:'تا',r:'ta'},{j:'تو',r:'tu'},{j:'تي',r:'ti'}];return sh(items).slice(0,5).map(i=>{const dis=sh(items.filter(x=>x.j!==i.j)).slice(0,2).map(x=>x.j);return Q(`Pilih padanan Jawi untuk "${i.r}"`,`<span class="big sm">${i.r}</span>`,i.j,dis,i.r)})}},
-    {id:'j_padan',n:'Padanan Huruf',c:'var(--c2)',ic:'A ➔ ا',N:8,gen(s){const map=[{r:'A',j:'ا'},{r:'B',j:'ب'},{r:'T',j:'ت'},{r:'J',j:'ج'},{r:'M',j:'م'},{r:'N',j:'ن'}];return sh(map).slice(0,5).map(m=>{const dis=sh(map.filter(x=>x.j!==m.j)).slice(0,2).map(x=>x.j);return Q(`Huruf Rumi '${m.r}' dalam Jawi ialah:`,`<span class="big">${m.r}</span>`,m.j,dis,m.r)})}}
+    {id:'j_huruf',n:'Huruf Hijaiyah',c:'var(--c1)',ic:'ا ب ت',N:8,gen(s){
+      // Pilih 5 huruf rawak dari senarai penuh (elak hanya kaf)
+      const list = sh([...ALL_JAWI]).slice(0, 5);
+      return list.map(item => {
+        const dis = sh(ALL_JAWI.filter(x => x.j !== item.j)).slice(0, 2).map(x => x.j);
+        return Q('Pilih huruf Jawi / Hijaiyah yang sama', `<span class="big">${item.j}</span>`, item.j, dis, item.r);
+      });
+    }},
+    {id:'j_suku',n:'Suku Kata Jawi',c:'var(--c3)',ic:'با',N:8,gen(s){
+      const items=[
+        {j:'با',r:'ba'},{j:'بو',r:'bu'},{j:'بي',r:'bi'},
+        {j:'تا',r:'ta'},{j:'تو',r:'tu'},{j:'تي',r:'ti'},
+        {j:'جا',r:'ja'},{j:'جو',r:'ju'},{j:'جي',r:'ji'},
+        {j:'سا',r:'sa'},{j:'سو',r:'su'},{j:'سي',r:'si'}
+      ];
+      return sh(items).slice(0,5).map(i=>{
+        const dis=sh(items.filter(x=>x.j!==i.j)).slice(0,2).map(x=>x.j);
+        return Q(`Pilih padanan Jawi untuk "${i.r}"`,`<span class="big sm">${i.r}</span>`,i.j,dis,i.r)
+      })
+    }},
+    {id:'j_padan',n:'Nama Huruf Jawi',c:'var(--c2)',ic:'A ➔ ا',N:8,gen(s){
+      const list = sh([...ALL_JAWI]).slice(0, 5);
+      return list.map(item => {
+        const dis = sh(ALL_JAWI.filter(x => x.r !== item.r)).slice(0, 2).map(x => x.r);
+        return Q(`Apakah nama bagi huruf Jawi '${item.j}'?`, `<span class="big">${item.j}</span>`, item.r, dis, item.r);
+      });
+    }}
   ]
 };
 
@@ -199,8 +352,8 @@ function right(){
   P.pts+=P.t?5:10;
   $('fb').style.color='var(--c5)';$('fb').textContent=rnd(good);
   
-  // Mainkan Bunyi Horey setiap kali jawapan betul!
-  playHoreySound();
+  // Mainkan Bunyi Basic Betul
+  playCorrectSound();
 
   setTimeout(()=>{P.i++;P.sl=[];P.t=0;P.done=0;P.i>=P.q.length?finish():draw()},900)
 }
