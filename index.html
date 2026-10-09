@@ -87,41 +87,156 @@ const art=k=>`<svg viewBox="0 0 100 100" aria-hidden="true">${ART[k]||`<circle c
 const W={bola:['bo','la'],buku:['bu','ku'],topi:['to','pi'],mata:['ma','ta'],meja:['me','ja'],baju:['ba','ju'],kopi:['ko','pi'],dadu:['da','du']};
 const WK=Object.keys(W),L='ABCDEFGHIJKLMNOPQRSTUVWXYZ',V='aeiou';
 const OB={haiwan:['ikan','itik','kucing','katak'],buah:['epal','pisang','oren','tembikai'],warna:Object.keys(COL),objek:['kereta','rumah','bunga','buku']};
-// Q: pilihan jawapan
-const Q=(t,v,ans,dis,say,r=x=>x)=>({t,v,say,o:sh([ans,...dis]).map(k=>({h:r(k),ok:k===ans}))});
-const G=[
-{id:'huruf',n:'Kenal Huruf',c:'var(--c0)',ic:'Aa',N:8,gen(s){const p=sh([...L].slice(s*3,s===7?26:s*3+3));return Array.from({length:5},(_,i)=>{const x=p[i%p.length],up=s<4||i%2==0,f=up?(c=>c.toLowerCase()):(c=>c);const dis=sh([...L].filter(l=>l!==x)).slice(0,2).map(f);return Q(up?'Pilih huruf kecil yang sama':'Pilih huruf besar yang sama',`<span class="big">${up?x:x.toLowerCase()}</span>`,up?x.toLowerCase():x,dis,x)})}},
-{id:'suku',n:'Suku Kata',c:'var(--c1)',ic:'ba',N:8,gen(s){const c='bdklmstp'[s],SY=[...new Set(Object.values(W).flat())];return Array.from({length:5},(_,i)=>{if(i%2==0){const t=c+rnd(V);return Q('Cari suku kata yang sama',`<span class="big">${t}</span>`,t,sh([...V].map(v=>c+v).filter(x=>x!==t)).slice(0,2),t)}const w=rnd(WK),a=W[w][1];return Q('Lengkapkan perkataan ini',art(w)+`<span class="wd">${W[w][0]} - _</span>`,a,sh(SY.filter(x=>x!==a)).slice(0,2),w)})}},
-{id:'baca',n:'Baca Perkataan',c:'var(--c2)',ic:art('buku'),N:8,gen(s){const n=s<3?2:s<6?3:4;return sh(WK).slice(0,5).map((w,i)=>{const d=sh(WK.filter(k=>k!==w)).slice(0,n-1);return s>=4&&i%2?Q('Cari gambar bagi perkataan ini',`<span class="big sm">${w}</span>`,w,d,w,art):Q('Baca dan pilih perkataan yang betul',art(w),w,d,w)})}},
-{id:'eja',n:'Eja Perkataan',c:'var(--c3)',ic:art('topi'),N:8,gen(s){return sh(WK).slice(0,5).map(w=>{const ans=s<4?W[w]:[...w],ex=s>=6?[rnd([...'bdklmst'].filter(x=>!w.includes(x)))]:[];return{sp:1,t:s<4?'Susun suku kata untuk mengeja':'Susun huruf untuk mengeja',v:art(w),ans,tiles:sh([...ans,...ex]),say:w}})}},
-{id:'nombor',n:'Nombor',c:'var(--c4)',ic:'123',N:9,gen(s){const mx=[3,3,5,5,7,7,10,10,10][s],it=['epal','bola','ikan','bunga','itik'][s%5];return Array.from({length:5},()=>{const n=1+Math.random()*mx|0,pool=Array.from({length:Math.max(mx,3)},(_,i)=>String(i+1));return Q('Hitung, berapakah semuanya?',`<div class="cnt">${art(it).repeat(n)}</div>`,String(n),sh(pool.filter(x=>x!=n)).slice(0,2),String(n))})}},
-{id:'benda',n:'Kenal Benda',c:'var(--c5)',ic:art('kucing'),N:9,gen(s){const cat=['haiwan','haiwan','buah','buah','warna','warna','objek','objek','campur'][s],all=[...OB.haiwan,...OB.buah,...OB.objek],pool=cat==='campur'?[...all,...OB.warna]:OB[cat];return sh(pool).concat(sh(pool)).slice(0,5).map(k=>{const c=k in COL,d=sh((cat==='campur'?(c?OB.warna:all):pool).filter(x=>x!==k&&(x in COL)===c)).slice(0,2);return Q(c?'Apakah warna ini?':'Apakah ini?',art(k),k,d,cap(k),cap)})}}
+
+// --- BUNYI HOREY (WEB AUDIO SYNTHESIZER) ---
+let actx;
+function playHoreySound(){
+  try{
+    if(!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    if(actx.state === 'suspended') actx.resume();
+    
+    // Bunyi Fanfare Arpeggio
+    const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C4, E4, G4, C5, E5, G5
+    const now = actx.currentTime;
+    
+    notes.forEach((freq, idx) => {
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+      
+      gain.gain.setValueAtTime(0.3, now + idx * 0.08);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
+      
+      osc.connect(gain);
+      gain.connect(actx.destination);
+      
+      osc.start(now + idx * 0.08);
+      osc.stop(now + idx * 0.08 + 0.3);
+    });
+
+    // Sebut "Horey!" dengan SpeechSynthesis
+    setTimeout(() => {
+      try {
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance('Horey!');
+        u.lang = 'ms-MY';
+        u.pitch = 1.4;
+        u.rate = 1.1;
+        speechSynthesis.speak(u);
+      } catch(e) {}
+    }, 150);
+  } catch(e) {}
+}
+
+// --- DATA SUBJEK & LATIHAN ---
+const SUBJECTS = [
+  { id: 'bm', name: 'Bahasa Melayu', ic: '🇲🇾', c: 'var(--c0)' },
+  { id: 'bi', name: 'Bahasa Inggeris', ic: '🇬🇧', c: 'var(--c4)' },
+  { id: 'math', name: 'Matematik', ic: '🔢', c: 'var(--c3)' },
+  { id: 'sains', name: 'Sains', ic: '🔬', c: 'var(--c5)' },
+  { id: 'jawi', name: 'Jawi', ic: '🕌', c: 'var(--c1)' }
 ];
+
+const Q=(t,v,ans,dis,say,r=x=>x)=>({t,v,say,o:sh([ans,...dis]).map(k=>({h:r(k),ok:k===ans}))});
+
+const ALL_GAMES = {
+  bm: [
+    {id:'huruf',n:'Kenal Huruf',c:'var(--c0)',ic:'Aa',N:8,gen(s){const p=sh([...L].slice(s*3,s===7?26:s*3+3));return Array.from({length:5},(_,i)=>{const x=p[i%p.length],up=s<4||i%2==0,f=up?(c=>c.toLowerCase()):(c=>c);const dis=sh([...L].filter(l=>l!==x)).slice(0,2).map(f);return Q(up?'Pilih huruf kecil yang sama':'Pilih huruf besar yang sama',`<span class="big">${up?x:x.toLowerCase()}</span>`,up?x.toLowerCase():x,dis,x)})}},
+    {id:'suku',n:'Suku Kata',c:'var(--c1)',ic:'ba',N:8,gen(s){const c='bdklmstp'[s],SY=[...new Set(Object.values(W).flat())];return Array.from({length:5},(_,i)=>{if(i%2==0){const t=c+rnd(V);return Q('Cari suku kata yang sama',`<span class="big">${t}</span>`,t,sh([...V].map(v=>c+v).filter(x=>x!==t)).slice(0,2),t)}const w=rnd(WK),a=W[w][1];return Q('Lengkapkan perkataan ini',art(w)+`<span class="wd">${W[w][0]} - _</span>`,a,sh(SY.filter(x=>x!==a)).slice(0,2),w)})}},
+    {id:'baca',n:'Baca Perkataan',c:'var(--c2)',ic:art('buku'),N:8,gen(s){const n=s<3?2:s<6?3:4;return sh(WK).slice(0,5).map((w,i)=>{const d=sh(WK.filter(k=>k!==w)).slice(0,n-1);return s>=4&&i%2?Q('Cari gambar bagi perkataan ini',`<span class="big sm">${w}</span>`,w,d,w,art):Q('Baca dan pilih perkataan yang betul',art(w),w,d,w)})}},
+    {id:'eja',n:'Eja Perkataan',c:'var(--c3)',ic:art('topi'),N:8,gen(s){return sh(WK).slice(0,5).map(w=>{const ans=s<4?W[w]:[...w],ex=s>=6?[rnd([...'bdklmst'].filter(x=>!w.includes(x)))]:[];return{sp:1,t:s<4?'Susun suku kata untuk mengeja':'Susun huruf untuk mengeja',v:art(w),ans,tiles:sh([...ans,...ex]),say:w}})}},
+    {id:'benda',n:'Kenal Benda',c:'var(--c5)',ic:art('kucing'),N:9,gen(s){const cat=['haiwan','haiwan','buah','buah','warna','warna','objek','objek','campur'][s],all=[...OB.haiwan,...OB.buah,...OB.objek],pool=cat==='campur'?[...all,...OB.warna]:OB[cat];return sh(pool).concat(sh(pool)).slice(0,5).map(k=>{const c=k in COL,d=sh((cat==='campur'?(c?OB.warna:all):pool).filter(x=>x!==k&&(x in COL)===c)).slice(0,2);return Q(c?'Apakah warna ini?':'Apakah ini?',art(k),k,d,cap(k),cap)})}}
+  ],
+  bi: [
+    {id:'bi_abc',n:'Alphabet',c:'var(--c4)',ic:'ABC',N:8,gen(s){return Array.from({length:5},()=>{const x=rnd([...L]);const dis=sh([...L].filter(l=>l!==x)).slice(0,2);return Q('Choose the matching letter',`<span class="big">${x}</span>`,x,dis,x)})}},
+    {id:'bi_phonic',n:'Phonics & Words',c:'var(--c0)',ic:'Cat',N:8,gen(s){const words=[{w:'cat',a:'kucing'},{w:'duck',a:'itik'},{w:'fish',a:'ikan'},{w:'apple',a:'epal'},{w:'car',a:'kereta'}];return sh(words).map(item=>{const dis=sh(words.filter(x=>x.w!==item.w)).slice(0,2).map(x=>x.w);return Q('Select the correct English word',art(item.a),item.w,dis,item.w)})}},
+    {id:'bi_vocab',n:'Vocabulary',c:'var(--c2)',ic:art('epal'),N:8,gen(s){const map={epal:'Apple',pisang:'Banana',oren:'Orange',kucing:'Cat',ikan:'Fish',kereta:'Car'};const keys=Object.keys(map);return sh(keys).slice(0,5).map(k=>{const ans=map[k];const dis=sh(Object.values(map).filter(v=>v!==ans)).slice(0,2);return Q('What is this in English?',art(k),ans,dis,ans)})}},
+    {id:'bi_spell',n:'Simple Spelling',c:'var(--c1)',ic:'Spell',N:8,gen(s){const pool=['cat','dog','sun','box','pen'];return sh(pool).slice(0,5).map(w=>{const ans=[...w];return{sp:1,t:'Spell the word correctly',v:`<span class="big sm">${w.toUpperCase()}</span>`,ans,tiles:sh(ans),say:w}})}}
+  ],
+  math: [
+    {id:'m_num',n:'Nombor 1-10',c:'var(--c3)',ic:'123',N:9,gen(s){const mx=[3,3,5,5,7,7,10,10,10][s],it=['epal','bola','ikan','bunga','itik'][s%5];return Array.from({length:5},()=>{const n=1+Math.random()*mx|0,pool=Array.from({length:Math.max(mx,3)},(_,i)=>String(i+1));return Q('Hitung, berapakah semuanya?',`<div class="cnt">${art(it).repeat(n)}</div>`,String(n),sh(pool.filter(x=>x!=n)).slice(0,2),String(n))})}},
+    {id:'m_add',n:'Tambah (+)',c:'var(--c5)',ic:'1+1',N:8,gen(s){return Array.from({length:5},()=>{const a=1+Math.random()*(s+2)|0,b=1+Math.random()*(s+2)|0,ans=a+b;const dis=[ans+1,Math.max(1,ans-1),ans+2].map(String);return Q('Berapakah jumlahnya?',`<span class="big sm">${a} + ${b} = ?</span>`,String(ans),dis,`${a} tambah ${b}`)})}},
+    {id:'m_sub',n:'Tolak (-)',c:'var(--c0)',ic:'3-1',N:8,gen(s){return Array.from({length:5},()=>{const a=2+Math.random()*(s+3)|0,b=1+Math.random()*a|0,ans=a-b;const dis=[ans+1,Math.max(0,ans-1),ans+2].map(String);return Q('Berapakah bakinya?',`<span class="big sm">${a} - ${b} = ?</span>`,String(ans),dis,`${a} tolak ${b}`)})}},
+    {id:'m_shape',n:'Bentuk',c:'var(--c2)',ic:'📐',N:6,gen(s){const shp=[{n:'Bulat',v:'🔴'},{n:'Segi Empat',v:'🟥'},{n:'Segi Tiga',v:'🔺'},{n:'Bintang',v:'⭐'}];return sh(shp).concat(sh(shp)).slice(0,5).map(item=>{const dis=sh(shp.filter(x=>x.n!==item.n)).slice(0,2).map(x=>x.n);return Q('Apakah bentuk ini?',`<span class="big">${item.v}</span>`,item.n,dis,item.n)})}}
+  ],
+  sains: [
+    {id:'s_hidup',n:'Benda Hidup',c:'var(--c5)',ic:'🌱',N:6,gen(s){const data=[{n:'Kucing',h:true},{n:'Bunga',h:true},{n:'Kereta',h:false},{n:'Meja',h:false},{n:'Ikan',h:true},{n:'Buku',h:false}];return sh(data).slice(0,5).map(d=>{const ans=d.h?'Benda Hidup':'Benda Bukan Hidup';return Q('Adakah ini benda hidup atau bukan?',`<span class="big sm">${d.n}</span>`,ans,d.h?['Benda Bukan Hidup']:['Benda Hidup'],d.n)})}},
+    {id:'s_badan',n:'Bahagian Badan',c:'var(--c0)',ic:art('mata'),N:6,gen(s){const items=[{n:'Mata',a:'mata'},{n:'Topi',a:'topi'},{n:'Baju',a:'baju'}];return sh(items).concat(sh(items)).slice(0,5).map(i=>{const dis=sh(items.filter(x=>x.n!==i.n)).slice(0,2).map(i.n);return Q('Mana satu bahagian badan?',art(i.a),i.n,dis,i.n)})}},
+    {id:'s_deria',n:'Organ Deria',c:'var(--c1)',ic:'👂',N:6,gen(s){const data=[{q:'Deria Penglihatan',a:'Mata'},{q:'Deria Pendengaran',a:'Telinga'},{q:'Deria Rasa',a:'Lidah'},{q:'Deria Bau',a:'Hidung'}];return sh(data).concat(sh(data)).slice(0,5).map(d=>{const dis=sh(data.filter(x=>x.a!==d.a)).slice(0,2).map(x=>x.a);return Q('Organ manakah untuk:',`<span class="big sm" style="font-size:36px">${d.q}</span>`,d.a,dis,d.q)})}}
+  ],
+  jawi: [
+    {id:'j_huruf',n:'Huruf Hijaiyah',c:'var(--c1)',ic:'ا ب ت',N:8,gen(s){const jawi=['ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','و','هـ','ي'];const item=rnd(jawi);const dis=sh(jawi.filter(x=>x!==item)).slice(0,2);return Array.from({length:5},()=>Q('Pilih huruf Jawi/Hijaiyah yang sama',`<span class="big">${item}</span>`,item,dis,item))}},
+    {id:'j_suku',n:'Suku Kata Jawi',c:'var(--c3)',ic:'با',N:8,gen(s){const items=[{j:'با',r:'ba'},{j:'بو',r:'bu'},{j:'بي',r:'bi'},{j:'تا',r:'ta'},{j:'تو',r:'tu'},{j:'تي',r:'ti'}];return sh(items).slice(0,5).map(i=>{const dis=sh(items.filter(x=>x.j!==i.j)).slice(0,2).map(x=>x.j);return Q(`Pilih padanan Jawi untuk "${i.r}"`,`<span class="big sm">${i.r}</span>`,i.j,dis,i.r)})}},
+    {id:'j_padan',n:'Padanan Huruf',c:'var(--c2)',ic:'A ➔ ا',N:8,gen(s){const map=[{r:'A',j:'ا'},{r:'B',j:'ب'},{r:'T',j:'ت'},{r:'J',j:'ج'},{r:'M',j:'م'},{r:'N',j:'ن'}];return sh(map).slice(0,5).map(m=>{const dis=sh(map.filter(x=>x.j!==m.j)).slice(0,2).map(x=>x.j);return Q(`Huruf Rumi '${m.r}' dalam Jawi ialah:`,`<span class="big">${m.r}</span>`,m.j,dis,m.r)})}}
+  ]
+};
+
 // Storan
-let DB={profiles:{},cur:null};try{DB=JSON.parse(localStorage.getItem('kca1'))||DB}catch(e){}
-const save=()=>{try{localStorage.setItem('kca1',JSON.stringify(DB))}catch(e){}};
-const me=()=>DB.profiles[DB.cur],tot=p=>Object.values(p.prog).flat().reduce((a,b)=>a+(b||0),0),dn=(p,g)=>(p.prog[g.id]||[]).filter(x=>x>0).length;
+let DB={profiles:{},cur:null,curSub:'bm'};try{DB=JSON.parse(localStorage.getItem('kca2'))||DB}catch(e){}
+const save=()=>{try{localStorage.setItem('kca2',JSON.stringify(DB))}catch(e){}};
+const me=()=>DB.profiles[DB.cur],tot=p=>Object.values(p.prog||{}).flat().reduce((a,b)=>a+(b||0),0),dn=(p,g)=>(p.prog[g.id]||[]).filter(x=>x>0).length;
 const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ms-MY';u.rate=.7;speechSynthesis.speak(u)}catch(e){}};
 const R=h=>{$('app').innerHTML=h};
 const hdr=()=>`<div class="top"><div class="logo">${LOGO}</div><div class="tt">Kelas Cilik<br><b>Alfaqeh</b></div><span class="chip">${star()} ${tot(me())}</span></div>`;
-const nav=on=>`<div class="nav"><button class="${on=='h'?'on':''}" data-a="home">Main</button><button class="${on=='p'?'on':''}" data-a="prof">Profil Saya</button></div>`;
+const nav=on=>`<div class="nav"><button class="${on=='s'?'on':''}" data-a="sub">Subjek</button><button class="${on=='h'?'on':''}" data-a="home">Main</button><button class="${on=='p'?'on':''}" data-a="prof">Profil Saya</button></div>`;
+
 function welcome(msg=''){const ps=Object.keys(DB.profiles);R(`<div class="scr"><div class="hero"><div class="logo" style="width:110px;height:110px">${LOGO}</div></div><h1 style="text-align:center">Selamat Datang!</h1><p class="sub" style="text-align:center">Siapa nama kamu?</p><input id="nm" class="in2" maxlength="14" placeholder="Taip nama di sini" autocomplete="off"><div id="fb" style="color:#E5384A;font-size:18px;min-height:30px">${msg}</div><button class="btn" data-a="enter">Mula Belajar</button>${ps.length?`<h2>Murid sedia ada</h2><div class="pl">${ps.map(n=>`<button data-a="pick" data-v="${esc(n)}">${esc(n)} &nbsp;${star(true,20)} ${tot(DB.profiles[n])}</button>`).join('')}</div>`:''}</div>`)}
-function home(){const p=me();R(hdr()+`<div class="scr"><h1>Hai, ${esc(p.n)}!</h1><p class="sub">Pilih permainan untuk belajar hari ini</p><div class="grid">${G.map((g,i)=>`<button class="gc" data-a="game" data-v="${i}"><div class="hd" style="background:${g.c}">${g.ic}</div><div class="in"><b>${g.n}</b><small>${dn(p,g)} / ${g.N} sesi</small><div class="bar"><i style="width:${dn(p,g)/g.N*100}%;background:${g.c}"></i></div></div></button>`).join('')}</div></div>`+nav('h'))}
-function sess(i){const g=G[i],pr=me().prog[g.id]||[];R(`<div class="top"><button class="ic" data-a="home">${I.bk}</button><div class="tt"><b>${g.n}</b><br>${g.N} sesi - bintang menunggu kamu</div></div><div class="scr"><div class="sg">${Array.from({length:g.N},(_,s)=>{const u=s==0||pr[s-1]>0,b=pr[s]||0;return`<button class="ses${u?'':' lk'}" data-a="play" data-v="${i}:${s}">${u?s+1:I.lk}<span class="st">${[1,2,3].map(k=>star(k<=b,16)).join('')}</span><small>${s<g.N/3?'Mudah':s<g.N*2/3?'Sederhana':'Cabaran'}</small></button>`}).join('')}</div></div>`+nav(''))}
+
+function subMenu(){const p=me();R(hdr()+`<div class="scr"><h1>Hai, ${esc(p.n)}!</h1><p class="sub">Pilih subjek yang ingin dipelajari hari ini</p><div class="grid">${SUBJECTS.map(s=>`<button class="gc" data-a="setsub" data-v="${s.id}"><div class="hd" style="background:${s.c}">${s.ic}</div><div class="in"><b>${s.name}</b><small>Latihan Disediakan</small></div></button>`).join('')}</div></div>`+nav('s'))}
+
+function home(){const p=me();const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;const subObj=SUBJECTS.find(s=>s.id===DB.curSub)||SUBJECTS[0];R(hdr()+`<div class="scr"><div style="display:flex;align-items:center;gap:10px"><h1>${subObj.ic} ${subObj.name}</h1></div><p class="sub">Pilih latihan untuk mula belajar</p><div class="grid">${games.map((g,i)=>`<button class="gc" data-a="game" data-v="${i}"><div class="hd" style="background:${g.c}">${g.ic}</div><div class="in"><b>${g.n}</b><small>${dn(p,g)} /${g.N} sesi</small><div class="bar"><i style="width:${dn(p,g)/g.N*100}\%;background:${g.c}"></i></div></div></button>`).join('')}</div></div>`+nav('h'))}
+
+function sess(i){const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;const g=games[i],pr=me().prog[g.id]||[];R(`<div class="top"><button class="ic" data-a="home">${I.bk}</button><div class="tt"><b>${g.n}</b><br>${g.N} sesi - bintang menunggu kamu</div></div><div class="scr"><div class="sg">${Array.from({length:g.N},(_,s)=>{const u=s==0||pr[s-1]>0,b=pr[s]||0;return`<button class="ses${u?'':' lk'}" data-a="play" data-v="${i}:${s}">${u?s+1:I.lk}<span class="st">${[1,2,3].map(k=>star(k<=b,16)).join('')}</span><small>${s<g.N/3?'Mudah':s<g.N*2/3?'Sederhana':'Cabaran'}</small></button>`}).join('')}</div></div>`+nav(''))}
+
 let P;
-function start(gi,s){P={gi,s,q:G[gi].gen(s),i:0,w:0,pts:0,t:0,sl:[],done:0};draw()}
+function start(gi,s){const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;P={gi,s,q:games[gi].gen(s),i:0,w:0,pts:0,t:0,sl:[],done:0};draw()}
 function draw(){const q=P.q[P.i];R(`<div class="top"><button class="ic" data-a="game" data-v="${P.gi}">${I.x}</button><div class="dots">${P.q.map((_,i)=>`<i class="${i<P.i?'d':i==P.i?'c':''}"></i>`).join('')}</div><span class="chip">${star()} ${P.pts}</span></div><div class="scr"><div class="pr"><span>${q.t}</span><button class="ic" data-a="say">${I.sp}</button></div><div class="show">${q.v}</div>${q.sp?`<div class="slots" id="sl">${q.ans.map((_,k)=>`<button class="slot${k<P.sl.length?' f':''}" data-a="unslot" data-v="${k}">${k<P.sl.length?q.tiles[P.sl[k]]:''}</button>`).join('')}</div><div class="tiles">${q.tiles.map((t,j)=>`<button class="opt${P.sl.includes(j)?' used':''}" data-a="tile" data-v="${j}">${t}</button>`).join('')}</div>`:`<div class="g2">${q.o.map((o,j)=>`<button class="opt${o.h[0]=='<'?' pic':''}" data-a="ans" data-v="${j}">${o.h}</button>`).join('')}</div>`}<div id="fb"></div></div>`)}
+
 const good=['Bagus!','Pandai!','Hebat!','Betul!'];
-function right(){P.done=1;P.pts+=P.t?5:10;$('fb').style.color='var(--c5)';$('fb').textContent=rnd(good);setTimeout(()=>{P.i++;P.sl=[];P.t=0;P.done=0;P.i>=P.q.length?finish():draw()},900)}
+function right(){
+  P.done=1;
+  P.pts+=P.t?5:10;
+  $('fb').style.color='var(--c5)';$('fb').textContent=rnd(good);
+  
+  // Mainkan Bunyi Horey setiap kali jawapan betul!
+  playHoreySound();
+
+  setTimeout(()=>{P.i++;P.sl=[];P.t=0;P.done=0;P.i>=P.q.length?finish():draw()},900)
+}
 function wrong(){P.w++;P.t++;$('fb').style.color='#E5384A';$('fb').textContent='Cuba lagi, kamu boleh!'}
-function finish(){const g=G[P.gi],p=me(),st=P.w==0?3:P.w<=2?2:1;p.prog[g.id]=p.prog[g.id]||[];p.prog[g.id][P.s]=Math.max(p.prog[g.id][P.s]||0,st);p.hist.unshift({g:g.n,s:P.s+1,st,pt:P.pts,d:Date.now()});p.hist.length=Math.min(p.hist.length,40);save();
-R(`<div class="scr res"><h1 style="margin-top:36px">${['','Teruskan usaha!','Pandai, ','Hebat sekali, '][st]}${st>1?esc(p.n)+'!':''}</h1><div class="stars">${[1,2,3].map(k=>star(k<=st,76)).join('')}</div><div class="chip" style="display:inline-flex">Markah: ${P.pts}</div><button class="btn" style="background:${g.c}" data-a="${P.s+1<g.N?'play':'game'}" data-v="${P.s+1<g.N?P.gi+':'+(P.s+1):P.gi}">${P.s+1<g.N?'Sesi Seterusnya':'Semua Sesi'}</button><button class="btn alt" data-a="play" data-v="${P.gi}:${P.s}">Main Lagi</button><button class="btn alt" data-a="home">Menu Utama</button></div>`)}
-function prof(){const p=me(),t=tot(p),d=G.reduce((a,g)=>a+dn(p,g),0),N=G.reduce((a,g)=>a+g.N,0),B=[['Langkah Pertama',d>=1],['Bintang 10',t>=10],['Bintang 30',t>=30],['Bintang 60',t>=60],['Sesi Sempurna',p.hist.some(h=>h.st==3)],['Penjelajah',G.every(g=>dn(p,g)>0)]];
-R(hdr()+`<div class="scr"><h1>${esc(p.n)}</h1><div class="stat"><div><b>${t}</b><small>Bintang</small></div><div><b>${p.hist.reduce((a,h)=>a+h.pt,0)}</b><small>Jumlah markah</small></div><div><b>${d}/${N}</b><small>Sesi selesai</small></div></div><h2>Kemajuan Belajar</h2>${G.map(g=>`<div class="row"><b>${g.n}</b><small>${dn(p,g)}/${g.N}</small><div class="bar" style="width:90px"><i style="width:${dn(p,g)/g.N*100}%;background:${g.c}"></i></div></div>`).join('')}<h2>Pencapaian</h2><div class="bd">${B.map(b=>`<span class="${b[1]?'':'x'}">${b[0]}</span>`).join('')}</div><h2>Rekod Permainan</h2>${p.hist.slice(0,8).map(h=>`<div class="row"><b>${h.g} - Sesi ${h.s}</b><span class="st">${[1,2,3].map(k=>star(k<=h.st,18)).join('')}</span><small>${new Date(h.d).toLocaleDateString('ms-MY')}</small></div>`).join('')||'<p class="sub">Belum ada rekod. Jom main!</p>'}<button class="btn alt" data-a="who">Tukar Murid</button></div>`+nav('p'))}
+
+function finish(){
+  const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;
+  const g=games[P.gi],p=me(),st=P.w==0?3:P.w<=2?2:1;
+  p.prog[g.id]=p.prog[g.id]||[];
+  p.prog[g.id][P.s]=Math.max(p.prog[g.id][P.s]||0,st);
+  p.hist.unshift({g:g.n,sub:DB.curSub,s:P.s+1,st,pt:P.pts,d:Date.now()});
+  p.hist.length=Math.min(p.hist.length,40);save();
+  R(`<div class="scr res"><h1 style="margin-top:36px">${['','Teruskan usaha!','Pandai, ','Hebat sekali, '][st]}${st>1?esc(p.n)+'!':''}</h1><div class="stars">${[1,2,3].map(k=>star(k<=st,76)).join('')}</div><div class="chip" style="display:inline-flex">Markah: ${P.pts}</div><button class="btn" style="background:${g.c}" data-a="${P.s+1<g.N?'play':'game'}" data-v="${P.s+1<g.N?P.gi+':'+(P.s+1):P.gi}">${P.s+1<g.N?'Sesi Seterusnya':'Semua Sesi'}</button><button class="btn alt" data-a="play" data-v="${P.gi}:${P.s}">Main Lagi</button><button class="btn alt" data-a="home">Menu Latihan</button></div>`)
+}
+
+function prof(){
+  const p=me(),t=tot(p);
+  const allG=Object.values(ALL_GAMES).flat();
+  const d=allG.reduce((a,g)=>a+dn(p,g),0),N=allG.reduce((a,g)=>a+g.N,0);
+  const B=[['Langkah Pertama',d>=1],['Bintang 10',t>=10],['Bintang 30',t>=30],['Bintang 60',t>=60],['Sesi Sempurna',p.hist.some(h=>h.st==3)],['Penjelajah',allG.every(g=>dn(p,g)>0)]];
+
+  R(hdr()+`<div class="scr"><h1>${esc(p.n)}</h1><div class="stat"><div><b>${t}</b><small>Bintang</small></div><div><b>${p.hist.reduce((a,h)=>a+h.pt,0)}</b><small>Jumlah markah</small></div><div><b>${d}/${N}</b><small>Sesi selesai</small></div></div><h2>Kemajuan Mengikut Subjek</h2>${SUBJECTS.map(s=>{
+    const games=ALL_GAMES[s.id]||[];
+    const subD=games.reduce((a,g)=>a+dn(p,g),0);
+    const subN=games.reduce((a,g)=>a+g.N,0);
+    return `<div class="row"><b>${s.ic}${s.name}</b><small>${subD}/${subN}</small><div class="bar" style="width:90px"><i style="width:${subN?subD/subN*100:0}\%;background:${s.c}"></i></div></div>`;
+  }).join('')}<h2>Pencapaian</h2><div class="bd">${B.map(b=>`<span class="${b[1]?'':'x'}">${b[0]}</span>`).join('')}</div><h2>Rekod Permainan</h2>${p.hist.slice(0,8).map(h=>`<div class="row"><b>${h.g} - Sesi${h.s}</b><span class="st">${[1,2,3].map(k=>star(k<=h.st,18)).join('')}</span><small>${new Date(h.d).toLocaleDateString('ms-MY')}</small></div>`).join('')||'<p class="sub">Belum ada rekod. Jom main!</p>'}<button class="btn alt" data-a="who">Tukar Murid</button></div>`+nav('p'))
+}
+
 const A={
 enter(){const n=$('nm').value.trim().slice(0,14);if(!n)return welcome('Sila masukkan nama dahulu sebelum bermain.');A.pick(n)},
-pick(n){DB.profiles[n]=DB.profiles[n]||{n,prog:{},hist:[]};DB.cur=n;save();home()},
-who(){DB.cur=null;save();welcome()},home,prof,
+pick(n){DB.profiles[n]=DB.profiles[n]||{n,prog:{},hist:[]};DB.cur=n;save();subMenu()},
+who(){DB.cur=null;save();welcome()},
+sub(){subMenu()},
+setsub(v){DB.curSub=v;save();home()},
+home,prof,
 game(v){sess(+v)},
 play(v){const[a,b]=v.split(':');start(+a,+b)},
 say(){say(P.q[P.i].say)},
@@ -130,7 +245,8 @@ tile(v){const q=P.q[P.i];if(P.done||P.sl.length>=q.ans.length)return;P.sl.push(+
 if(P.sl.map(j=>q.tiles[j]).join('')===q.ans.join(''))right();else{wrong();$('sl').classList.add('no');setTimeout(()=>{P.sl=[];draw();$('fb').textContent=''},650)}},
 unslot(v){if(!P.done){P.sl.splice(+v,1);draw()}}
 };
+
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a](b.dataset.v,b)});
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&$('nm'))A.enter()});
-DB.cur&&DB.profiles[DB.cur]?home():welcome();
+DB.cur&&DB.profiles[DB.cur]?subMenu():welcome();
 </script></body></html>
