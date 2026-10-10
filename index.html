@@ -4,279 +4,471 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PdPR Cilik Al-Faqeh Kidz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary: #4A90E2;
-            --secondary: #50E3C2;
-            --accent: #FF6B6B;
-            --bg: #F0F4F8;
-            --card: #FFFFFF;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            margin: 0;
-            padding: 20px;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .kid-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
         }
-
-        .card {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+        .bounce-hover:hover {
+            transform: translateY(-3px);
+            transition: all 0.2s ease-in-out;
         }
-
-        h1, h2, h3 {
-            color: #2C3E50;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #DDD;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #357ABD;
-        }
-
-        .grid-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .subject-btn {
-            background-color: var(--secondary);
-            color: #1A5276;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .activity-card {
-            border-left: 5px solid var(--primary);
-            padding: 15px;
-            background: #F8FAFC;
-            margin-bottom: 15px;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .record-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .record-table th, .record-table td {
-            border: 1px solid #DDD;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .record-table th {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .hidden { display: none; }
     </style>
 </head>
-<body>
+<body class="p-4 sm:p-6 text-gray-800">
 
-<div class="container">
-    <h1>🎈 PdPR Cilik Al-Faqeh Kidz 🎈</h1>
+    <div id="app" class="max-w-4xl mx-auto">
+        
+        <!-- Header Banner -->
+        <header class="text-center mb-8 bg-white/80 backdrop-blur-md p-6 rounded-3xl kid-shadow border-4 border-yellow-300">
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-indigo-600 mb-2">🌟 PdPR Cilik Al-Faqeh Kidz 🌟</h1>
+            <p class="text-gray-600 font-medium text-sm sm:text-base">Modul Pembelajaran Interaktif Prasekolah (4, 5 & 6 Tahun)</p>
+        </header>
 
-    <!-- Borang Profil Murid -->
-    <div id="profile-section" class="card">
-        <h2>Pendaftaran Murid</h2>
-        <div class="form-group">
-            <label for="student-name">Nama Murid:</label>
-            <input type="text" id="student-name" placeholder="Masukkan nama penuh cilik...">
+        <!-- 1. Registration Section -->
+        <section id="screen-register" class="bg-white p-6 sm:p-10 rounded-3xl kid-shadow border-4 border-pink-300 max-w-lg mx-auto">
+            <div class="text-center mb-6">
+                <span class="text-5xl">🧸</span>
+                <h2 class="text-2xl font-bold text-gray-700 mt-2">Daftar Nama Cilik</h2>
+                <p class="text-gray-500 text-sm">Sila masukkan nama dan pilih umur anda untuk mula belajar!</p>
+            </div>
+            <form id="form-register" onsubmit="handleRegister(event)" class="space-y-4">
+                <div>
+                    <label class="block font-bold text-gray-700 mb-1">Nama Penuh Anak:</label>
+                    <input type="text" id="input-name" required placeholder="Contoh: Muhammad Ammar" 
+                        class="w-full px-4 py-3 border-2 border-indigo-200 rounded-2xl focus:outline-none focus:border-indigo-500 text-lg">
+                </div>
+                <div>
+                    <label class="block font-bold text-gray-700 mb-1">Pilih Tahap Umur:</label>
+                    <select id="select-age" class="w-full px-4 py-3 border-2 border-indigo-200 rounded-2xl focus:outline-none focus:border-indigo-500 text-lg bg-white">
+                        <option value="4">4 Tahun (Asas / Playgroup)</option>
+                        <option value="5">5 Tahun (Pengukuhan Suku Kata)</option>
+                        <option value="6" selected>6 Tahun (KVKV, KVKVK & KVKKVK)</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-extrabold text-xl rounded-2xl shadow-lg bounce-hover cursor-pointer">
+                    Mula Belajar! 🚀
+                </button>
+            </form>
+        </section>
+
+        <!-- 2. Dashboard Section -->
+        <section id="screen-dashboard" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-6 rounded-3xl kid-shadow flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div>
+                    <h2 id="display-greeting" class="text-2xl sm:text-3xl font-extrabold">Selamat Datang!</h2>
+                    <p id="display-age-badge" class="bg-white/20 px-3 py-1 rounded-full text-sm inline-block mt-1 font-semibold">6 Tahun</p>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="openRecords()" class="flex-1 sm:flex-none px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-xl shadow transition">
+                        📜 Rekod Saya
+                    </button>
+                    <button onclick="resetProfile()" class="flex-1 sm:flex-none px-4 py-2 bg-red-400 hover:bg-red-500 text-white font-bold rounded-xl shadow transition">
+                        🔄 Tukar Profil
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl kid-shadow border-4 border-indigo-100">
+                <h3 class="text-xl font-bold text-gray-700 mb-4 text-center">Pilih Subjek Pembelajaran (40 Aktiviti Setiap Subjek)</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div onclick="selectSubject('BM')" class="bg-red-50 hover:bg-red-100 border-3 border-red-300 p-5 rounded-2xl text-center cursor-pointer bounce-hover">
+                        <span class="text-4xl">📖</span>
+                        <h4 class="font-bold text-lg text-red-700 mt-2">Bahasa Melayu</h4>
+                        <p class="text-xs text-gray-500 mt-1">Suku Kata, KVKV, KVKVK, KVKKVK</p>
+                        <span id="badge-BM" class="inline-block mt-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full font-bold">0 / 40 Selesai</span>
+                    </div>
+                    <div onclick="selectSubject('BI')" class="bg-blue-50 hover:bg-blue-100 border-3 border-blue-300 p-5 rounded-2xl text-center cursor-pointer bounce-hover">
+                        <span class="text-4xl">🔤</span>
+                        <h4 class="font-bold text-lg text-blue-700 mt-2">English</h4>
+                        <p class="text-xs text-gray-500 mt-1">Phonics & Simple Words</p>
+                        <span id="badge-BI" class="inline-block mt-3 bg-blue-500 text-white text-xs px-3 py-1 rounded-full font-bold">0 / 40 Selesai</span>
+                    </div>
+                    <div onclick="selectSubject('SAINS')" class="bg-green-50 hover:bg-green-100 border-3 border-green-300 p-5 rounded-2xl text-center cursor-pointer bounce-hover">
+                        <span class="text-4xl">🌱</span>
+                        <h4 class="font-bold text-lg text-green-700 mt-2">Sains Cilik</h4>
+                        <p class="text-xs text-gray-500 mt-1">Deria, Alam & Eksperimen</p>
+                        <span id="badge-SAINS" class="inline-block mt-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full font-bold">0 / 40 Selesai</span>
+                    </div>
+                    <div onclick="selectSubject('MATH')" class="bg-yellow-50 hover:bg-yellow-100 border-3 border-yellow-300 p-5 rounded-2xl text-center cursor-pointer bounce-hover">
+                        <span class="text-4xl">🔢</span>
+                        <h4 class="font-bold text-lg text-yellow-700 mt-2">Matematik</h4>
+                        <p class="text-xs text-gray-500 mt-1">Nombor, Tambah & Tolak</p>
+                        <span id="badge-MATH" class="inline-block mt-3 bg-yellow-600 text-white text-xs px-3 py-1 rounded-full font-bold">0 / 40 Selesai</span>
+                    </div>
+                    <div onclick="selectSubject('JAWI')" class="bg-purple-50 hover:bg-purple-100 border-3 border-purple-300 p-5 rounded-2xl text-center cursor-pointer bounce-hover sm:col-span-2 md:col-span-1">
+                        <span class="text-4xl">✍️</span>
+                        <h4 class="font-bold text-lg text-purple-700 mt-2">Pendidikan Jawi</h4>
+                        <p class="text-xs text-gray-500 mt-1">Huruf Hijaiyah & Suku Kata</p>
+                        <span id="badge-JAWI" class="inline-block mt-3 bg-purple-500 text-white text-xs px-3 py-1 rounded-full font-bold">0 / 40 Selesai</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Activity List Section -->
+        <section id="screen-activities" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-3xl kid-shadow flex justify-between items-center border-4 border-indigo-100">
+                <div>
+                    <h3 id="subject-list-title" class="text-2xl font-extrabold text-indigo-600">Senarai Aktiviti</h3>
+                    <p class="text-sm text-gray-500">Pilih nombor aktiviti untuk mula menjawab tugasan.</p>
+                </div>
+                <button onclick="backToDashboard()" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 font-bold rounded-xl text-gray-700 transition">
+                    ⬅️ Kembali
+                </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl kid-shadow border-4 border-indigo-100">
+                <div id="activity-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+                    <!-- Dynamic Activity Number Buttons (1-40) -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Interactive Activity Screen / Modal -->
+        <section id="screen-activity-detail" class="hidden bg-white p-6 sm:p-10 rounded-3xl kid-shadow border-4 border-indigo-300 space-y-6">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h3 id="activity-modal-title" class="text-xl sm:text-2xl font-extrabold text-indigo-600">Aktiviti</h3>
+                <button onclick="backToActivities()" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 font-bold rounded-xl text-gray-700">
+                    ✕ Tutup
+                </button>
+            </div>
+
+            <div id="activity-content" class="space-y-6">
+                <!-- Dynamic Activity Question & Choices -->
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-4 border-t">
+                <button onclick="checkAnswer()" class="flex-1 py-3.5 bg-green-500 hover:bg-green-600 text-white font-extrabold text-lg rounded-2xl shadow-lg transition cursor-pointer">
+                    ✅ Semak Jawapan
+                </button>
+                <button onclick="markComplete()" id="btn-mark-complete" class="flex-1 py-3.5 bg-indigo-500 hover:bg-indigo-600 text-white font-extrabold text-lg rounded-2xl shadow-lg transition cursor-pointer hidden">
+                    ⭐ Tanda Selesai & Seterusnya
+                </button>
+            </div>
+        </section>
+
+        <!-- 5. Records Screen -->
+        <section id="screen-records" class="hidden bg-white p-6 sm:p-10 rounded-3xl kid-shadow border-4 border-yellow-300 space-y-6">
+            <div class="flex justify-between items-center border-b pb-4">
+                <div>
+                    <h3 class="text-2xl font-extrabold text-yellow-600">📜 Rekod Pencapaian Cilik</h3>
+                    <p id="record-student-info" class="text-sm text-gray-500 font-medium mt-1">Nama: - | Umur: -</p>
+                </div>
+                <button onclick="backToDashboard()" class="px-5 py-2.5 bg-gray-200 hover:bg-gray-300 font-bold rounded-xl text-gray-700">
+                    ⬅️ Kembali
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-indigo-50 text-indigo-700">
+                                <th class="p-3 rounded-l-xl">Subjek</th>
+                                <th class="p-3">Aktiviti Selesai</th>
+                                <th class="p-3 rounded-r-xl">Bintang Penghargaan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-records-body" class="divide-y divide-gray-100">
+                            <!-- Dynamic rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Custom Modal for Alerts -->
+    <div id="custom-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div class="bg-white p-6 sm:p-8 rounded-3xl kid-shadow max-w-sm w-full text-center space-y-4 border-4 border-indigo-400">
+            <div id="modal-icon" class="text-5xl">🎉</div>
+            <h3 id="modal-title" class="text-xl font-bold text-gray-800">Tahniah!</h3>
+            <p id="modal-message" class="text-gray-600">Jawapan anda betul.</p>
+            <button onclick="closeModal()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow">
+                OK / Teruskan
+            </button>
         </div>
-        <div class="form-group">
-            <label for="student-age">Tahap Umur:</label>
-            <select id="student-age">
-                <option value="4">4 Tahun (Asas / Playgroup)</option>
-                <option value="5">5 Tahun (Pengukuhan)</option>
-                <option value="6">6 Tahun (Persediaan Darjah 1)</option>
-            </select>
-        </div>
-        <button onclick="saveProfile()">Mula Aktiviti 🚀</button>
     </div>
 
-    <!-- Pilihan Subjek -->
-    <div id="dashboard-section" class="card hidden">
-        <h2 id="welcome-msg">Selamat Datang!</h2>
-        <p>Pilih subjek untuk memulakan tugasan PdPR:</p>
-        <div class="grid-buttons">
-            <div class="subject-btn" onclick="loadActivities('BM')">Bahasa Melayu</div>
-            <div class="subject-btn" onclick="loadActivities('BI')">English</div>
-            <div class="subject-btn" onclick="loadActivities('SAINS')">Sains</div>
-            <div class="subject-btn" onclick="loadActivities('MATH')">Matematik</div>
-            <div class="subject-btn" onclick="loadActivities('JAWI')">Jawi</div>
-        </div>
-        <button onclick="showRecords()" style="background-color: #9B59B6; margin-top: 20px;">📜 Lihat Rekod Aktiviti</button>
-        <button onclick="resetProfile()" style="background-color: #E74C3C;">Tukar Murid / Reset</button>
-    </div>
+    <script>
+        let studentData = JSON.parse(localStorage.getItem('alfaqeh_student')) || null;
+        let currentSubject = '';
+        let currentActivityNum = 1;
+        let selectedOption = null;
+        let currentCorrectAnswer = null;
 
-    <!-- Senarai Aktiviti Subjek -->
-    <div id="activity-section" class="card hidden">
-        <h2 id="subject-title">Aktiviti Subjek</h2>
-        <div id="activity-list"></div>
-        <button onclick="backToDashboard()" style="background-color: #7F8C8D;">⬅️ Kembali ke Menu Subjek</button>
-    </div>
+        // Subjects configuration
+        const subjectsList = {
+            'BM': { name: 'Bahasa Melayu', color: 'red' },
+            'BI': { name: 'English', color: 'blue' },
+            'SAINS': { name: 'Sains Cilik', color: 'green' },
+            'MATH': { name: 'Matematik', color: 'yellow' },
+            'JAWI': { name: 'Pendidikan Jawi', color: 'purple' }
+        };
 
-    <!-- Paparan Rekod -->
-    <div id="record-section" class="card hidden">
-        <h2>📜 Rekod Pembelajaran PdPR</h2>
-        <div id="student-info-display"></div>
-        <table class="record-table">
-            <thead>
-                <tr>
-                    <th>Subjek</th>
-                    <th>Aktiviti Selesai</th>
-                    <th>Status Markah / Bintang</th>
-                </tr>
-            </thead>
-            <tbody id="record-body"></tbody>
-        </table>
-        <button onclick="backToDashboard()" style="background-color: #7F8C8D; margin-top: 15px;">⬅️ Kembali</button>
-    </div>
-</div>
+        window.onload = function() {
+            if (studentData) {
+                showDashboard();
+            } else {
+                showScreen('screen-register');
+            }
+        };
 
-<script>
-    let currentStudent = {};
-
-    function saveProfile() {
-        const name = document.getElementById('student-name').value.trim();
-        const age = document.getElementById('student-age').value;
-
-        if (!name) {
-            alert('Sila masukkan nama murid dahulu!');
-            return;
+        function showScreen(screenId) {
+            ['screen-register', 'screen-dashboard', 'screen-activities', 'screen-activity-detail', 'screen-records'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(screenId).classList.remove('hidden');
         }
 
-        currentStudent = { name, age, progress: {} };
-        localStorage.setItem('alfaqeh_student', JSON.stringify(currentStudent));
-        initDashboard();
-    }
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('input-name').value.trim();
+            const age = document.getElementById('select-age').value;
 
-    function initDashboard() {
-        const saved = localStorage.getItem('alfaqeh_student');
-        if (saved) {
-            currentStudent = JSON.parse(saved);
-            document.getElementById('profile-section').classList.add('hidden');
-            document.getElementById('record-section').classList.add('hidden');
-            document.getElementById('activity-section').classList.add('hidden');
-            document.getElementById('dashboard-section').classList.remove('hidden');
-            document.getElementById('welcome-msg').innerText = Selamat Datang, ${currentStudent.name}! (${currentStudent.age} Tahun);
+            if (!name) return;
+
+            studentData = {
+                name: name,
+                age: age,
+                progress: { BM: {}, BI: {}, SAINS: {}, MATH: {}, JAWI: {} }
+            };
+
+            localStorage.setItem('alfaqeh_student', JSON.stringify(studentData));
+            showDashboard();
         }
-    }
 
-    function loadActivities(subject) {
-        document.getElementById('dashboard-section').classList.add('hidden');
-        document.getElementById('activity-section').classList.remove('hidden');
-        document.getElementById('subject-title').innerText = Aktiviti ${subject} (${currentStudent.age} Tahun);
+        function showDashboard() {
+            document.getElementById('display-greeting').innerText = `Helo, ${studentData.name}! 👋`;
+            document.getElementById('display-age-badge').innerText = `${studentData.age} Tahun`;
+            updateSubjectBadges();
+            showScreen('screen-dashboard');
+        }
 
-        const container = document.getElementById('activity-list');
-        container.innerHTML = '';
+        function updateSubjectBadges() {
+            Object.keys(subjectsList).forEach(sub => {
+                const completedCount = Object.keys(studentData.progress[sub] || {}).length;
+                document.getElementById(`badge-${sub}`).innerText = `${completedCount} / 40 Selesai`;
+            });
+        }
 
-        // Contoh paparan aktiviti berdasarkan subjek & umur
-        for (let i = 1; i <= 5; i++) { // Paparan 5 aktiviti contoh daripada 40 aktiviti
-            const actDiv = document.createElement('div');
-            actDiv.className = 'activity-card';
-            actDiv.innerHTML = `
-                <h3>Tugasan ${i}: Aktiviti ${subject} Tahap ${currentStudent.age} Tahun</h3>
-                <p>Sila selesaikan aktiviti membaca/menulis/melekat mengikut arahan modul.</p>
-                <button onclick="markComplete('${subject}', ${i})" style="width: auto; background-color: #2ECC71;">Tanda Selesai ⭐</button>
+        function selectSubject(subjectKey) {
+            currentSubject = subjectKey;
+            document.getElementById('subject-list-title').innerText = `Aktiviti ${subjectsList[subjectKey].name} (${studentData.age} Tahun)`;
+            
+            const grid = document.getElementById('activity-grid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 40; i++) {
+                const isCompleted = studentData.progress[currentSubject] && studentData.progress[currentSubject][i];
+                const btnClass = isCompleted 
+                    ? 'bg-green-500 text-white border-green-600 shadow-md' 
+                    : 'bg-white text-gray-700 border-2 border-indigo-200 hover:border-indigo-400';
+
+                const btn = document.createElement('button');
+                btn.className = `p-3 rounded-2xl font-extrabold text-lg flex flex-col items-center justify-center transition bounce-hover ${btnClass}`;
+                btn.innerHTML = `<span>${i}</span>${isCompleted ? '<span class="text-xs mt-1">⭐</span>' : ''}`;
+                btn.onclick = () => openActivity(i);
+                grid.appendChild(btn);
+            }
+
+            showScreen('screen-activities');
+        }
+
+        function backToDashboard() {
+            showDashboard();
+        }
+
+        function backToActivities() {
+            selectSubject(currentSubject);
+        }
+
+        function openActivity(actNum) {
+            currentActivityNum = actNum;
+            selectedOption = null;
+            document.getElementById('btn-mark-complete').classList.add('hidden');
+            document.getElementById('activity-modal-title').innerText = `Aktiviti ${actNum}: ${subjectsList[currentSubject].name} (${studentData.age} Tahun)`;
+
+            const contentContainer = document.getElementById('activity-content');
+            
+            // Generate interactive question based on subject, age, and activity number
+            const qData = generateQuestionData(currentSubject, parseInt(studentData.age), actNum);
+            currentCorrectAnswer = qData.answer;
+
+            let html = `
+                <div class="bg-indigo-50 p-5 rounded-2xl border-2 border-indigo-200">
+                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-500">Soalan / Tugasan</span>
+                    <h4 class="text-lg sm:text-xl font-bold text-gray-800 mt-1">${qData.question}</h4>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="options-container">
             `;
-            container.appendChild(actDiv);
+
+            qData.options.forEach((opt, idx) => {
+                html += `
+                    <div onclick="selectOpt('${opt}', this)" class="option-card p-4 rounded-2xl border-3 border-gray-200 bg-white font-bold text-lg text-center cursor-pointer hover:border-indigo-400 hover:bg-indigo-50/50 transition">
+                        ${opt}
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            contentContainer.innerHTML = html;
+
+            showScreen('screen-activity-detail');
         }
-    }
 
-    function markComplete(subject, actNum) {
-        if (!currentStudent.progress[subject]) {
-            currentStudent.progress[subject] = 0;
+        function selectOpt(opt, el) {
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('border-indigo-600', 'bg-indigo-100', 'text-indigo-900');
+            });
+            el.classList.add('border-indigo-600', 'bg-indigo-100', 'text-indigo-900');
+            selectedOption = opt;
         }
-        currentStudent.progress[subject] += 1;
-        localStorage.setItem('alfaqeh_student', JSON.stringify(currentStudent));
-        alert(Tahniah ${currentStudent.name}! Aktiviti ${actNum} (${subject}) telah selesai dan direkodkan ⭐);
-    }
 
-    function showRecords() {
-        document.getElementById('dashboard-section').classList.add('hidden');
-        document.getElementById('record-section').classList.remove('hidden');
+        function checkAnswer() {
+            if (!selectedOption) {
+                showModal('⚠️ Perhatian', 'Sila pilih salah satu jawapan terlebih dahulu!', '💡');
+                return;
+            }
 
-        document.getElementById('student-info-display').innerHTML = `
-            <p><strong>Nama:</strong> ${currentStudent.name}</p>
-            <p><strong>Tahap Umur:</strong> ${currentStudent.age} Tahun</p>
-        `;
+            if (selectedOption === currentCorrectAnswer) {
+                showModal('🎉 TAHNIAH!', 'Jawapan anda betul! Bijak betul cilik ni!', '🌟');
+                document.getElementById('btn-mark-complete').classList.remove('hidden');
+            } else {
+                showModal('❌ Cuba Lagi!', 'Jawapan kurang tepat. Jom cuba pilih sekali lagi.', '💪');
+            }
+        }
 
-        const tbody = document.getElementById('record-body');
-        tbody.innerHTML = '';
+        function markComplete() {
+            if (!studentData.progress[currentSubject]) {
+                studentData.progress[currentSubject] = {};
+            }
+            studentData.progress[currentSubject][currentActivityNum] = true;
+            localStorage.setItem('alfaqeh_student', JSON.stringify(studentData));
+            
+            showModal('⭐ Aktiviti Selesai!', `Tahniah! Aktiviti ${currentActivityNum} telah direkodkan.`, '🏆');
+            setTimeout(() => {
+                closeModal();
+                selectSubject(currentSubject);
+            }, 1200);
+        }
 
-        const subjects = ['BM', 'BI', 'SAINS', 'MATH', 'JAWI'];
-        subjects.forEach(sub => {
-            const count = currentStudent.progress[sub] || 0;
-            const stars = '⭐'.repeat(Math.min(count, 5));
-            tbody.innerHTML += `
-                <tr>
-                    <td>${sub}</td>
-                    <td>${count} Aktiviti</td>
-                    <td>${stars || 'Belum Mula'}</td>
-                </tr>
-            `;
-        });
-    }
+        function openRecords() {
+            document.getElementById('record-student-info').innerText = `Nama: ${studentData.name} | Umur: ${studentData.age} Tahun`;
+            const tbody = document.getElementById('table-records-body');
+            tbody.innerHTML = '';
 
-    function backToDashboard() {
-        initDashboard();
-    }
+            Object.keys(subjectsList).forEach(sub => {
+                const count = Object.keys(studentData.progress[sub] || {}).length;
+                const stars = '⭐'.repeat(Math.min(Math.floor(count / 5), 8)) || 'Belum ada bintang';
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-3 font-bold text-gray-700">${subjectsList[sub].name}</td>
+                        <td class="p-3 font-semibold text-indigo-600">${count} / 40 Selesai</td>
+                        <td class="p-3 text-lg">${stars} (${count}/40)</td>
+                    </tr>
+                `;
+            });
 
-    function resetProfile() {
-        localStorage.removeItem('alfaqeh_student');
-        location.reload();
-    }
+            showScreen('screen-records');
+        }
 
-    // Semak jika data murid wujud semasa muat turun halaman
-    window.onload = initDashboard;
-</script>
+        function resetProfile() {
+            localStorage.removeItem('alfaqeh_student');
+            studentData = null;
+            document.getElementById('input-name').value = '';
+            showScreen('screen-register');
+        }
+
+        function showModal(title, message, icon = '🎉') {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('modal-icon').innerText = icon;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        function generateQuestionData(sub, age, actNum) {
+            // Generates realistic educational content tailored to KSPK syllabus
+            if (sub === 'BM') {
+                if (age <= 5 && actNum <= 20) {
+                    // Open syllables focus
+                    const syllables = ['ba', 'bi', 'bu', 'ca', 'ci', 'cu', 'da', 'di', 'du', 'ka', 'ki', 'ku', 'la', 'li', 'lu', 'ma', 'mi', 'mu'];
+                    const chosen = syllables[actNum % syllables.length];
+                    return {
+                        question: `Pilih suku kata terbuka yang betul untuk bunyi: "${chosen.toUpperCase()}"`,
+                        options: [chosen, syllables[(actNum+1)%syllables.length], syllables[(actNum+3)%syllables.length], syllables[(actNum+5)%syllables.length]].sort(() => Math.random() - 0.5),
+                        answer: chosen
+                    };
+                } else if (age === 6 || actNum > 20) {
+                    // KVKV, KVKVK, KVKKVK focus for 6 years
+                    const words = [
+                        { q: 'Pilih ejaan yang betul bagi perkataan: [ba-ju]', ans: 'baju', opts: ['baju', 'bato', 'biju', 'baji'] },
+                        { q: 'Pilih ejaan yang betul bagi perkataan: [ka-sak / ka-pak]', ans: 'kapak', opts: ['kapak', 'kavak', 'kapok', 'kapat'] },
+                        { q: 'Pilih perkataan KVKVK bagi haiwan: [ga-jah]', ans: 'gajah', opts: ['gajah', 'gajoh', 'gejah', 'gijah'] },
+                        { q: 'Pilih perkataan KVKKVK (bunyi sengau): [kam-bing]', ans: 'kambing', opts: ['kambing', 'kamping', 'kabing', 'kamving'] },
+                        { q: 'Pilih ejaan bagi buah: [ce-ri]', ans: 'ceri', opts: ['ceri', 'cari', 'cori', 'cure'] },
+                        { q: 'Pilih perkataan KVKVK bagi objek rumah: [ca-wan]', ans: 'cawan', opts: ['cawan', 'capan', 'cawin', 'caban'] }
+                    ];
+                    const item = words[actNum % words.length];
+                    return { question: item.q, options: item.opts.sort(() => Math.random() - 0.5), answer: item.ans };
+                }
+            } else if (sub === 'BI') {
+                const englishItems = [
+                    { q: 'What sound does letter "A" make? (Phonics)', ans: '/æ/ (Apple)', opts: ['/æ/ (Apple)', '/b/ (Ball)', '/k/ (Cat)', '/d/ (Dog)'] },
+                    { q: 'Choose the correct sight word: "This ___ a cat."', ans: 'is', opts: ['is', 'am', 'are', 'be'] },
+                    { q: 'Select the correct CVC word for feline animal:', ans: 'cat', opts: ['cat', 'bat', 'rat', 'mat'] },
+                    { q: 'What is the opposite of "Big"?', ans: 'Small', opts: ['Small', 'Hot', 'Tall', 'Fast'] }
+                ];
+                const item = englishItems[actNum % englishItems.length];
+                return { question: item.q, options: item.opts.sort(() => Math.random() - 0.5), answer: item.ans };
+            } else if (sub === 'SAINS') {
+                const scienceItems = [
+                    { q: 'Berapakah bilangan deria manusia?', ans: '5 Deria', opts: ['5 Deria', '3 Deria', '4 Deria', '6 Deria'] },
+                    { q: 'Manakah antara berikut objek yang BOLEH TERAPUNG di air?', ans: 'Bola Plastik', opts: ['Bola Plastik', 'Batu Besi', 'Guli', 'Paku'] },
+                    { q: 'Apakah bahagian tumbuhan yang menyerap air di dalam tanah?', ans: 'Akar', opts: ['Akar', 'Daun', 'Bunga', 'Buah'] },
+                    { q: 'Apakah sumber utama cahaya di bumi pada waktu siang?', ans: 'Matahari', opts: ['Matahari', 'Bulan', 'Bintang', 'Lampu'] }
+                ];
+                const item = scienceItems[actNum % scienceItems.length];
+                return { question: item.q, options: item.opts.sort(() => Math.random() - 0.5), answer: item.ans };
+            } else if (sub === 'MATH') {
+                const n1 = (actNum % 5) + 1;
+                const n2 = (actNum % 4) + 1;
+                const mathItems = [
+                    { q: `Berapakah hasil tambah: ${n1} + ${n2} = ?`, ans: `${n1 + n2}`, opts: [`${n1 + n2}`, `${n1 + n2 + 1}`, `${Math.max(1, n1 + n2 - 1)}`, `${n1 + n2 + 2}`] },
+                    { q: 'Apakah bentuk geometri yang mempunyai 3 sisi sama?', ans: 'Segitiga', opts: ['Segitiga', 'Bulat', 'Segiempat Sama', 'Leper'] },
+                    { q: 'Nombor manakah yang lebih besar antara 15 dan 18?', ans: '18', opts: ['18', '15', '12', '10'] }
+                ];
+                const item = mathItems[actNum % mathItems.length];
+                return { question: item.q, options: item.opts.sort(() => Math.random() - 0.5), answer: item.ans };
+            } else if (sub === 'JAWI') {
+                const jawiItems = [
+                    { q: 'Apakah padanan huruf Jawi bagi huruf Rumi "A"?', ans: 'ا (Alif)', opts: ['ا (Alif)', 'ب (Ba)', 'ت (Ta)', 'س (Sin)'] },
+                    { q: 'Pilih suku kata terbuka Jawi bagi [ba]:', ans: 'با', opts: ['با', 'بي', 'بو', 'تا'] },
+                    { q: 'Pilih ejaan Jawi bagi perkataan [baju]:', ans: 'باجو', opts: ['باجو', 'بولو', 'سيكو', 'كايو'] }
+                ];
+                const item = jawiItems[actNum % jawiItems.length];
+                return { question: item.q, options: item.opts.sort(() => Math.random() - 0.5), answer: item.ans };
+            }
+
+            return {
+                question: `Aktiviti ${actNum}: Sila jawab soalan latihan ini.`,
+                options: ['Pilihan A', 'Pilihan B', 'Pilihan C', 'Pilihan D'],
+                answer: 'Pilihan A'
+            };
+        }
+    </script>
 
 </body>
 </html>
