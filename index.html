@@ -1,405 +1,233 @@
 <!DOCTYPE html>
-<html lang="ms"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kelas Cilik Alfaqeh</title>
-<!-- Favicon / Logo Tab Browser -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='30' fill='%23FF6B4A'/><path d='M18 74V36Q34 30 50 40Q66 30 82 36V74Q66 68 50 78Q34 68 18 74Z' fill='%23fff'/><path d='M50 8l12.9 26.2 28.9 4.2-20.9 20.4 4.9 28.8L50 74l-25.8 13.6 4.9-28.8L8.3 38.4l28.9-4.2z' transform='translate(32 4) scale(.36)' fill='%23FFC93C'/></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bahasa Melayu Ceria | Suku Kata KV</title>
 <style>
-:root{--bg:#FFF6E5;--ink:#22305A;--card:#fff;--mut:#7a84a6;--line:#EFE3C8;--c0:#FF6B4A;--c1:#7B5CFA;--c2:#1FA2A6;--c3:#FFA51F;--c4:#3C8DFF;--c5:#3DBE7A;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1B2240;--ink:#FFF3DC;--card:#2A3360;--mut:#a9b2d6;--line:#3a4578}}
-:root[data-theme="dark"]{--bg:#1B2240;--ink:#FFF3DC;--card:#2A3360;--mut:#a9b2d6;--line:#3a4578}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
-html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font-family:Fredoka,"Nunito","Arial Rounded MT Bold",system-ui,sans-serif;overflow:hidden;touch-action:manipulation}
-#app{height:100%;max-width:720px;margin:auto;display:flex;flex-direction:column}
-button{font:inherit;color:inherit;border:0;cursor:pointer;background:none;padding:0}
-.top{display:flex;align-items:center;gap:10px;padding:12px 16px 6px}
-.scr{flex:1;overflow-y:auto;padding:4px 16px 18px;-webkit-overflow-scrolling:touch}
-.logo{width:48px;height:48px;flex:none}.logo svg{width:100%;height:100%}
-.tt{line-height:1.05;font-size:15px;color:var(--mut);flex:1}.tt b{font-size:24px;color:var(--ink)}
-.chip{display:flex;align-items:center;gap:6px;background:var(--card);border-radius:20px;padding:8px 14px;font-weight:600;font-size:20px;box-shadow:0 4px 0 var(--line)}
-.ic{width:52px;height:52px;border-radius:18px;background:var(--card);box-shadow:0 4px 0 var(--line);display:grid;place-items:center;flex:none}
-h1{font-size:30px;margin:8px 0 2px}h2{font-size:22px;margin:18px 0 8px}.sub{color:var(--mut);margin:0 0 14px;font-size:17px}
-.btn{display:block;width:100%;background:var(--c0);color:#fff;font-weight:600;font-size:22px;min-height:64px;padding:12px 24px;border-radius:24px;box-shadow:0 6px 0 rgba(0,0,0,.2);margin-top:12px}
-.btn:active,.opt:active,.gc:active,.ses:active{transform:translateY(4px)}
-.btn.alt{background:var(--card);color:var(--ink);box-shadow:0 6px 0 var(--line)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.gc{background:var(--card);border-radius:28px;overflow:hidden;box-shadow:0 6px 0 var(--line);text-align:left}
-.gc .hd{height:100px;display:grid;place-items:center;color:#fff;font-size:42px;font-weight:700}.gc .hd svg{height:76%}
-.gc .in{padding:10px 14px 14px;display:flex;flex-direction:column;gap:2px}.gc b{font-size:19px}.gc small{color:var(--mut);font-size:14px}
-.bar{height:10px;border-radius:6px;background:var(--line);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;border-radius:6px}
-.nav{display:flex;gap:10px;padding:8px 16px 12px}.nav button{flex:1;background:var(--card);border-radius:22px;min-height:56px;font-weight:600;font-size:18px;box-shadow:0 4px 0 var(--line);color:var(--mut)}.nav button.on{background:var(--ink);color:var(--bg)}
-.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.ses{background:var(--card);border-radius:24px;min-height:104px;box-shadow:0 6px 0 var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:32px;font-weight:700}
-.ses small{font-size:12px;font-weight:500;color:var(--mut)}.ses.lk{opacity:.45;pointer-events:none}.ses .st{display:flex;gap:2px}
-.dots{display:flex;gap:8px;flex:1;justify-content:center}.dots i{width:14px;height:14px;border-radius:50%;background:var(--line)}.dots i.d{background:var(--c5)}.dots i.c{background:var(--c3);transform:scale(1.3)}
-.pr{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:600;margin:4px 0}.pr span{flex:1}.pr .ic{width:48px;height:48px}
-.show{height:min(32vh,260px);background:var(--card);border-radius:32px;margin:8px 0 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 6px 0 var(--line);padding:8px}
-.show>svg{height:64%}.big{font-size:110px;font-weight:700;line-height:1}.big.sm{font-size:72px}.wd{font-size:44px;font-weight:600}
-.cnt{display:flex;flex-wrap:wrap;gap:4px 8px;justify-content:center;max-width:94%}.cnt svg{width:15%;min-width:40px;max-width:62px}
-.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
-.opt{background:var(--card);border-radius:26px;box-shadow:0 6px 0 var(--line);min-height:92px;font-size:38px;font-weight:600;display:grid;place-items:center;padding:8px;color:var(--ink)}
-.opt.pic svg{height:78px}.opt.ok{background:var(--c5);color:#fff}.opt.no{background:#FF7A7A;color:#fff;animation:sk .4s}
-@keyframes sk{25%{transform:translateX(-9px)}75%{transform:translateX(9px)}}
-.slots{display:flex;gap:8px;justify-content:center;margin:0 0 18px}.slots.no{animation:sk .4s}
-.slot{min-width:64px;height:76px;border-radius:20px;border:4px dashed var(--line);display:grid;place-items:center;font-size:36px;font-weight:600;padding:0 8px}.slot.f{border:4px solid var(--c2);background:var(--card)}
-.tiles{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}.tiles .opt{min-height:76px;min-width:80px;font-size:34px}.opt.used{opacity:.2;pointer-events:none}
-#fb{text-align:center;font-size:26px;font-weight:700;min-height:40px;margin-top:14px}
-.res{text-align:center}.res .stars{display:flex;justify-content:center;gap:6px;margin:16px 0}.res .stars svg{animation:pop .5s both}
-.res .stars svg:nth-child(2){animation-delay:.2s}.res .stars svg:nth-child(3){animation-delay:.4s}
-@keyframes pop{0%{transform:scale(0) rotate(-40deg)}70%{transform:scale(1.25)}100%{transform:scale(1)}}
-.in2{width:100%;font:inherit;font-size:28px;font-weight:600;padding:16px 20px;border-radius:24px;border:4px solid var(--line);background:var(--card);color:var(--ink);outline:0;-webkit-user-select:text;user-select:text;text-align:center}.in2:focus{border-color:var(--c2)}
-.pl{display:flex;gap:10px;flex-wrap:wrap}.pl button{background:var(--card);border-radius:20px;padding:12px 18px;font-size:20px;font-weight:600;box-shadow:0 4px 0 var(--line)}
-.row{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:22px;padding:12px 16px;margin-bottom:10px;box-shadow:0 4px 0 var(--line)}.row b{flex:1}
-.bd{display:flex;gap:10px;flex-wrap:wrap}.bd span{background:var(--c5);color:#fff;border-radius:18px;padding:8px 14px;font-weight:600;font-size:16px}.bd span.x{background:var(--line);color:var(--mut)}
-.stat{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat div{background:var(--card);border-radius:22px;padding:12px 6px;text-align:center;box-shadow:0 4px 0 var(--line)}.stat b{font-size:28px;display:block}.stat small{color:var(--mut);font-size:13px}
-.hero{display:flex;justify-content:center;margin:12px 0}.hero svg{width:110px}
-</style></head><body><div id="app"></div>
+  :root{
+    --cream:#fffaf3; --pink:#f7dce4; --peach:#f8e4d2; --lav:#e8e0f6;
+    --sage:#dcebdc; --brown:#6f4e37; --dark:#44352b; --white:#fff;
+    --yellow:#ffe9a8; --shadow:0 8px 22px rgba(111,78,55,.12);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(135deg,#fffaf3,#fff2f5);font-family:"Trebuchet MS",Arial,sans-serif;color:var(--dark)}
+  button{font:inherit;cursor:pointer;border:0}
+  .site-header{background:var(--white);border-bottom:3px solid var(--pink);padding:20px 16px;text-align:center}
+  .brand{display:inline-flex;align-items:center;gap:12px}
+  .brand-icon{font-size:2.5rem;background:var(--yellow);border-radius:20px;padding:8px 12px}
+  h1{font-size:clamp(1.6rem,4vw,2.5rem);margin:0;color:var(--brown)}
+  .subtitle{margin:8px 0 0;color:#826c5c}
+  .nav{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;padding:16px}
+  .nav button{background:white;color:var(--brown);padding:11px 18px;border-radius:999px;box-shadow:var(--shadow);font-weight:700}
+  .nav button.active,.nav button:hover{background:var(--brown);color:white}
+  main{width:min(1000px,94%);margin:10px auto 40px}
+  .welcome{background:linear-gradient(120deg,var(--pink),var(--peach));border-radius:28px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:var(--shadow)}
+  .welcome h2{margin:0 0 8px;font-size:clamp(1.4rem,3vw,2rem)}
+  .welcome p{margin:0;line-height:1.6}
+  .welcome .mascot{font-size:clamp(3rem,8vw,5.5rem)}
+  .section-title{text-align:center;margin:28px 0 16px;color:var(--brown)}
+  .game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .game-card{background:white;border-radius:24px;padding:22px;text-align:center;box-shadow:var(--shadow);border:2px solid transparent;transition:.2s}
+  .game-card:hover{transform:translateY(-3px);border-color:var(--pink)}
+  .game-card .emoji{font-size:3rem}
+  .category-label{display:inline-block;background:var(--yellow);padding:5px 10px;border-radius:999px;font-size:.75rem;font-weight:800;color:var(--brown)}
+  .game-card h3{margin:10px 0 8px;color:var(--brown)}
+  .game-card p{line-height:1.5;min-height:45px;color:#796b60}
+  .primary{background:var(--brown);color:white;border-radius:999px;padding:12px 20px;font-weight:700}
+  .primary:hover{filter:brightness(1.1)}
+  .game-panel{display:none;background:white;border-radius:28px;padding:clamp(18px,4vw,32px);box-shadow:var(--shadow);margin-top:22px;text-align:center}
+  .game-panel.show{display:block}
+  .panel-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .pill{background:var(--sage);color:#365b3b;padding:8px 14px;border-radius:999px;font-weight:700}
+  .progress{height:10px;background:#f0e8e1;border-radius:999px;overflow:hidden;margin:18px 0}
+  .progress-bar{height:100%;width:0;background:#9abf9c;transition:width .25s}
+  .question{font-size:clamp(1.2rem,3vw,1.7rem);font-weight:800;margin:22px 0 8px}
+  .hint{color:#806f61;margin:0 0 20px}
+  .big-syllable{font-size:clamp(3rem,12vw,5rem);font-weight:900;letter-spacing:3px;color:var(--brown);background:var(--yellow);width:150px;height:130px;border-radius:28px;display:grid;place-items:center;margin:20px auto}
+  .answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;max-width:650px;margin:20px auto}
+  .answer{background:var(--lav);color:var(--dark);padding:18px 10px;border-radius:18px;font-size:1.5rem;font-weight:800;border:3px solid transparent;min-height:66px}
+  .answer:nth-child(2n){background:var(--pink)}
+  .answer:nth-child(3n){background:var(--sage)}
+  .answer:hover{border-color:var(--brown);transform:scale(1.02)}
+  .answer:disabled{cursor:default;opacity:.85}
+  .answer.correct{background:#ccebd0;border-color:#4c9659}
+  .answer.wrong{background:#ffe0df;border-color:#d66c68}
+  .feedback{min-height:32px;font-weight:800;margin:12px 0;color:var(--brown)}
+  .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+  .secondary{background:#f1e7dd;color:var(--brown);border-radius:999px;padding:12px 18px;font-weight:700}
+  .word-build{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:24px 0}
+  .word-piece{background:var(--peach);padding:14px 20px;border-radius:16px;font-size:2rem;font-weight:900;min-width:76px}
+  .plus{font-size:1.8rem;font-weight:900;color:#a28b78}
+  .footer{text-align:center;padding:20px;color:#8c7969;font-size:.9rem}
+  .hidden{display:none!important}
+  @media(max-width:520px){.welcome{padding:18px}.welcome .mascot{font-size:3rem}.nav button{padding:10px 13px}.answers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><div class="brand-icon">📚</div><div><h1>Bahasa Melayu Ceria</h1><p class="subtitle">Jom belajar sambil bermain! 🌷</p></div></div>
+</header>
+<nav class="nav" aria-label="Menu utama">
+  <button class="active" data-page="home">🏠 Utama</button>
+  <button data-page="recognize">🔤 Kenal KV</button>
+  <button data-page="build">🧩 Cantum KV</button>
+  <button data-page="complete">✏️ Lengkapkan</button>
+</nav>
+<main>
+  <section id="home">
+    <div class="welcome">
+      <div><h2>Hai, adik comel! 👋</h2><p>Hari ini kita belajar <strong>suku kata terbuka</strong>.<br>Tekan permainan pilihan adik dan kumpul bintang! ⭐</p></div>
+      <div class="mascot" aria-hidden="true">🐻🌈</div>
+    </div>
+    <h2 class="section-title">Pilih Permainan</h2>
+    <div class="game-grid">
+      <article class="game-card"><div class="emoji">🔤</div><span class="category-label">AKTIVITI 1</span><h3>Kenal Suku Kata</h3><p>Cari dan pilih suku kata yang betul.</p><button class="primary" onclick="startGame('recognize')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🧩</div><span class="category-label">AKTIVITI 2</span><h3>Cantum Jadi Perkataan</h3><p>Cantum suku kata seperti bo + la.</p><button class="primary" onclick="startGame('build')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">✏️</div><span class="category-label">AKTIVITI 3</span><h3>Lengkapkan Perkataan</h3><p>Pilih suku kata yang hilang.</p><button class="primary" onclick="startGame('complete')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🪄</div><span class="category-label">AKTIVITI 4</span><h3>Susun Suku Kata</h3><p>Pilih susunan suku kata untuk membina perkataan.</p><button class="primary" onclick="startGame('order')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🕵️</div><span class="category-label">AKTIVITI 5</span><h3>Cari Suku Kata Awal</h3><p>Kenal pasti suku kata pertama dalam perkataan.</p><button class="primary" onclick="startGame('first')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🎯</div><span class="category-label">AKTIVITI 6</span><h3>Cari Suku Kata Akhir</h3><p>Pilih suku kata terakhir dalam perkataan.</p><button class="primary" onclick="startGame('last')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">✅</div><span class="category-label">AKTIVITI 7</span><h3>Betul atau Salah?</h3><p>Semak sama ada perkataan sepadan dengan gambar.</p><button class="primary" onclick="startGame('truefalse')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🌈</div><span class="category-label">AKTIVITI 8</span><h3>Keluarga Suku Kata</h3><p>Pilih suku kata daripada keluarga yang sama, contohnya ba-bi-bu.</p><button class="primary" onclick="startGame('family')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🔢</div><span class="category-label">AKTIVITI 9</span><h3>Lengkapkan Urutan KV</h3><p>Kenal pasti suku kata yang hilang dalam urutan.</p><button class="primary" onclick="startGame('sequence')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🖼️</div><span class="category-label">AKTIVITI 10</span><h3>Pilih Perkataan Bergambar</h3><p>Pilih perkataan yang betul berdasarkan gambar.</p><button class="primary" onclick="startGame('picture')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">👏</div><span class="category-label">AKTIVITI 11</span><h3>Kira Suku Kata</h3><p>Kira berapa suku kata dalam perkataan mudah.</p><button class="primary" onclick="startGame('countsyll')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🚀</div><span class="category-label">AKTIVITI 12</span><h3>Misi Campuran KV</h3><p>Jawab pelbagai soalan suku kata untuk kumpul bintang.</p><button class="primary" onclick="startGame('mixed')">Mula Main</button></article>
+      <article class="game-card"><div class="emoji">🎁</div><span class="category-label">AKTIVITI 13</span><h3>Mana Pasangan Sama?</h3><p>Cari suku kata yang sama dengan kad sasaran.</p><button class="primary" onclick="startGame('pair')">Mula Main</button></article>
+    </div>
+  </section>
+
+  <section id="game" class="game-panel" aria-live="polite">
+    <div class="panel-top"><button class="secondary" onclick="goHome()">← Menu Utama</button><span class="pill" id="score">⭐ Markah: 0</span><span class="pill" id="count">Soalan 1/10</span></div>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div id="questionArea"></div>
+    <div class="feedback" id="feedback" role="status"></div>
+    <div class="actions"><button class="primary hidden" id="nextBtn" onclick="nextQuestion()">Soalan Seterusnya ➜</button></div>
+  </section>
+</main>
+<div class="footer">🌼 Bahasa Melayu Ceria · Belajar, bermain dan membaca 🌼</div>
 <script>
-const $=id=>document.getElementById(id),sh=a=>[...a].sort(()=>Math.random()-.5),rnd=a=>a[Math.random()*a.length|0],cap=s=>s[0].toUpperCase()+s.slice(1);
-const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const ST='M50 8l12.9 26.2 28.9 4.2-20.9 20.4 4.9 28.8L50 74l-25.8 13.6 4.9-28.8L8.3 38.4l28.9-4.2z';
-const star=(on=true,s=26)=>`<svg width="${s}" height="${s}" viewBox="0 0 100 100"><path d="${ST}" fill="${on?'#FFC93C':'#D9D3C4'}" ${on?'stroke="#E8A400" stroke-width="5"':''} stroke-linejoin="round"/></svg>`;
-const ic=(p,f)=>`<svg width="26" height="26" viewBox="0 0 24 24" fill="${f||'none'}" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
-const I={x:ic('<path d="M5 5l14 14M19 5L5 19"/>'),bk:ic('<path d="M15 5l-7 7 7 7"/>'),sp:ic('<path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 9a4 4 0 010 6"/>'),lk:ic('<rect x="5" y="11" width="14" height="10" rx="3" fill="currentColor"/><path d="M8 11V8a4 4 0 018 0v3"/>')};
-const LOGO=`<svg viewBox="0 0 100 100"><rect width="100" height="100" rx="30" fill="#FF6B4A"/><path d="M18 74V36Q34 30 50 40Q66 30 82 36V74Q66 68 50 78Q34 68 18 74Z" fill="#fff"/><path d="${ST}" transform="translate(32 4) scale(.36)" fill="#FFC93C"/></svg>`;
-const COL={merah:'#E5384A',biru:'#3C8DFF',kuning:'#FFD23C',hijau:'#3DBE7A',ungu:'#7B5CFA',jingga:'#FF9A2E'};
-const ART={
-bola:'<circle cx="50" cy="50" r="38" fill="#FF6B4A"/><path d="M14 40Q50 62 86 40" stroke="#fff" stroke-width="7" fill="none"/><circle cx="36" cy="30" r="6" fill="#fff" opacity=".5"/>',
-buku:'<rect x="20" y="14" width="62" height="72" rx="8" fill="#3C8DFF"/><rect x="20" y="14" width="14" height="72" rx="6" fill="#2A6FD6"/><rect x="42" y="30" width="30" height="8" rx="4" fill="#fff"/><rect x="42" y="46" width="22" height="8" rx="4" fill="#fff"/>',
-topi:'<path d="M24 66Q24 24 50 24Q76 24 76 66Z" fill="#7B5CFA"/><rect x="24" y="54" width="52" height="10" fill="#FFC93C"/><ellipse cx="50" cy="68" rx="42" ry="10" fill="#5B3FD9"/>',
-mata:'<ellipse cx="50" cy="50" rx="42" ry="26" fill="#fff" stroke="#22305A" stroke-width="5"/><circle cx="50" cy="50" r="17" fill="#1FA2A6"/><circle cx="50" cy="50" r="8" fill="#22305A"/><circle cx="55" cy="45" r="3" fill="#fff"/>',
-meja:'<rect x="8" y="30" width="84" height="14" rx="7" fill="#C98A4B"/><rect x="18" y="42" width="10" height="44" rx="4" fill="#A66E36"/><rect x="72" y="42" width="10" height="44" rx="4" fill="#A66E36"/>',
-baju:'<path d="M32 16L8 34L22 50L32 44V86H68V44L78 50L92 34L68 16Q50 30 32 16Z" fill="#FFC93C"/><circle cx="50" cy="56" r="5" fill="#fff"/>',
-kopi:'<path d="M22 36H70V60Q70 82 46 82Q22 82 22 60Z" fill="#FF6B4A"/><path d="M70 44h8a8 8 0 010 20h-8" stroke="#FF6B4A" stroke-width="7" fill="none"/><path d="M34 26Q30 18 36 12M50 26Q46 18 52 12" stroke="#9aa5c8" stroke-width="4" fill="none" stroke-linecap="round"/>',
-dadu:'<rect x="16" y="16" width="68" height="68" rx="14" fill="#fff" stroke="#22305A" stroke-width="5"/><g fill="#22305A"><circle cx="36" cy="36" r="6"/><circle cx="64" cy="36" r="6"/><circle cx="50" cy="50" r="6"/><circle cx="36" cy="64" r="6"/><circle cx="64" cy="64" r="6"/></g>',
-ikan:'<ellipse cx="44" cy="50" rx="32" ry="22" fill="#3C8DFF"/><path d="M70 50L94 30V70Z" fill="#2A6FD6"/><circle cx="32" cy="44" r="5" fill="#fff"/><circle cx="31" cy="44" r="2.5" fill="#22305A"/><path d="M44 36Q52 50 44 64" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>',
-itik:'<ellipse cx="46" cy="64" rx="32" ry="22" fill="#FFC93C"/><circle cx="68" cy="34" r="17" fill="#FFC93C"/><path d="M82 32L98 38L82 44Z" fill="#FF6B4A"/><circle cx="70" cy="30" r="3.5" fill="#22305A"/><path d="M30 62Q44 76 60 62" stroke="#E8A400" stroke-width="4" fill="none"/>',
-kucing:'<path d="M20 44L24 12L46 28ZM80 44L76 12L54 28Z" fill="#F5A25D"/><circle cx="50" cy="56" r="32" fill="#F5A25D"/><circle cx="38" cy="50" r="4.5" fill="#22305A"/><circle cx="62" cy="50" r="4.5" fill="#22305A"/><path d="M46 60h8l-4 5z" fill="#E5384A"/><path d="M14 58L34 62M14 70L34 66M86 58L66 62M86 70L66 66" stroke="#22305A" stroke-width="2.5"/>',
-katak:'<ellipse cx="50" cy="64" rx="38" ry="26" fill="#3DBE7A"/><circle cx="32" cy="36" r="14" fill="#3DBE7A"/><circle cx="68" cy="36" r="14" fill="#3DBE7A"/><circle cx="32" cy="35" r="8" fill="#fff"/><circle cx="68" cy="35" r="8" fill="#fff"/><circle cx="33" cy="36" r="4" fill="#22305A"/><circle cx="67" cy="36" r="4" fill="#22305A"/><path d="M30 66Q50 80 70 66" stroke="#1d7a4a" stroke-width="4" fill="none" stroke-linecap="round"/>',
-epal:'<circle cx="50" cy="56" r="33" fill="#E5384A"/><path d="M50 26Q48 14 56 8" stroke="#7a4a1c" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="64" cy="20" rx="12" ry="6" fill="#3DBE7A" transform="rotate(-25 64 20)"/><circle cx="38" cy="44" r="6" fill="#fff" opacity=".4"/>',
-pisang:'<path d="M20 22Q18 86 82 76Q88 66 78 64Q44 64 38 20Z" fill="#FFD23C" stroke="#E8A400" stroke-width="4" stroke-linejoin="round"/><path d="M20 22L36 18" stroke="#7a4a1c" stroke-width="6" stroke-linecap="round"/>',
-oren:'<circle cx="50" cy="56" r="33" fill="#FF9A2E"/><ellipse cx="58" cy="22" rx="12" ry="6" fill="#3DBE7A" transform="rotate(-25 58 22)"/><circle cx="38" cy="44" r="6" fill="#fff" opacity=".4"/>',
-tembikai:'<path d="M8 36A42 42 0 0092 36Z" fill="#3DBE7A"/><path d="M16 36A34 34 0 0084 36Z" fill="#FF4D5E"/><g fill="#22305A"><ellipse cx="36" cy="48" rx="3" ry="5"/><ellipse cx="50" cy="56" rx="3" ry="5"/><ellipse cx="64" cy="48" rx="3" ry="5"/></g>',
-kereta:'<rect x="8" y="48" width="84" height="26" rx="10" fill="#E5384A"/><path d="M24 48L34 26H66L78 48Z" fill="#E5384A"/><path d="M37 46L42 31H50V46ZM54 46V31H63L71 46Z" fill="#CFE8FF"/><circle cx="28" cy="76" r="11" fill="#22305A"/><circle cx="72" cy="76" r="11" fill="#22305A"/><circle cx="28" cy="76" r="4" fill="#ddd"/><circle cx="72" cy="76" r="4" fill="#ddd"/>',
-rumah:'<rect x="20" y="46" width="60" height="42" fill="#FFC93C"/><path d="M8 50L50 12L92 50Z" fill="#E5384A"/><rect x="42" y="62" width="16" height="26" rx="4" fill="#7B5CFA"/><rect x="26" y="54" width="12" height="12" rx="2" fill="#CFE8FF"/>',
-bunga:'<rect x="47" y="50" width="6" height="42" fill="#3DBE7A"/>'+[0,72,144,216,288].map(a=>`<circle cx="${(50+18*Math.cos(a*Math.PI/180)).toFixed(1)}" cy="${(36+18*Math.sin(a*Math.PI/180)).toFixed(1)}" r="14" fill="#FF7FA8"/>`).join('')+'<circle cx="50" cy="36" r="10" fill="#FFC93C"/>'};
-const art=k=>`<svg viewBox="0 0 100 100" aria-hidden="true">${ART[k]||`<circle cx="50" cy="50" r="40" fill="${COL[k]||'#3C8DFF'}"/><circle cx="36" cy="36" r="8" fill="#fff" opacity=".45"/>`}</svg>`;
-const W={bola:['bo','la'],buku:['bu','ku'],topi:['to','pi'],mata:['ma','ta'],meja:['me','ja'],baju:['ba','ju'],kopi:['ko','pi'],dadu:['da','du']};
-const WK=Object.keys(W),L='ABCDEFGHIJKLMNOPQRSTUVWXYZ',V='aeiou';
-const OB={haiwan:['ikan','itik','kucing','katak'],buah:['epal','pisang','oren','tembikai'],warna:Object.keys(COL),objek:['kereta','rumah','bunga','buku']};
-
-// --- BUNYI BASIC BETUL (CHIME) ---
-let actx;
-function playCorrectSound(){
-  try{
-    if(!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
-    if(actx.state === 'suspended') actx.resume();
-    
-    const now = actx.currentTime;
-    const osc1 = actx.createOscillator();
-    const osc2 = actx.createOscillator();
-    const gain = actx.createGain();
-    
-    osc1.type = 'sine';
-    osc2.type = 'sine';
-    
-    osc1.frequency.setValueAtTime(523.25, now);
-    osc2.frequency.setValueAtTime(783.99, now + 0.08);
-    
-    gain.gain.setValueAtTime(0.2, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-    
-    osc1.connect(gain);
-    osc2.connect(gain);
-    gain.connect(actx.destination);
-    
-    osc1.start(now);
-    osc1.stop(now + 0.08);
-    osc2.start(now + 0.08);
-    osc2.stop(now + 0.35);
-  } catch(e) {}
-}
-
-// --- DATA SUBJEK & LATIHAN ---
-const SUBJECTS = [
-  { id: 'bm', name: 'Bahasa Melayu', ic: '🇲🇾', c: 'var(--c0)' },
-  { id: 'bi', name: 'Bahasa Inggeris', ic: '🇬🇧', c: 'var(--c4)' },
-  { id: 'math', name: 'Matematik', ic: '🔢', c: 'var(--c3)' },
-  { id: 'sains', name: 'Sains', ic: '🔬', c: 'var(--c5)' },
-  { id: 'jawi', name: 'Jawi', ic: '🕌', c: 'var(--c1)' }
+const syllables = ["ba","bi","bu","be","bo","ca","ci","cu","ce","co","da","di","du","de","do","ja","ji","ju","je","jo","ka","ki","ku","ke","ko","la","li","lu","le","lo","ma","mi","mu","me","mo","na","ni","nu","ne","no","pa","pi","pu","pe","po","ra","ri","ru","re","ro","sa","si","su","se","so","ta","ti","tu","te","to","ya","yi","yu","ye","yo"];
+const families = {b:["ba","bi","bu","be","bo"],c:["ca","ci","cu","ce","co"],d:["da","di","du","de","do"],k:["ka","ki","ku","ke","ko"],m:["ma","mi","mu","me","mo"],p:["pa","pi","pu","pe","po"],s:["sa","si","su","se","so"]};
+const words = [
+  {parts:["bo","la"],word:"bola",emoji:"⚽"},
+  {parts:["ba","ju"],word:"baju",emoji:"👕"},
+  {parts:["bu","ku"],word:"buku",emoji:"📘"},
+  {parts:["to","pi"],word:"topi",emoji:"🧢"},
+  {parts:["ka","ki"],word:"kaki",emoji:"🦶"},
+  {parts:["ma","ta"],word:"mata",emoji:"👀"},
+  {parts:["sa","pi"],word:"sapi",emoji:"🐄"},
+  {parts:["ro","ti"],word:"roti",emoji:"🍞"},
+  {parts:["me","ja"],word:"meja",emoji:"🪑"},
+  {parts:["ku","da"],word:"kuda",emoji:"🐴"},
+  {parts:["pa","pa","ya"],word:"papaya",emoji:"🥭"},
+  {parts:["ke","re","ta"],word:"kereta",emoji:"🚗"}
 ];
-
-const Q=(t,v,ans,dis,say,r=x=>x)=>({t,v,say,o:sh([ans,...dis]).map(k=>({h:r(k),ok:k===ans}))});
-
-// KUMPULAN DATA SUKU KATA PELBAGAI (BM)
-const SUKU_KATA_LIST = [
-  { full: 'bola', s1: 'bo', s2: 'la' },
-  { full: 'buku', s1: 'bu', s2: 'ku' },
-  { full: 'topi', s1: 'to', s2: 'pi' },
-  { full: 'mata', s1: 'ma', s2: 'ta' },
-  { full: 'meja', s1: 'me', s2: 'ja' },
-  { full: 'baju', s1: 'ba', s2: 'ju' },
-  { full: 'kopi', s1: 'ko', s2: 'pi' },
-  { full: 'dadu', s1: 'da', s2: 'du' },
-  { full: 'cawan', s1: 'ca', s2: 'wan' },
-  { full: 'kasut', s1: 'ka', s2: 'sut' },
-  { full: 'paku', s1: 'pa', s2: 'ku' },
-  { full: 'sudu', s1: 'su', s2: 'du' },
-  { full: 'roti', s1: 'ro', s2: 'ti' },
-  { full: 'nasik', s1: 'na', s2: 'sik' },
-  { full: 'gigi', s1: 'gi', s2: 'gi' }
-];
-
-// SENARAI HURUF JAWI LENGKAP UTK MENGELAKKAN SOALAN BERULANG (E.G. KAF)
-const ALL_JAWI = [
-  { j: 'ا', r: 'Alif' }, { j: 'ب', r: 'Ba' }, { j: 'ت', r: 'Ta' }, { j: 'ث', r: 'Tha' },
-  { j: 'ج', r: 'Jim' }, { j: 'ح', r: 'Ha' }, { j: 'خ', r: 'Kha' }, { j: 'د', r: 'Dal' },
-  { j: 'ذ', r: 'Dzal' }, { j: 'ر', r: 'Ra' }, { j: 'ز', r: 'Zai' }, { j: 'س', r: 'Sin' },
-  { j: 'ش', r: 'Syin' }, { j: 'ص', r: 'Sad' }, { j: 'ض', r: 'Ddad' }, { j: 'ط', r: 'Ta' },
-  { j: 'ظ', r: 'Zha' }, { j: 'ع', r: 'Ain' }, { j: 'غ', r: 'Ghain' }, { j: 'ف', r: 'Fa' },
-  { j: 'ق', r: 'Qaf' }, { j: 'ك', r: 'Kaf' }, { j: 'ل', r: 'Lam' }, { j: 'م', r: 'Mim' },
-  { j: 'ن', r: 'Nun' }, { j: 'و', r: 'Wau' }, { j: 'هـ', r: 'Ha' }, { j: 'ي', r: 'Ya' }
-];
-
-const ALL_GAMES = {
-  bm: [
-    {id:'huruf',n:'Kenal Huruf',c:'var(--c0)',ic:'Aa',N:8,gen(s){
-      const p=sh([...L]);
-      return Array.from({length:5},(_,i)=>{
-        const x=p[i%p.length],up=s<4||i%2===0,f=up?(c=>c.toLowerCase()):(c=>c);
-        const dis=sh([...L].filter(l=>l!==x)).slice(0,2).map(f);
-        return Q(up?'Pilih huruf kecil yang sama':'Pilih huruf besar yang sama',`<span class="big">${up?x:x.toLowerCase()}</span>`,up?x.toLowerCase():x,dis,x)
-      })
-    }},
-    {id:'suku',n:'Suku Kata',c:'var(--c1)',ic:'ba',N:8,gen(s){
-      const pool = sh([...SUKU_KATA_LIST]);
-      return pool.slice(0, 5).map((item, i) => {
-        if(i % 2 === 0) {
-          const target = item.s1;
-          const dis = sh(SUKU_KATA_LIST.filter(x => x.s1 !== target).map(x => x.s1)).slice(0, 2);
-          return Q('Cari suku kata yang sama', `<span class="big">${target}</span>`, target, dis, target);
-        } else {
-          const hasImg = ART[item.full] ? art(item.full) : `<span class="big sm">${item.full.toUpperCase()}</span>`;
-          const dis = sh(SUKU_KATA_LIST.filter(x => x.s2 !== item.s2).map(x => x.s2)).slice(0, 2);
-          return Q('Lengkapkan suku kata ini', hasImg + `<span class="wd">${item.s1} - _</span>`, item.s2, dis, item.full);
-        }
-      });
-    }},
-    {id:'baca',n:'Baca Perkataan',c:'var(--c2)',ic:art('buku'),N:8,gen(s){
-      const list = sh(WK);
-      return list.slice(0,5).map((w,i)=>{
-        const d=sh(WK.filter(k=>k!==w)).slice(0,2);
-        return s>=4&&i%2?Q('Cari gambar bagi perkataan ini',`<span class="big sm">${w}</span>`,w,d,w,art):Q('Baca dan pilih perkataan yang betul',art(w),w,d,w)
-      })
-    }},
-    {id:'eja',n:'Eja Perkataan',c:'var(--c3)',ic:art('topi'),N:8,gen(s){
-      return sh(WK).slice(0,5).map(w=>{
-        const ans=s<4?W[w]:[...w],ex=s>=6?[rnd([...'bdklmst'].filter(x=>!w.includes(x)))]:[];
-        return{sp:1,t:s<4?'Susun suku kata untuk mengeja':'Susun huruf untuk mengeja',v:art(w),ans,tiles:sh([...ans,...ex]),say:w}
-      })
-    }},
-    {id:'benda',n:'Kenal Benda',c:'var(--c5)',ic:art('kucing'),N:9,gen(s){
-      const cat=['haiwan','haiwan','buah','buah','warna','warna','objek','objek','campur'][s],all=[...OB.haiwan,...OB.buah,...OB.objek],pool=cat==='campur'?[...all,...OB.warna]:OB[cat];
-      return sh(pool).concat(sh(pool)).slice(0,5).map(k=>{
-        const c=k in COL,d=sh((cat==='campur'?(c?OB.warna:all):pool).filter(x=>x!==k&&(x in COL)===c)).slice(0,2);
-        return Q(c?'Apakah warna ini?':'Apakah ini?',art(k),k,d,cap(k),cap)
-      })
-    }}
-  ],
-  bi: [
-    {id:'bi_abc',n:'Alphabet',c:'var(--c4)',ic:'ABC',N:8,gen(s){
-      const pick = sh([...L]);
-      return Array.from({length:5},(_, i)=>{
-        const x=pick[i];
-        const dis=sh([...L].filter(l=>l!==x)).slice(0,2);
-        return Q('Choose the matching letter',`<span class="big">${x}</span>`,x,dis,x)
-      })
-    }},
-    {id:'bi_phonic',n:'Phonics & Words',c:'var(--c0)',ic:'Cat',N:8,gen(s){
-      const words=[{w:'cat',a:'kucing'},{w:'duck',a:'itik'},{w:'fish',a:'ikan'},{w:'apple',a:'epal'},{w:'car',a:'kereta'},{w:'ball',a:'bola'},{w:'book',a:'buku'},{w:'house',a:'rumah'}];
-      return sh(words).slice(0,5).map(item=>{
-        const dis=sh(words.filter(x=>x.w!==item.w)).slice(0,2).map(x=>x.w);
-        return Q('Select the correct English word',art(item.a),item.w,dis,item.w)
-      })
-    }},
-    {id:'bi_vocab',n:'Vocabulary',c:'var(--c2)',ic:art('epal'),N:8,gen(s){
-      const map={epal:'Apple',pisang:'Banana',oren:'Orange',kucing:'Cat',ikan:'Fish',kereta:'Car',rumah:'House',bunga:'Flower',topi:'Hat'};
-      const keys=sh(Object.keys(map));
-      return keys.slice(0,5).map(k=>{
-        const ans=map[k];
-        const dis=sh(Object.values(map).filter(v=>v!==ans)).slice(0,2);
-        return Q('What is this in English?',art(k),ans,dis,ans)
-      })
-    }},
-    {id:'bi_spell',n:'Simple Spelling',c:'var(--c1)',ic:'Spell',N:8,gen(s){
-      const pool=['cat','dog','sun','box','pen','hat','bus','cup'];
-      return sh(pool).slice(0,5).map(w=>{
-        const ans=[...w];
-        return{sp:1,t:'Spell the word correctly',v:`<span class="big sm">${w.toUpperCase()}</span>`,ans,tiles:sh(ans),say:w}
-      })
-    }}
-  ],
-  math: [
-    {id:'m_num',n:'Nombor 1-10',c:'var(--c3)',ic:'123',N:9,gen(s){
-      const mx=[3,3,5,5,7,7,10,10,10][s],it=['epal','bola','ikan','bunga','itik'][s%5];
-      return Array.from({length:5},()=>{
-        const n=1+Math.random()*mx|0,pool=Array.from({length:Math.max(mx,3)},(_,i)=>String(i+1));
-        return Q('Hitung, berapakah semuanya?',`<div class="cnt">${art(it).repeat(n)}</div>`,String(n),sh(pool.filter(x=>x!=n)).slice(0,2),String(n))
-      })
-    }},
-    {id:'m_add',n:'Tambah (+)',c:'var(--c5)',ic:'1+1',N:8,gen(s){
-      return Array.from({length:5},()=>{
-        const a=1+Math.random()*(s+2)|0,b=1+Math.random()*(s+2)|0,ans=a+b;
-        const dis=[ans+1,Math.max(1,ans-1),ans+2].map(String);
-        return Q('Berapakah jumlahnya?',`<span class="big sm">${a} + ${b} = ?</span>`,String(ans),dis,`${a} tambah ${b}`)
-      })
-    }},
-    {id:'m_sub',n:'Tolak (-)',c:'var(--c0)',ic:'3-1',N:8,gen(s){
-      return Array.from({length:5},()=>{
-        const a=2+Math.random()*(s+3)|0,b=1+Math.random()*a|0,ans=a-b;
-        const dis=[ans+1,Math.max(0,ans-1),ans+2].map(String);
-        return Q('Berapakah bakinya?',`<span class="big sm">${a} - ${b} = ?</span>`,String(ans),dis,`${a} tolak ${b}`)
-      })
-    }},
-    {id:'m_shape',n:'Bentuk',c:'var(--c2)',ic:'📐',N:6,gen(s){
-      const shp=[{n:'Bulat',v:'🔴'},{n:'Segi Empat',v:'🟥'},{n:'Segi Tiga',v:'🔺'},{n:'Bintang',v:'⭐'},{n:'Bujur',v:'🥚'},{n:'Hati',v:'❤️'}];
-      return sh(shp).slice(0,5).map(item=>{
-        const dis=sh(shp.filter(x=>x.n!==item.n)).slice(0,2).map(x=>x.n);
-        return Q('Apakah bentuk ini?',`<span class="big">${item.v}</span>`,item.n,dis,item.n)
-      })
-    }}
-  ],
-  sains: [
-    {id:'s_hidup',n:'Benda Hidup',c:'var(--c5)',ic:'🌱',N:6,gen(s){
-      const data=[{n:'Kucing',h:true},{n:'Bunga',h:true},{n:'Kereta',h:false},{n:'Meja',h:false},{n:'Ikan',h:true},{n:'Buku',h:false},{n:'Burung',h:true},{n:'Batu',h:false}];
-      return sh(data).slice(0,5).map(d=>{
-        const ans=d.h?'Benda Hidup':'Benda Bukan Hidup';
-        return Q('Adakah ini benda hidup atau bukan?',`<span class="big sm">${d.n}</span>`,ans,d.h?['Benda Bukan Hidup']:['Benda Hidup'],d.n)
-      })
-    }},
-    {id:'s_badan',n:'Bahagian Badan',c:'var(--c0)',ic:art('mata'),N:6,gen(s){
-      const items=[{n:'Mata',a:'mata'},{n:'Topi',a:'topi'},{n:'Baju',a:'baju'},{n:'Meja',a:'meja'}];
-      return sh(items).slice(0,5).map(i=>{
-        const dis=sh(items.filter(x=>x.n!==i.n)).slice(0,2).map(x=>x.n);
-        return Q('Mana satu bahagian badan?',art(i.a),i.n,dis,i.n)
-      })
-    }},
-    {id:'s_deria',n:'Organ Deria',c:'var(--c1)',ic:'👂',N:6,gen(s){
-      const data=[{q:'Deria Penglihatan',a:'Mata'},{q:'Deria Pendengaran',a:'Telinga'},{q:'Deria Rasa',a:'Lidah'},{q:'Deria Bau',a:'Hidung'},{q:'Deria Sentuhan',a:'Kulit'}];
-      return sh(data).slice(0,5).map(d=>{
-        const dis=sh(data.filter(x=>x.a!==d.a)).slice(0,2).map(x=>x.a);
-        return Q('Organ manakah untuk:',`<span class="big sm" style="font-size:36px">${d.q}</span>`,d.a,dis,d.q)
-      })
-    }}
-  ],
-  jawi: [
-    {id:'j_huruf',n:'Huruf Hijaiyah',c:'var(--c1)',ic:'ا ب ت',N:8,gen(s){
-      // Pilih 5 huruf rawak dari senarai penuh (elak hanya kaf)
-      const list = sh([...ALL_JAWI]).slice(0, 5);
-      return list.map(item => {
-        const dis = sh(ALL_JAWI.filter(x => x.j !== item.j)).slice(0, 2).map(x => x.j);
-        return Q('Pilih huruf Jawi / Hijaiyah yang sama', `<span class="big">${item.j}</span>`, item.j, dis, item.r);
-      });
-    }},
-    {id:'j_suku',n:'Suku Kata Jawi',c:'var(--c3)',ic:'با',N:8,gen(s){
-      const items=[
-        {j:'با',r:'ba'},{j:'بو',r:'bu'},{j:'بي',r:'bi'},
-        {j:'تا',r:'ta'},{j:'تو',r:'tu'},{j:'تي',r:'ti'},
-        {j:'جا',r:'ja'},{j:'جو',r:'ju'},{j:'جي',r:'ji'},
-        {j:'سا',r:'sa'},{j:'سو',r:'su'},{j:'سي',r:'si'}
-      ];
-      return sh(items).slice(0,5).map(i=>{
-        const dis=sh(items.filter(x=>x.j!==i.j)).slice(0,2).map(x=>x.j);
-        return Q(`Pilih padanan Jawi untuk "${i.r}"`,`<span class="big sm">${i.r}</span>`,i.j,dis,i.r)
-      })
-    }},
-    {id:'j_padan',n:'Nama Huruf Jawi',c:'var(--c2)',ic:'A ➔ ا',N:8,gen(s){
-      const list = sh([...ALL_JAWI]).slice(0, 5);
-      return list.map(item => {
-        const dis = sh(ALL_JAWI.filter(x => x.r !== item.r)).slice(0, 2).map(x => x.r);
-        return Q(`Apakah nama bagi huruf Jawi '${item.j}'?`, `<span class="big">${item.j}</span>`, item.r, dis, item.r);
-      });
-    }}
-  ]
-};
-
-// Storan
-let DB={profiles:{},cur:null,curSub:'bm'};try{DB=JSON.parse(localStorage.getItem('kca2'))||DB}catch(e){}
-const save=()=>{try{localStorage.setItem('kca2',JSON.stringify(DB))}catch(e){}};
-const me=()=>DB.profiles[DB.cur],tot=p=>Object.values(p.prog||{}).flat().reduce((a,b)=>a+(b||0),0),dn=(p,g)=>(p.prog[g.id]||[]).filter(x=>x>0).length;
-const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ms-MY';u.rate=.7;speechSynthesis.speak(u)}catch(e){}};
-const R=h=>{$('app').innerHTML=h};
-const hdr=()=>`<div class="top"><div class="logo">${LOGO}</div><div class="tt">Kelas Cilik<br><b>Alfaqeh</b></div><span class="chip">${star()} ${tot(me())}</span></div>`;
-const nav=on=>`<div class="nav"><button class="${on=='s'?'on':''}" data-a="sub">Subjek</button><button class="${on=='h'?'on':''}" data-a="home">Main</button><button class="${on=='p'?'on':''}" data-a="prof">Profil Saya</button></div>`;
-
-function welcome(msg=''){const ps=Object.keys(DB.profiles);R(`<div class="scr"><div class="hero"><div class="logo" style="width:110px;height:110px">${LOGO}</div></div><h1 style="text-align:center">Selamat Datang!</h1><p class="sub" style="text-align:center">Siapa nama kamu?</p><input id="nm" class="in2" maxlength="14" placeholder="Taip nama di sini" autocomplete="off"><div id="fb" style="color:#E5384A;font-size:18px;min-height:30px">${msg}</div><button class="btn" data-a="enter">Mula Belajar</button>${ps.length?`<h2>Murid sedia ada</h2><div class="pl">${ps.map(n=>`<button data-a="pick" data-v="${esc(n)}">${esc(n)} &nbsp;${star(true,20)} ${tot(DB.profiles[n])}</button>`).join('')}</div>`:''}</div>`)}
-
-function subMenu(){const p=me();R(hdr()+`<div class="scr"><h1>Hai, ${esc(p.n)}!</h1><p class="sub">Pilih subjek yang ingin dipelajari hari ini</p><div class="grid">${SUBJECTS.map(s=>`<button class="gc" data-a="setsub" data-v="${s.id}"><div class="hd" style="background:${s.c}">${s.ic}</div><div class="in"><b>${s.name}</b><small>Latihan Disediakan</small></div></button>`).join('')}</div></div>`+nav('s'))}
-
-function home(){const p=me();const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;const subObj=SUBJECTS.find(s=>s.id===DB.curSub)||SUBJECTS[0];R(hdr()+`<div class="scr"><div style="display:flex;align-items:center;gap:10px"><h1>${subObj.ic} ${subObj.name}</h1></div><p class="sub">Pilih latihan untuk mula belajar</p><div class="grid">${games.map((g,i)=>`<button class="gc" data-a="game" data-v="${i}"><div class="hd" style="background:${g.c}">${g.ic}</div><div class="in"><b>${g.n}</b><small>${dn(p,g)} /${g.N} sesi</small><div class="bar"><i style="width:${dn(p,g)/g.N*100}\%;background:${g.c}"></i></div></div></button>`).join('')}</div></div>`+nav('h'))}
-
-function sess(i){const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;const g=games[i],pr=me().prog[g.id]||[];R(`<div class="top"><button class="ic" data-a="home">${I.bk}</button><div class="tt"><b>${g.n}</b><br>${g.N} sesi - bintang menunggu kamu</div></div><div class="scr"><div class="sg">${Array.from({length:g.N},(_,s)=>{const u=s==0||pr[s-1]>0,b=pr[s]||0;return`<button class="ses${u?'':' lk'}" data-a="play" data-v="${i}:${s}">${u?s+1:I.lk}<span class="st">${[1,2,3].map(k=>star(k<=b,16)).join('')}</span><small>${s<g.N/3?'Mudah':s<g.N*2/3?'Sederhana':'Cabaran'}</small></button>`}).join('')}</div></div>`+nav(''))}
-
-let P;
-function start(gi,s){const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;P={gi,s,q:games[gi].gen(s),i:0,w:0,pts:0,t:0,sl:[],done:0};draw()}
-function draw(){const q=P.q[P.i];R(`<div class="top"><button class="ic" data-a="game" data-v="${P.gi}">${I.x}</button><div class="dots">${P.q.map((_,i)=>`<i class="${i<P.i?'d':i==P.i?'c':''}"></i>`).join('')}</div><span class="chip">${star()} ${P.pts}</span></div><div class="scr"><div class="pr"><span>${q.t}</span><button class="ic" data-a="say">${I.sp}</button></div><div class="show">${q.v}</div>${q.sp?`<div class="slots" id="sl">${q.ans.map((_,k)=>`<button class="slot${k<P.sl.length?' f':''}" data-a="unslot" data-v="${k}">${k<P.sl.length?q.tiles[P.sl[k]]:''}</button>`).join('')}</div><div class="tiles">${q.tiles.map((t,j)=>`<button class="opt${P.sl.includes(j)?' used':''}" data-a="tile" data-v="${j}">${t}</button>`).join('')}</div>`:`<div class="g2">${q.o.map((o,j)=>`<button class="opt${o.h[0]=='<'?' pic':''}" data-a="ans" data-v="${j}">${o.h}</button>`).join('')}</div>`}<div id="fb"></div></div>`)}
-
-const good=['Bagus!','Pandai!','Hebat!','Betul!'];
-function right(){
-  P.done=1;
-  P.pts+=P.t?5:10;
-  $('fb').style.color='var(--c5)';$('fb').textContent=rnd(good);
-  
-  // Mainkan Bunyi Basic Betul
-  playCorrectSound();
-
-  setTimeout(()=>{P.i++;P.sl=[];P.t=0;P.done=0;P.i>=P.q.length?finish():draw()},900)
+let mode="recognize", index=0, score=0, questions=[], answered=false;
+const extraModes = ["order","first","last","truefalse","family","sequence","picture","countsyll","mixed","pair"];
+const modeNames = {recognize:"Kenal Suku Kata",build:"Cantum Jadi Perkataan",complete:"Lengkapkan Perkataan",order:"Susun Suku Kata",first:"Cari Suku Kata Awal",last:"Cari Suku Kata Akhir",truefalse:"Betul atau Salah?",family:"Keluarga Suku Kata",sequence:"Lengkapkan Urutan KV",picture:"Pilih Perkataan Bergambar",countsyll:"Kira Suku Kata",mixed:"Misi Campuran KV",pair:"Mana Pasangan Sama?"};
+const $ = id => document.getElementById(id);
+document.querySelectorAll(".nav button").forEach(btn=>btn.addEventListener("click",()=>startGame(btn.dataset.page==="home"?"home":btn.dataset.page)));
+function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
+function goHome(){
+  $("home").classList.remove("hidden"); $("game").classList.remove("show");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page==="home"));
 }
-function wrong(){P.w++;P.t++;$('fb').style.color='#E5384A';$('fb').textContent='Cuba lagi, kamu boleh!'}
-
-function finish(){
-  const games=ALL_GAMES[DB.curSub]||ALL_GAMES.bm;
-  const g=games[P.gi],p=me(),st=P.w==0?3:P.w<=2?2:1;
-  p.prog[g.id]=p.prog[g.id]||[];
-  p.prog[g.id][P.s]=Math.max(p.prog[g.id][P.s]||0,st);
-  p.hist.unshift({g:g.n,sub:DB.curSub,s:P.s+1,st,pt:P.pts,d:Date.now()});
-  p.hist.length=Math.min(p.hist.length,40);save();
-  R(`<div class="scr res"><h1 style="margin-top:36px">${['','Teruskan usaha!','Pandai, ','Hebat sekali, '][st]}${st>1?esc(p.n)+'!':''}</h1><div class="stars">${[1,2,3].map(k=>star(k<=st,76)).join('')}</div><div class="chip" style="display:inline-flex">Markah: ${P.pts}</div><button class="btn" style="background:${g.c}" data-a="${P.s+1<g.N?'play':'game'}" data-v="${P.s+1<g.N?P.gi+':'+(P.s+1):P.gi}">${P.s+1<g.N?'Sesi Seterusnya':'Semua Sesi'}</button><button class="btn alt" data-a="play" data-v="${P.gi}:${P.s}">Main Lagi</button><button class="btn alt" data-a="home">Menu Latihan</button></div>`)
+function startGame(which){
+  if(which==="home"){goHome();return}
+  mode=which; index=0; score=0; answered=false;
+  if(mode==="recognize" || mode==="pair") questions=shuffle(syllables).slice(0,10);
+  else if(mode==="family") questions=shuffle(Object.keys(families)).slice(0,7);
+  else if(mode==="sequence") questions=Array.from({length:10},()=>shuffle(Object.keys(families))[0]);
+  else if(mode==="truefalse") questions=Array.from({length:10},()=>({item:shuffle(words)[0],truth:Math.random()>.5}));
+  else if(mode==="mixed") questions=Array.from({length:10},(_,i)=>i%2===0?shuffle(syllables)[0]:shuffle(words)[0]);
+  else questions=shuffle(words).slice(0,10);
+  $("home").classList.add("hidden"); $("game").classList.add("show");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===which));
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function prof(){
-  const p=me(),t=tot(p);
-  const allG=Object.values(ALL_GAMES).flat();
-  const d=allG.reduce((a,g)=>a+dn(p,g),0),N=allG.reduce((a,g)=>a+g.N,0);
-  const B=[['Langkah Pertama',d>=1],['Bintang 10',t>=10],['Bintang 30',t>=30],['Bintang 60',t>=60],['Sesi Sempurna',p.hist.some(h=>h.st==3)],['Penjelajah',allG.every(g=>dn(p,g)>0)]];
-
-  R(hdr()+`<div class="scr"><h1>${esc(p.n)}</h1><div class="stat"><div><b>${t}</b><small>Bintang</small></div><div><b>${p.hist.reduce((a,h)=>a+h.pt,0)}</b><small>Jumlah markah</small></div><div><b>${d}/${N}</b><small>Sesi selesai</small></div></div><h2>Kemajuan Mengikut Subjek</h2>${SUBJECTS.map(s=>{
-    const games=ALL_GAMES[s.id]||[];
-    const subD=games.reduce((a,g)=>a+dn(p,g),0);
-    const subN=games.reduce((a,g)=>a+g.N,0);
-    return `<div class="row"><b>${s.ic}${s.name}</b><small>${subD}/${subN}</small><div class="bar" style="width:90px"><i style="width:${subN?subD/subN*100:0}\%;background:${s.c}"></i></div></div>`;
-  }).join('')}<h2>Pencapaian</h2><div class="bd">${B.map(b=>`<span class="${b[1]?'':'x'}">${b[0]}</span>`).join('')}</div><h2>Rekod Permainan</h2>${p.hist.slice(0,8).map(h=>`<div class="row"><b>${h.g} - Sesi${h.s}</b><span class="st">${[1,2,3].map(k=>star(k<=h.st,18)).join('')}</span><small>${new Date(h.d).toLocaleDateString('ms-MY')}</small></div>`).join('')||'<p class="sub">Belum ada rekod. Jom main!</p>'}<button class="btn alt" data-a="who">Tukar Murid</button></div>`+nav('p'))
+function renderQuestion(){
+  answered=false;
+  $("feedback").textContent="";
+  $("nextBtn").classList.add("hidden");
+  $("score").textContent=`⭐ Markah: ${score}`;
+  $("count").textContent=`Soalan ${index+1}/${questions.length}`;
+  $("progressBar").style.width=`${index/questions.length*100}%`;
+  const area=$("questionArea"); area.innerHTML="";
+  const makeAnswers=(opts,correct)=>shuffle(opts).forEach(opt=>addAnswer(String(opt),String(opt)===String(correct)));
+  if(mode==="recognize" || mode==="pair"){
+    const target=questions[index];
+    area.innerHTML=`<div class="question">${mode==="pair"?"Mana pasangan yang sama?":"Cari suku kata ini!"}</div><p class="hint">Pilih jawapan yang sama dengan kad sasaran.</p><div class="big-syllable">${target}</div><div class="answers" id="answers"></div>`;
+    makeAnswers([target,...shuffle(syllables.filter(s=>s!==target)).slice(0,3)],target);
+  } else if(mode==="build" || mode==="picture"){
+    const item=questions[index];
+    area.innerHTML=`<div class="question">${mode==="build"?"Cantum suku kata menjadi perkataan":"Pilih perkataan yang sepadan dengan gambar"}</div><p class="hint">Lihat gambar dan pilih jawapan yang betul.</p><div class="big-syllable">${item.emoji}</div><div class="word-build">${item.parts.map(p=>`<span class="word-piece">${p}</span>`).join('<span class="plus">+</span>')}<span class="plus">=</span><span class="word-piece">?</span></div><div class="answers" id="answers"></div>`;
+    makeAnswers([item.word,...shuffle(words.filter(w=>w.word!==item.word)).slice(0,3).map(w=>w.word)],item.word);
+  } else if(mode==="complete"){
+    const item=questions[index], mi=Math.min(1,item.parts.length-1), missing=item.parts[mi];
+    area.innerHTML=`<div class="question">Suku kata manakah yang hilang?</div><p class="hint">Lengkapkan perkataan berdasarkan gambar.</p><div class="big-syllable">${item.emoji}</div><div class="word-build"><span class="word-piece">${item.parts.map((p,i)=>i===mi?"__":p).join(" – ")}</span></div><div class="answers" id="answers"></div>`;
+    makeAnswers([missing,...shuffle(syllables.filter(s=>s!==missing)).slice(0,3)],missing);
+  } else if(mode==="order"){
+    const item=questions[index];
+    const correct=item.parts.join(" – ");
+    const scrambled=shuffle(item.parts).join(" – ");
+    const distractors=shuffle(words.filter(w=>w.word!==item.word)).slice(0,3).map(w=>shuffle(w.parts).join(" – "));
+    area.innerHTML=`<div class="question">Susun suku kata dengan betul</div><p class="hint">Perkataan apakah yang terbentuk daripada gambar ini?</p><div class="big-syllable">${item.emoji}</div><div class="word-build"><span class="word-piece">${scrambled}</span></div><div class="answers" id="answers"></div>`;
+    makeAnswers([correct,...distractors],correct);
+  } else if(mode==="first" || mode==="last"){
+    const item=questions[index], target=mode==="first"?item.parts[0]:item.parts[item.parts.length-1];
+    area.innerHTML=`<div class="question">Pilih suku kata ${mode==="first"?"pertama":"terakhir"}</div><p class="hint">Baca perkataan ini bersama-sama.</p><div class="big-syllable">${item.emoji}</div><div class="word-build"><span class="word-piece">${item.word}</span></div><div class="answers" id="answers"></div>`;
+    makeAnswers([target,...shuffle(syllables.filter(s=>s!==target)).slice(0,3)],target);
+  } else if(mode==="truefalse"){
+    const q=questions[index], shown=q.truth?q.item:shuffle(words.filter(w=>w.word!==q.item.word))[0];
+    const correct=q.truth?"Betul":"Salah";
+    area.innerHTML=`<div class="question">Adakah perkataan ini betul?</div><p class="hint">Perhatikan gambar dan perkataan di bawah.</p><div class="big-syllable">${q.item.emoji}</div><div class="word-build"><span class="word-piece">${shown.word}</span></div><div class="answers" id="answers"></div>`;
+    makeAnswers(["Betul","Salah"],correct);
+  } else if(mode==="family"){
+    const key=questions[index], fam=families[key], target=fam[index%fam.length];
+    area.innerHTML=`<div class="question">Keluarga suku kata ${key.toUpperCase()}</div><p class="hint">Pilih suku kata daripada keluarga yang sama.</p><div class="word-build">${fam.map(x=>`<span class="word-piece">${x}</span>`).join("")}</div><div class="big-syllable">${target}</div><div class="answers" id="answers"></div>`;
+    makeAnswers([target,...shuffle(syllables.filter(s=>!fam.includes(s))).slice(0,3)],target);
+  } else if(mode==="sequence"){
+    const key=questions[index], fam=families[key]||["ba","bi","bu","be","bo"], missingIndex=index%5, target=fam[missingIndex];
+    area.innerHTML=`<div class="question">Lengkapkan urutan suku kata</div><p class="hint">Pilih suku kata yang hilang.</p><div class="word-build">${fam.map((x,i)=>`<span class="word-piece">${i===missingIndex?"__":x}</span>`).join("")}</div><div class="answers" id="answers"></div>`;
+    makeAnswers([target,...shuffle(syllables.filter(s=>s!==target)).slice(0,3)],target);
+  } else if(mode==="countsyll"){
+    const item=questions[index], count=item.parts.length;
+    area.innerHTML=`<div class="question">Kira bilangan suku kata</div><p class="hint">Sebut perkataan ini perlahan-lahan, kemudian pilih bilangannya.</p><div class="big-syllable">${item.emoji}</div><div class="word-build"><span class="word-piece">${item.word}</span></div><div class="answers" id="answers"></div>`;
+    makeAnswers([1,2,3,4],count);
+  } else if(mode==="mixed"){
+    if(typeof questions[index]==="string"){
+      const target=questions[index];
+      area.innerHTML=`<div class="question">Misi campuran: cari suku kata!</div><p class="hint">Pilih suku kata yang sama.</p><div class="big-syllable">${target}</div><div class="answers" id="answers"></div>`;
+      makeAnswers([target,...shuffle(syllables.filter(s=>s!==target)).slice(0,3)],target);
+    }else{
+      const item=questions[index];
+      area.innerHTML=`<div class="question">Misi campuran: baca perkataan!</div><p class="hint">Pilih perkataan yang betul.</p><div class="big-syllable">${item.emoji}</div><div class="answers" id="answers"></div>`;
+      makeAnswers([item.word,...shuffle(words.filter(w=>w.word!==item.word)).slice(0,3).map(w=>w.word)],item.word);
+    }
+  }
 }
-
-const A={
-enter(){const n=$('nm').value.trim().slice(0,14);if(!n)return welcome('Sila masukkan nama dahulu sebelum bermain.');A.pick(n)},
-pick(n){DB.profiles[n]=DB.profiles[n]||{n,prog:{},hist:[]};DB.cur=n;save();subMenu()},
-who(){DB.cur=null;save();welcome()},
-sub(){subMenu()},
-setsub(v){DB.curSub=v;save();home()},
-home,prof,
-game(v){sess(+v)},
-play(v){const[a,b]=v.split(':');start(+a,+b)},
-say(){say(P.q[P.i].say)},
-ans(v,el){if(P.done)return;if(P.q[P.i].o[v].ok){el.classList.add('ok');right()}else{el.classList.add('no');wrong();setTimeout(()=>el.classList.remove('no'),450)}},
-tile(v){const q=P.q[P.i];if(P.done||P.sl.length>=q.ans.length)return;P.sl.push(+v);if(P.sl.length<q.ans.length)return draw();draw();
-if(P.sl.map(j=>q.tiles[j]).join('')===q.ans.join(''))right();else{wrong();$('sl').classList.add('no');setTimeout(()=>{P.sl=[];draw();$('fb').textContent=''},650)}},
-unslot(v){if(!P.done){P.sl.splice(+v,1);draw()}}
-};
-
-document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a](b.dataset.v,b)});
-document.addEventListener('keydown',e=>{if(e.key==='Enter'&&$('nm'))A.enter()});
-DB.cur&&DB.profiles[DB.cur]?subMenu():welcome();
-</script></body></html>
+function addAnswer(label,isCorrect){
+  const btn=document.createElement("button"); btn.className="answer"; btn.textContent=label; btn.dataset.correct=isCorrect?"yes":"no";
+  btn.addEventListener("click",()=>{
+    if(answered)return; answered=true;
+    document.querySelectorAll(".answer").forEach(b=>b.disabled=true);
+    if(isCorrect){score+=10;btn.classList.add("correct");$("feedback").textContent="Pandainya! Jawapan betul! 🎉⭐";}
+    else {btn.classList.add("wrong");$("feedback").textContent="Tak mengapa, cuba lagi dalam soalan seterusnya! 💛";document.querySelectorAll(".answer").forEach(b=>{if(b.dataset.correct==="yes")b.classList.add("correct")})}
+    $("score").textContent=`⭐ Markah: ${score}`; $("progressBar").style.width=`${(index+1)/questions.length*100}%`;
+    $("nextBtn").classList.remove("hidden"); $("nextBtn").textContent=index===questions.length-1?"Lihat Keputusan 🏆":"Soalan Seterusnya ➜";
+  });
+  $("answers").appendChild(btn);
+}
+function nextQuestion(){
+  if(index<questions.length-1){index++;renderQuestion();return}
+  $("questionArea").innerHTML=`<div class="big-syllable">🏆</div><div class="question">Tahniah, adik hebat!</div><p class="hint">Adik sudah selesai bermain.</p><h2>Markah: ${score} / ${questions.length*10} ⭐</h2><p>${score>=70?"Hebat! Teruskan berlatih membaca!":"Bagus! Jom cuba sekali lagi untuk tambah bintang."}</p>`;
+  $("feedback").textContent=""; $("nextBtn").classList.add("hidden"); $("progressBar").style.width="100%";
+  $("count").textContent="Selesai!";
+  const restart=document.createElement("button");restart.className="primary";restart.textContent="Main Lagi 🔄";restart.onclick=()=>startGame(mode);$("questionArea").appendChild(restart);
+}
+</script>
+</body>
+</html>
