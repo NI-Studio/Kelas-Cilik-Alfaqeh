@@ -15,98 +15,44 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-* {
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-  margin: 0;
-  padding: 0 0 calc(60px + var(--safe-bottom)) 0;
+  margin: 0; padding: 0 0 calc(60px + var(--safe-bottom)) 0;
   background: linear-gradient(135deg, #fffaf3, #fff2f5);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: var(--ink);
-  min-height: 100vh;
+  color: var(--ink); min-height: 100vh;
 }
 
 /* SKRIN SELEKSI PROFIL NETFLIX STYLE */
 .netflix-screen {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: #2b1f1d;
-  color: white;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  z-index: 1000; padding: 24px; text-align: center;
-  overflow-y: auto;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: #2b1f1d; color: white; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; z-index: 1000; padding: 24px;
+  text-align: center; overflow-y: auto;
 }
 .netflix-screen h2 { font-size: 1.6rem; color: #f7dce4; margin-bottom: 24px; }
-
-.profiles-grid {
-  display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;
-  max-width: 360px; width: 100%; margin-bottom: 24px;
-}
-.profile-avatar-btn {
-  background: none; border: none; color: white; cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; gap: 8px; width: 90px;
-}
-.avatar-box {
-  width: 80px; height: 80px; border-radius: 20px;
-  background: linear-gradient(135deg, #f7dce4, #f8e4d2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.2rem; border: 3px solid transparent;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s;
-}
+.profiles-grid { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; max-width: 360px; width: 100%; margin-bottom: 24px; }
+.profile-avatar-btn { background: none; border: none; color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 90px; }
+.avatar-box { width: 80px; height: 80px; border-radius: 20px; background: linear-gradient(135deg, #f7dce4, #f8e4d2); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; border: 3px solid transparent; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s; }
 .profile-avatar-btn:active .avatar-box { transform: scale(0.95); border-color: #6f4e37; }
 .profile-avatar-btn span { font-size: 0.9rem; font-weight: bold; }
 .profile-avatar-btn .age-tag { font-size: 0.7rem; opacity: 0.8; font-weight: normal; }
-
-.add-profile-btn {
-  background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3);
-  border-radius: 20px; width: 80px; height: 80px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; color: white; cursor: pointer;
-}
+.add-profile-btn { background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; cursor: pointer; }
 
 /* Modal Tambah Profil Baharu */
-.name-modal {
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 1001; padding: 20px;
-}
-.name-box {
-  background: white; padding: 24px; border-radius: 28px;
-  width: 100%; max-width: 340px; text-align: center;
-  color: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+.name-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 1001; padding: 20px; }
+.name-box { background: white; padding: 24px; border-radius: 28px; width: 100%; max-width: 340px; text-align: center; color: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 .name-box h3 { color: var(--brown); margin: 0 0 8px 0; font-size: 1.3rem; }
 .name-box p { font-size: 0.85rem; color: #796b60; margin-bottom: 12px; }
-.name-box input {
-  width: 100%; padding: 12px; border: 2px solid var(--pink);
-  border-radius: 14px; font-size: 1rem; margin-bottom: 14px;
-  outline: none; text-align: center; font-weight: bold;
-}
+.name-box input { width: 100%; padding: 12px; border: 2px solid var(--pink); border-radius: 14px; font-size: 1rem; margin-bottom: 14px; outline: none; text-align: center; font-weight: bold; }
 .name-box input:focus { border-color: var(--brown); }
-
 .age-options { display: flex; gap: 8px; margin-bottom: 18px; justify-content: center; }
-.age-option-btn {
-  flex: 1; padding: 10px 4px; border: 2px solid var(--pink);
-  background: white; border-radius: 12px; color: var(--brown);
-  font-weight: bold; font-size: 0.85rem; cursor: pointer;
-}
+.age-option-btn { flex: 1; padding: 10px 4px; border: 2px solid var(--pink); background: white; border-radius: 12px; color: var(--brown); font-weight: bold; font-size: 0.85rem; cursor: pointer; }
 .age-option-btn.selected { background: var(--brown); color: white; border-color: var(--brown); }
 
 /* Header Mobile */
-header {
-  position: sticky; top: 0; z-index: 80;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  text-align: center; padding: 12px 16px;
-  border-bottom: 1px solid rgba(247, 220, 228, 0.6);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-}
+header { position: sticky; top: 0; z-index: 80; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); text-align: center; padding: 12px 16px; border-bottom: 1px solid rgba(247, 220, 228, 0.6); box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
 header h1 { margin: 0; color: var(--brown); font-size: 1.25rem; font-weight: 800; }
 header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 
@@ -115,51 +61,26 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 .tab-content.active { display: block; }
 
 /* Dashboard UI */
-.hero {
-  background: linear-gradient(120deg, #f7dce4, #f8e4d2);
-  padding: 16px 20px; border-radius: 20px;
-  display: flex; align-items: center; justify-content: space-between;
-  box-shadow: var(--shadow); margin-bottom: 16px;
-}
+.hero { background: linear-gradient(120deg, #f7dce4, #f8e4d2); padding: 16px 20px; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow); margin-bottom: 16px; }
 .hero h2 { margin: 0 0 4px; font-size: 1.1rem; color: var(--brown); }
 .hero p { margin: 0; font-size: 0.8rem; color: #665244; line-height: 1.3; }
 .hero .mascot { font-size: 2.8rem; }
-
-.locked-age-tag {
-  text-align: center; margin-bottom: 12px; font-weight: bold;
-  color: var(--brown); background: white; padding: 6px 12px;
-  border-radius: 999px; font-size: 0.8rem; box-shadow: var(--shadow);
-  display: inline-block;
-}
+.locked-age-tag { text-align: center; margin-bottom: 12px; font-weight: bold; color: var(--brown); background: white; padding: 6px 12px; border-radius: 999px; font-size: 0.8rem; box-shadow: var(--shadow); display: inline-block; }
 .age-container { text-align: center; }
 
-.subject-nav {
-  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px;
-  margin-bottom: 12px; scrollbar-width: none;
-}
+.subject-nav { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; scrollbar-width: none; }
 .subject-nav::-webkit-scrollbar { display: none; }
-.subject-btn {
-  flex: 0 0 auto; background: white; border: none;
-  padding: 8px 14px; border-radius: 999px; font-weight: bold;
-  font-size: 0.85rem; color: var(--brown); box-shadow: var(--shadow);
-}
+.subject-btn { flex: 0 0 auto; background: white; border: none; padding: 8px 14px; border-radius: 999px; font-weight: bold; font-size: 0.85rem; color: var(--brown); box-shadow: var(--shadow); cursor: pointer; }
 .subject-btn.active { background: var(--brown); color: white; }
 
 /* Kad Grid */
 .grid { display: flex; flex-direction: column; gap: 10px; }
-.card {
-  background: white; border-radius: 16px; padding: 14px 16px;
-  box-shadow: var(--shadow); border: 1.5px solid transparent;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
+.card { background: white; border-radius: 16px; padding: 14px 16px; box-shadow: var(--shadow); border: 1.5px solid transparent; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .card-info { flex: 1; }
 .num { font-size: 0.7rem; color: #927d6d; font-weight: bold; }
 .card h3 { font-size: 0.95rem; margin: 2px 0 4px; color: var(--brown); }
 .card p { margin: 0; font-size: 0.78rem; color: #796b60; line-height: 1.2; }
-.start-btn {
-  background: var(--brown); color: white; border: 0; border-radius: 12px;
-  padding: 8px 14px; font-weight: bold; font-size: 0.8rem; flex-shrink: 0; cursor: pointer;
-}
+.start-btn { background: var(--brown); color: white; border: 0; border-radius: 12px; padding: 8px 14px; font-weight: bold; font-size: 0.8rem; flex-shrink: 0; cursor: pointer; }
 
 /* Modul Game */
 .game { display: none; background: white; border-radius: 22px; padding: 16px; box-shadow: var(--shadow); text-align: center; }
@@ -170,25 +91,27 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 .progress { height: 6px; background: #f0e8e1; border-radius: 99px; margin: 10px 0 16px; overflow: hidden; }
 .bar { height: 100%; width: 0%; background: #9abf9c; transition: width 0.2s; }
 .question-title { font-size: 1.1rem; font-weight: 800; color: var(--brown); margin-bottom: 4px; }
-.question-text { font-size: 1.1rem; font-weight: bold; margin: 12px 0 18px; color: var(--ink); }
-.answers { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 14px; }
-.answer-btn {
-  background: #e8e0f6; border: 2px solid transparent; border-radius: 14px;
-  padding: 12px; font-size: 1rem; font-weight: bold; color: var(--ink); text-align: center; cursor: pointer;
-}
+.question-text { font-size: 1rem; font-weight: bold; margin: 12px 0 18px; color: var(--ink); }
+
+/* ELEMEN INTERAKTIF GAMEPLAY */
+.answers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.answer-btn { background: #e8e0f6; border: 2px solid transparent; border-radius: 14px; padding: 12px; font-size: 1rem; font-weight: bold; color: var(--ink); cursor: pointer; }
 .answer-btn:nth-child(2n) { background: #f7dce4; }
 .answer-btn:nth-child(3n) { background: #dcebdc; }
 .answer-btn.correct { border-color: #4c9659; background: #ccebd0; }
 .answer-btn.wrong { border-color: #d66c68; background: #ffe0df; }
+
+/* BUILDER / CANTUMKAN KAD */
+.builder-box { display: flex; gap: 8px; justify-content: center; min-height: 52px; background: #f9f5f0; border: 2px dashed #d6c7b8; border-radius: 16px; padding: 8px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+.tile { background: white; border: 2px solid var(--brown); color: var(--brown); border-radius: 12px; padding: 8px 14px; font-weight: bold; font-size: 1.1rem; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+.tiles-pool { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+
 .feedback { min-height: 24px; font-weight: bold; font-size: 0.85rem; color: var(--brown); margin-bottom: 12px; }
 .primary-btn { background: var(--brown); color: white; border: 0; border-radius: 999px; padding: 12px 20px; font-weight: bold; font-size: 0.9rem; width: 100%; cursor: pointer; }
 
 /* History & Profile UI */
 .history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-.history-item {
-  background: white; border-radius: 16px; padding: 12px 16px;
-  box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center;
-}
+.history-item { background: white; border-radius: 16px; padding: 12px 16px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; }
 .history-info h4 { margin: 0 0 4px; font-size: 0.9rem; color: var(--brown); }
 .history-info p { margin: 0; font-size: 0.75rem; color: #826c5c; }
 .history-score { text-align: right; }
@@ -209,21 +132,8 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 .delete-prof-btn { background: #ffe0df; color: #d66c68; border: 1.5px solid #d66c68; border-radius: 14px; padding: 10px; font-weight: bold; font-size: 0.8rem; cursor: pointer; }
 
 /* Bottom Nav Bar */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; width: 100%;
-  height: calc(58px + var(--safe-bottom));
-  padding-bottom: var(--safe-bottom);
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 -2px 10px rgba(68, 53, 43, 0.08);
-  display: flex; justify-content: space-around; align-items: center;
-  z-index: 100; border-top: 1px solid rgba(247, 220, 228, 0.8);
-}
-.nav-item {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: none; border: none; color: #927d6d; font-size: 0.7rem; font-weight: bold;
-  gap: 2px; cursor: pointer; flex: 1; height: 100%;
-}
+.bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: calc(58px + var(--safe-bottom)); padding-bottom: var(--safe-bottom); background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); box-shadow: 0 -2px 10px rgba(68, 53, 43, 0.08); display: flex; justify-content: space-around; align-items: center; z-index: 100; border-top: 1px solid rgba(247, 220, 228, 0.8); }
+.nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; background: none; border: none; color: #927d6d; font-size: 0.7rem; font-weight: bold; gap: 2px; cursor: pointer; flex: 1; height: 100%; }
 .nav-item .icon { font-size: 1.2rem; }
 .nav-item.active { color: var(--brown); }
 
@@ -337,8 +247,7 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 </nav>
 
 <script>
-// PENGURUSAN MULTI-PROFIL LOCALSTORAGE
-let profilesList = []; // Senarai objek profil [{id, name, age, avatar, stars, history}]
+let profilesList = [];
 let currentProfileId = null;
 let activeProfile = null;
 
@@ -349,143 +258,96 @@ let qIndex = 0;
 let score = 0;
 let qs = [];
 let answered = false;
+let userBuiltSequence = [];
 
 const AVATARS = ["🧸", "🐰", "🦊", "🦁", "🐼", "🦄", "🐯"];
 
+// BM 6 TAHUN KINI MENGGUNAKAN TAJUK & SOALAN MESRA KANAK-KANAK (TANPA KVK/KVKBK)
 const DATA = {
   "4": {
     "BM": {
       "name": "BM (4T)", "emoji": "📚",
       "activities": [
-        ["Kenal Vokal A", "Cari huruf dan bunyi vokal A."], ["Kenal Vokal I", "Cari huruf dan bunyi vokal I."],
-        ["Kenal Vokal U", "Cari huruf dan bunyi vokal U."], ["Bunyi Suku Kata Ba", "Kenal bunyi ba, bi, bu."],
-        ["Bunyi Suku Kata Ca", "Kenal bunyi ca, ci, cu."], ["Bunyi Suku Kata Da", "Kenal bunyi da, di, du."],
-        ["Bunyi Suku Kata Ka", "Kenal bunyi ka, ki, ku."], ["Bunyi Suku Kata Ma", "Kenal bunyi ma, mi, mu."],
-        ["Suku Kata Terbuka 'ba'", "Pilih perkataan berawalan ba."], ["Suku Kata Terbuka 'bo'", "Pilih perkataan berawalan bo."],
-        ["Suku Kata Terbuka 'cu'", "Pilih perkataan berawalan cu."], ["Suku Kata Terbuka 'ku'", "Pilih perkataan berawalan ku."],
-        ["Cantum Suku Kata 'bola'", "Cantum bo + la."], ["Cantum Suku Kata 'baju'", "Cantum ba + ju."],
-        ["Cantum Suku Kata 'kuda'", "Cantum ku + da."], ["Cantum Suku Kata 'buku'", "Cantum bu + ku."],
-        ["Padan Gambar 'batu'", "Padankan suku kata dengan gambar."], ["Padan Gambar 'topi'", "Padankan suku kata dengan gambar."],
-        ["Padan Gambar 'roti'", "Padankan suku kata dengan gambar."], ["Kuiz Suku Kata Terbuka 4T", "Ujian mudah suku kata."]
+        ["Cantum Perkataan 'bola'", "Tekan kepingan untuk eja bola."],
+        ["Cantum Perkataan 'baju'", "Tekan kepingan untuk eja baju."],
+        ["Kenal Vokal A, I, U", "Pilih huruf vokal pertama."],
+        ["Bunyi Suku Kata", "Pilih bunyi yang betul."],
+        ["Susun Suku Kata 'kuda'", "Susun ku + da mengikut turutan."]
       ],
       "questions": [
-        ["Apakah vokal awal bagi 'ayam'?", ["a", "i", "u"], 0],
-        ["Cantumkan: ba + ju =", ["baju", "biji", "bajuq"], 0],
-        ["Cantumkan: bu + ku =", ["buku", "buka", "bula"], 0],
-        ["Cantumkan: bo + la =", ["bola", "balu", "boli"], 0],
-        ["Pilih suku kata terbuka bagi 'kuda':", ["ku + da", "kud + a", "k + uda"], 0],
-        ["Suku kata awal bagi 'roti' ialah...", ["ro", "to", "ti"], 0],
-        ["Cantumkan: ca + ri =", ["cari", "cura", "ciri"], 0],
-        ["Lengkapkan: ta + __ = tali", ["li", "lu", "la"], 0],
-        ["Lengkapkan: ma + __ = mata", ["ta", "ti", "tu"], 0],
-        ["Pilih perkataan suku kata terbuka:", ["padi", "pintu", "pokok"], 0]
+        { type: "build", title: "Cantumkan untuk eja ⚽ 'bola':", pool: ["la", "bo", "ca"], target: ["bo", "la"] },
+        { type: "build", title: "Cantumkan untuk eja 👕 'baju':", pool: ["ju", "bi", "ba"], target: ["ba", "ju"] },
+        { type: "choice", title: "Apakah vokal awal bagi 🍎 'Ayam'?", opts: ["a", "i", "u"], correct: 0 },
+        { type: "choice", title: "Bunyi vokal awal bagi 🦆 'Ikan'?", opts: ["i", "u", "a"], correct: 0 },
+        { type: "build", title: "Susun untuk eja 🐴 'kuda':", pool: ["da", "ku", "ta"], target: ["ku", "da"] }
       ]
     },
     "BI": {
       "name": "English (4Y)", "emoji": "🔤",
       "activities": [
-        ["Letter A & B", "Recognise letters A and B."], ["Letter C & D", "Recognise letters C and D."],
-        ["Phonics Sounds 1", "Learn sounds /a/ and /b/."], ["Phonics Sounds 2", "Learn sounds /c/ and /d/."],
-        ["Red & Blue", "Identify basic colours."], ["Yellow & Green", "Identify bright colours."],
-        ["Number 1 to 3", "Count items up to 3."], ["Number 4 and 5", "Count items up to 5."],
-        ["Cat and Dog", "Learn animal names."], ["Apple and Banana", "Learn fruit names."],
-        ["Boy and Girl", "Basic self identity words."], ["Big and Small", "Learn simple sizes."],
-        ["Happy and Sad", "Learn emotions."], ["Head and Nose", "Identify facial parts."],
-        ["Eye and Ear", "Identify sensory parts."], ["Sun and Moon", "Look at the sky."],
-        ["Car and Ball", "Learn toy names."], ["Sit and Stand", "Action words."],
-        ["Yes and No", "Basic responses."], ["English Starter 4Y", "Fun simple review."]
+        ["Build CVC Word 'CAT'", "Tap cards to spell C-A-T."],
+        ["Order Numbers 1-2-3", "Put numbers in correct order."],
+        ["Phonics Sound Match", "Choose beginning sound."],
+        ["Build Word 'DOG'", "Tap cards to spell D-O-G."],
+        ["Match Colours", "Identify colour words."]
       ],
       "questions": [
-        ["Which is the letter 'A'?", ["A", "B", "C"], 0],
-        ["What animal says 'Meow'?", ["cat", "dog", "duck"], 0],
-        ["Which colour is the sky?", ["blue", "red", "green"], 0],
-        ["Count the stars: ⭐ ⭐", ["2", "1", "3"], 0],
-        ["Choose the word for 🍎.", ["apple", "ball", "cat"], 0],
-        ["What is the opposite of 'big'?", ["small", "hot", "tall"], 0],
-        ["Which one is a toy?", ["ball", "cup", "spoon"], 0],
-        ["Find the letter 'b':", ["b", "d", "p"], 0],
-        ["How many nose do you have?", ["1", "2", "3"], 0],
-        ["Choose the action: 🏃", ["run", "sleep", "sit"], 0]
+        { type: "build", title: "Spell the word 🐱 'CAT':", pool: ["T", "C", "A"], target: ["C", "A", "T"] },
+        { type: "build", title: "Order numbers from 1 to 3:", pool: ["3", "1", "2"], target: ["1", "2", "3"] },
+        { type: "choice", title: "Which letter starts 🍎 Apple?", opts: ["A", "B", "C"], correct: 0 },
+        { type: "build", title: "Spell the word 🐶 'DOG':", pool: ["G", "D", "O"], target: ["D", "O", "G"] },
+        { type: "choice", title: "What colour is a banana 🍌?", opts: ["Yellow", "Red", "Blue"], correct: 0 }
       ]
     },
     "Sains": {
       "name": "Sains (4T)", "emoji": "🔬",
       "activities": [
-        ["Mata Saya", "Kenal fungsi mata."],["Telinga Saya", "Kenal fungsi telinga."],
-        ["Hidung Saya", "Kenal fungsi hidung."],["Lidah Saya", "Kenal fungsi lidah."],
-        ["Tangan Saya", "Kenal deria sentuhan."],["Warna Bunga", "Amati warna di persekitaran."],
-        ["Bunyi Haiwan", "Dengar dan cam bunyi."],["Bunyi Kenderaan", "Cam bunyi di jalan raya."],
-        ["Panas dan Sejuk", "Kenal suhu asas."],["Siang Hari", "Lihat matahari."],
-        ["Malam Hari", "Lihat bulan dan bintang."],["Haiwan Kucing", "Kenal bahagian badan kucing."],
-        ["Haiwan Burung", "Kenal kepak burung."],["Buah Epal", "Kenal warna dan rasa."],
-        ["Buah Pisang", "Kenal warna kuning."],["Pokok Besar", "Kenal batang pokok."],["Daun Hijau", "Kenal warna daun."],
-        ["Batu Keras", "Kenal tekstur keras."],["Kapas Lembut", "Kenal tekstur lembut."],["Sains Cilik 4T", "Ujian penerokaan awal."]
+        ["Deria Saya", "Kenal fungsi anggota deria."],
+        ["Tekstur Objek", "Asingkan mengikut tekstur."],
+        ["Siang & Malam", "Pilih objek waktu malam."],
+        ["Kitaran Hidup Ayam", "Susun peringkat menetas."],
+        ["Panas vs Sejuk", "Kenal suhu objek."]
       ],
       "questions": [
-        ["Kita melihat menggunakan...", ["mata", "telinga", "hidung"], 0],
-        ["Kita mendengar muzik guna...", ["telinga", "mata", "mulut"], 0],
-        ["Matahari kelihatan pada waktu...", ["siang", "malam", "hujan"], 0],
-        ["Ais rasa...", ["sejuk", "panas", "pedas"], 0],
-        ["Batu adalah...", ["keras", "lembut", "cair"], 0],
-        ["Epal berbuah pada...", ["pokok", "haiwan", "batu"], 0],
-        ["Burung terbang menggunakan...", ["sayap", "kaki", "ekor"], 0],
-        ["Daun kebiasaannya berwarna...", ["hijau", "merah", "biru"], 0],
-        ["Bulan dan bintang ada pada waktu...", ["malam", "siang", "petang"], 0],
-        ["Kapas adalah bahan yang...", ["lembut", "keras", "tajam"], 0]
+        { type: "choice", title: "Kita melihat 👀 menggunakan...", opts: ["Mata", "Telinga", "Hidung"], correct: 0 },
+        { type: "choice", title: "Kita mendengar 👂 menggunakan...", opts: ["Telinga", "Lidah", "Mata"], correct: 0 },
+        { type: "choice", title: "Objek mana yang ada pada waktu 🌙 malam?", opts: ["Bulan", "Matahari", "Pelangi"], correct: 0 },
+        { type: "build", title: "Susun kitaran hidup ayam 🐥:", pool: ["Anak Ayam", "Telur"], target: ["Telur", "Anak Ayam"] },
+        { type: "choice", title: "Ais 🧊 mempunyai suhu...", opts: ["Sejuk", "Panas", "Pedas"], correct: 0 }
       ]
     },
     "Math": {
       "name": "Math (4Y)", "emoji": "🔢",
       "activities": [
-        ["Nombor 1", "Kenal nombor 1."],["Nombor 2", "Kenal nombor 2."],
-        ["Nombor 3", "Kenal nombor 3."],["Nombor 4", "Kenal nombor 4."],
-        ["Nombor 5", "Kenal nombor 5."],["Kira 1 hingga 3", "Bilang objek 1-3."],
-        ["Kira 1 hingga 5", "Bilang objek 1-5."],["Bentuk Bulatan", "Kenal bentuk bulat."],
-        ["Bentuk Segi Empat", "Kenal segi empat."],["Bentuk Segi Tiga", "Kenal segi tiga."],
-        ["Saiz Besar", "Pilih objek besar."],["Saiz Kecil", "Pilih objek kecil."],
-        ["Tinggi dan Rendah", "Banding ketinggian."],["Panjang dan Pendek", "Banding panjang."],
-        ["Sama Banyak", "Padan kumpulan sama."],["Sedikit dan Banyak", "Banding kuantiti."],
-        ["Warna Merah", "Kelaskan warna merah."],["Warna Kuning", "Kelaskan warna kuning."],
-        ["Corak Mudah", "Urutan corak 2 warna."],["Math Junior 4Y", "Cabaran math asas."]
+        ["Kira Objek 1-5", "Bilang jumlah ikon."],
+        ["Susun Nombor Naik", "Susun 1, 2, 3, 4."],
+        ["Bentuk Asas", "Kenal pasti bulatan & segi tiga."],
+        ["Besar & Kecil", "Pilih saiz terbesar."],
+        ["Tambah Mudah", "Bilang jumlah kesemuanya."]
       ],
       "questions": [
-        ["Pilih nombor 1:", ["1", "2", "3"], 0],
-        ["Berapakah jumlah 🍎 🍎 ?", ["2", "1", "3"], 0],
-        ["Bentuk apakah ini: ⭕", ["bulatan", "segi tiga", "segi empat"], 0],
-        ["Antara gajah dan semut, mana lebih besar?", ["gajah", "semut", "sama"], 0],
-        ["Berapakah jari pada satu tangan?", ["5", "3", "2"], 0],
-        ["Pilih nombor selepas 2:", ["3", "1", "4"], 0],
-        ["Bentuk pizza selalunya berbentuk...", ["bulatan", "segi tiga", "garis"], 0],
-        ["Mana satu lebih panjang?", ["pensel baru", "pensel pendek", "pemadam"], 0],
-        ["Kira belon: 🎈 🎈 🎈", ["3", "2", "4"], 0],
-        ["Pilih nombor 5:", ["5", "2", "4"], 0]
+        { type: "choice", title: "Berapakah belon ini: 🎈 🎈 🎈?", opts: ["3", "2", "4"], correct: 0 },
+        { type: "build", title: "Susun nombor naik:", pool: ["3", "1", "2"], target: ["1", "2", "3"] },
+        { type: "choice", title: "Bentuk apakah ini: ⭕?", opts: ["Bulatan", "Segi Tiga", "Segi Empat"], correct: 0 },
+        { type: "choice", title: "Mana satu lebih besar 🐘 vs 🐭?", opts: ["Gajah", "Semut", "Sama"], correct: 0 },
+        { type: "choice", title: "Berapakah jumlah 🍎 + 🍎?", opts: ["2", "1", "3"], correct: 0 }
       ]
     },
     "Jawi": {
       "name": "Jawi (4T)", "emoji": "🕌",
       "activities": [
-        ["Huruf Alif", "Kenal huruf ا."],["Huruf Ba", "Kenal huruf ب."],
-        ["Huruf Ta", "Kenal huruf ت."],["Huruf Tha", "Kenal huruf ث."],
-        ["Huruf Jim", "Kenal huruf ج."],["Bunyi Alif", "Sebut bunyi ا."],
-        ["Bunyi Ba", "Sebut bunyi ب."],["Cari Alif", "Kenal pasti ا."],
-        ["Cari Ba", "Kenal pasti ب."],["Titik Huruf Ba", "Kenal 1 titik bawah."],
-        ["Titik Huruf Ta", "Kenal 2 titik atas."],["Titik Huruf Tha", "Kenal 3 titik atas."],
-        ["Padan Alif", "Padankan ا dengan ا."],["Padan Ba", "Padankan ب dengan ب."],
-        ["Warna Huruf", "Kenal huruf ikut warna."],["Huruf Tunggal 1", "Mengecam ا , ب , ت."],
-        ["Huruf Tunggal 2", "Mengecam ث , ج , ح."],["Dengar & Pilih", "Pilih huruf disebut."],
-        ["Memori Jawi 4T", "Ingat pasangan huruf."],["Jawi Asas 4T", "Ujian asas Jawi."]
+        ["Kenal Huruf Alif, Ba, Ta", "Pilih bentuk huruf."],
+        ["Cantum Huruf Jawi", "Cantumkan huruf awal."],
+        ["Bilang Titik Huruf", "Kenal pasti bilangan titik."],
+        ["Susun Alif, Ba, Ta", "Susun huruf mengikut turutan."],
+        ["Suku Kata Jawi", "Kenal bunyi asas."]
       ],
       "questions": [
-        ["Manakah huruf Alif?", ["ا", "ب", "ت"], 0],
-        ["Manakah huruf Ba?", ["ب", "ا", "ت"], 0],
-        ["Huruf Ba (ب) mempunyai berapa titik di bawah?", ["1", "2", "3"], 0],
-        ["Manakah huruf Ta?", ["ت", "ب", "ا"], 0],
-        ["Huruf Ta (ت) mempunyai berapa titik di atas?", ["2", "1", "3"], 0],
-        ["Pilih huruf Jim:", ["ج", "ح", "خ"], 0],
-        ["Huruf Alif (ا) berbentuk seperti...", ["garis lurus", "bulatan", "mangkuk"], 0],
-        ["Pilih huruf yang sama dengan 'ا':", ["ا", "ب", "ت"], 0],
-        ["Huruf Tha (ث) mempunyai berapa titik?", ["3", "2", "1"], 0],
-        ["Pilih huruf berawalan bagi 'Ayam' (ايم):", ["ا", "ب", "ت"], 0]
+        { type: "choice", title: "Pilih huruf Alif:", opts: ["ا", "ب", "ت"], correct: 0 },
+        { type: "choice", title: "Berapa titik pada huruf Ba (ب)?", opts: ["1 di bawah", "2 di atas", "Tiada"], correct: 0 },
+        { type: "build", title: "Susun huruf Jawi asas:", pool: ["ت", "ا", "ب"], target: ["ا", "ب", "ت"] },
+        { type: "choice", title: "Pilih huruf Ta:", opts: ["ت", "ث", "ج"], correct: 0 },
+        { type: "choice", title: "Huruf Jim (ج) ada titik di...", opts: ["Dalam/Bawah", "Atas", "Belakang"], correct: 0 }
       ]
     }
   },
@@ -493,145 +355,86 @@ const DATA = {
     "BM": {
       "name": "BM (5T)", "emoji": "📚",
       "activities": [
-        ["Suku Kata Terbuka 'KVKV'", "Baca perkataan 'buku', 'kuda'."],
-        ["Suku Kata Terbuka 'KVKVKV'", "Baca perkataan 'kereta'."],
-        ["Gabung Suku Kata Terbuka 1", "Gabung ka + yu = kayu."],
-        ["Gabung Suku Kata Terbuka 2", "Gabung bu + mi = bumi."],
-        ["Gabung Suku Kata Terbuka 3", "Gabung ba + ca = baca."],
-        ["Gabung Suku Kata Terbuka 4", "Gabung pa + su = pasu."],
-        ["Lengkapkan Suku Kata 'ro__'", "Lengkapkan 'roti'."],
-        ["Lengkapkan Suku Kata 'ja__'", "Lengkapkan 'jari'."],
-        ["Lengkapkan Suku Kata 'su__'", "Lengkapkan 'susu'."],
-        ["Perkataan 'saya'", "Membaca suku kata terbuka."],
-        ["Perkataan 'dahi'", "Membaca suku kata terbuka."],
-        ["Perkataan 'gigi'", "Membaca suku kata terbuka."],
-        ["Perkataan 'cawan'", "Suku kata terbuka awal 'ca'."],
-        ["Cari Suku Kata Terbuka 'la'", "Pilih perkataan berakhiran 'la'."],
-        ["Cari Suku Kata Terbuka 'ri'", "Pilih perkataan berakhiran 'ri'."],
-        ["Ayat Mudah Terbuka 1", "Baca: 'Ini buku'."],
-        ["Ayat Mudah Terbuka 2", "Baca: 'Baju biru'."],
-        ["Ayat Mudah Terbuka 3", "Baca: 'Kuda padi'."],
-        ["Susun Perkataan Terbuka", "Susun suku kata jadi perkataan."],
-        ["Juara Suku Kata Terbuka 5T", "Cabaran mantap suku kata."]
+        ["Bina Perkataan 'kereta'", "Cantum ke + re + ta."],
+        ["Bina Perkataan 'kelapa'", "Cantum ke + la + pa."],
+        ["Membaca Suku Kata", "Pilih perkataan bergambar."],
+        ["Lengkapkan Ayat Mudah", "Susun ayat pendek."],
+        ["Bina Perkataan 'pasu'", "Cantum pa + su."]
       ],
       "questions": [
-        ["Cantumkan: ke + re + ta =", ["kereta", "kereti", "kerata"], 0],
-        ["Lengkapkan perkataan 'su + __' (Susu):", ["su", "si", "sa"], 0],
-        ["Manakah perkataan suku kata terbuka?", ["buku", "kasut", "pensel"], 0],
-        ["Pilih suku kata akhir bagi 'roti':", ["ti", "ta", "tu"], 0],
-        ["Cantumkan: ke + la + pa =", ["kelapa", "kelapu", "kelapi"], 0],
-        ["Manakah ejaan yang betul bagi 👟 (kasut)?", ["ka + su + t", "ka + su", "kas + ut"], 0],
-        ["Lengkapkan: gi + __ = gigi", ["gi", "gu", "ga"], 0],
-        ["Cantumkan: pa + su =", ["pasu", "pasi", "pasa"], 0],
-        ["Perkataan 'muda' terdiri daripada suku kata...", ["mu + da", "mud + a", "m + uda"], 0],
-        ["Pilih ayat yang mempunyai suku kata terbuka:", ["Ini baju baru", "Ini beg besar", "Ini pokok tinggi"], 0]
+        { type: "build", title: "Cantumkan ejaan 🚗 'kereta':", pool: ["ta", "ke", "re"], target: ["ke", "re", "ta"] },
+        { type: "build", title: "Cantumkan ejaan 🥥 'kelapa':", pool: ["pa", "la", "ke"], target: ["ke", "la", "pa"] },
+        { type: "choice", title: "Pilih perkataan bagi 📚:", opts: ["buku", "kasut", "pensel"], correct: 0 },
+        { type: "build", title: "Susun ayat: 'Ini buku'", pool: ["buku", "Ini"], target: ["Ini", "buku"] },
+        { type: "build", title: "Eja perkataan 🪴 'pasu':", pool: ["su", "pa"], target: ["pa", "su"] }
       ]
     },
     "BI": {
       "name": "English (5Y)", "emoji": "🔤",
       "activities": [
-        ["CVC Words - 'a'", "Read cat, bat, mat."], ["CVC Words - 'e'", "Read red, bed, pen."],
-        ["CVC Words - 'i'", "Read pin, fin, bin."], ["CVC Words - 'o'", "Read dog, log, pot."],
-        ["CVC Words - 'u'", "Read sun, bus, cup."], ["Colour Words", "Spelling red, blue."],
-        ["Numbers 1 to 10", "Counting number words."], ["Family Members", "Mother, father."],
-        ["Days of the Week", "Monday, Tuesday."], ["Shapes Hunt", "Circle, square."],
-        ["Action Verbs", "Run, jump, walk."], ["Animals & Sounds", "Dog barks, Cat meows."],
-        ["In the Classroom", "Pencil, book."], ["My Body", "Head, shoulders."],
-        ["Opposites 1", "Hot vs Cold."], ["Opposites 2", "Fast vs Slow."],
-        ["Simple Sentence 1", "It is a cat."], ["Simple Sentence 2", "I like apples."],
-        ["Missing Letter CVC", "Fill in vowel."], ["English Champ 5Y", "Fun interactive quiz."]
+        ["Build CVC 'MILK'", "Spell word MILK."],
+        ["Order Days of Week", "Order Mon, Tue, Wed."],
+        ["Colours & Shapes", "Group items."],
+        ["Build Sentence 'I LIKE APPLES'", "Arrange words."],
+        ["Missing Vowels", "Complete CVC words."]
       ],
       "questions": [
-        ["Complete the CVC word: c _ t", ["a", "o", "u"], 0],
-        ["Which word rhymes with 'hat'?", ["cat", "dog", "pen"], 0],
-        ["What is the color of a banana?", ["yellow", "red", "blue"], 0],
-        ["Choose the correct sentence:", ["It is a dog.", "It dog a is.", "Dog is it."], 0],
-        ["Complete: b _ s (🚌)", ["u", "a", "e"], 0],
-        ["What is the opposite of 'hot'?", ["cold", "big", "fast"], 0],
-        ["How do you spell the number 3?", ["three", "tree", "there"], 0],
-        ["Which one is a classroom object?", ["pencil", "lion", "sun"], 0],
-        ["Choose the verb: 'The boy can ___'", ["jump", "red", "happy"], 0],
-        ["Fill in missing letter: p _ n (🖊️)", ["e", "u", "a"], 0]
+        { type: "build", title: "Spell 🥛 'MILK':", pool: ["K", "M", "I", "L"], target: ["M", "I", "L", "K"] },
+        { type: "build", title: "Arrange days in order:", pool: ["Tue", "Mon", "Wed"], target: ["Mon", "Tue", "Wed"] },
+        { type: "choice", title: "Which word rhymes with 'HAT'?", opts: ["CAT", "DOG", "PEN"], correct: 0 },
+        { type: "build", title: "Build sentence:", pool: ["apples", "I", "like"], target: ["I", "like", "apples"] },
+        { type: "choice", title: "Fill in letter: B _ S 🚌", opts: ["U", "A", "O"], correct: 0 }
       ]
     },
     "Sains": {
       "name": "Sains (5T)", "emoji": "🔬",
       "activities": [
-        ["Benda Hidup", "Kenal pasti benda hidup."],["Benda Bukan Hidup", "Kenal pasti benda bukan hidup."],
-        ["Kitaran Hidup Katak", "Peringkat berudu ke katak."],["Kitaran Hidup Ayam", "Telur ke anak ayam."],
-        ["Terapung & Tenggelam", "Uji objek dalam air."],["Serap Air", "Bahan serap air."],
-        ["Magnet & Besi", "Objek ditarik magnet."],["Pancaindera 5", "Aplikasi 5 deria."],
-        ["Bahagian Tumbuhan", "Akar, batang, daun."],["Penyediaan Makanan Sihat", "Pilih buah dan sayur."],
-        ["Makanan Tak Sihat", "Hadkan makanan manis."],["Haiwan Herbivor", "Makan tumbuhan."],
-        ["Haiwan Karnivor", "Makan daging."],["Rasa Makanan", "Manis, masin, masam."],["Tekstur Objek", "Licin, kasar."],
-        ["Sumber Cahaya", "Matahari, lampu."],["Bayang-bayang", "Pembentukan bayang."],
-        ["Pencemaran Alam", "Kebersihan alam."],["Kitar Semula", "Asingkan sampah."],["Saintis Muda 5T", "Kuiz sains integrasi."]
+        ["Kitaran Katak", "Susun peringkat tumbesaran."],
+        ["Terapung vs Tenggelam", "Pilih objek dalam air."],
+        ["Makanan Sihat", "Pilih makanan berkhasiat."],
+        ["Bahagian Tumbuhan", "Akar, batang, daun."],
+        ["Sumber Cahaya", "Matahari & Lampu."]
       ],
       "questions": [
-        ["Yang manakah benda hidup?", ["pokok", "batu", "kereta"], 0],
-        ["Anak ayam menetas daripada...", ["telur", "biji", "daun"], 0],
-        ["Objek yang akan TERAPUNG di air ialah...", ["daun", "syiling", "batu"], 0],
-        ["Bahan yang Boleh menyerap air ialah...", ["tisu", "plastik", "kaca"], 0],
-        ["Bahagian tumbuhan yang berada dalam tanah ialah...", ["akar", "bunga", "daun"], 0],
-        ["Buah lemon mempunyai rasa...", ["masam", "manis", "pahit"], 0],
-        ["Magnet akan menarik objek daripada...", ["besi", "kayu", "kertas"], 0],
-        ["Yang manakah makanan sihat?", ["lobak merah", "gula-gula", "minuman bergas"], 0],
-        ["Ulat beluncas bertukar menjadi...", ["rama-rama", "katak", "burung"], 0],
-        ["Sumber cahaya utama pada waktu siang ialah...", ["matahari", "lampu suluh", "lilin"], 0]
+        { type: "build", title: "Susun kitaran katak 🐸:", pool: ["Katak", "Telur", "Berudu"], target: ["Telur", "Berudu", "Katak"] },
+        { type: "choice", title: "Objek mana yang TERAPUNG di air?", opts: ["Daun", "Batu", "Syiling"], correct: 0 },
+        { type: "choice", title: "Yang manakah makanan sihat 🥗?", opts: ["Lobak Merah", "Gula-gula", "Minuman Bergas"], correct: 0 },
+        { type: "choice", title: "Bahagian tumbuhan di dalam tanah ialah...", opts: ["Akar", "Bunga", "Daun"], correct: 0 },
+        { type: "choice", title: "Sumber cahaya waktu siang ialah...", opts: ["Matahari", "Lampu Suluh", "Lilin"], correct: 0 }
       ]
     },
     "Math": {
       "name": "Math (5Y)", "emoji": "🔢",
       "activities": [
-        ["Nombor 1 hingga 10", "Kenal 1-10."],["Nombor 11 hingga 20", "Kenal 11-20."],
-        ["Tambah Mudah (+1)", "Konsep tambah satu."],["Tambah hingga 10", "Operasi tambah."],
-        ["Tolak Mudah (-1)", "Konsep buang satu."],["Tolak hingga 10", "Operasi tolak."],
-        ["Susun Nombor Naik", "Susun 1 hingga 10."],["Susun Nombor Turun", "Susun 10 hingga 1."],
-        ["Banding Kuantiti", "Lebih banyak / sedikit."],["Bentuk 2D", "Segi empat, bujong."],
-        ["Bentuk 3D Asas", "Kubu, sfera."],["Ukuran Panjang", "Unit bukan piawai."],
-        ["Masa & Waktu", "Pagi, tengah hari."],["Mata Wang RM1 & RM5", "Kenal nilai wang."],
-        ["Pola Corak ABAB", "Lengkapkan urutan."],["Pola Corak AABB", "Lengkapkan urutan."],
-        ["Garis Nombor", "Lompat garis nombor."],["Kumpulan 10", "Membilang sepuluh."],
-        ["Masalah Bergambar", "Soalan cerita."],["Math Master 5Y", "Ujian math."]
+        ["Tambah Lingkungan 10", "Selesaikan operasi tambah."],
+        ["Susun Nombor 5-10", "Susun secara menaik."],
+        ["Tolak Lingkungan 10", "Cari baki objek."],
+        ["Bentuk 3D", "Sfera vs Kubus."],
+        ["Pola Corak", "Lengkapkan corak berulang."]
       ],
       "questions": [
-        ["Berapakah 3 + 2 ?", ["5", "4", "6"], 0],
-        ["Berapakah 5 - 2 ?", ["3", "2", "4"], 0],
-        ["Apakah nombor antara 6 dan 8?", ["7", "5", "9"], 0],
-        ["Bentuk ada 4 sisi sama panjang ialah...", ["segi empat sama", "segi tiga", "bulatan"], 0],
-        ["Susun ikut urutan naik: 2, 3, __, 5", ["4", "1", "6"], 0],
-        ["Berapakah 4 + 4 ?", ["8", "7", "9"], 0],
-        ["Nilai wang warna biru RM ialah...", ["RM1", "RM5", "RM10"], 0],
-        ["Berapakah 10 - 5 ?", ["5", "4", "6"], 0],
-        ["Apakah waktu kita bersarapan?", ["pagi", "malam", "tengah hari"], 0],
-        ["Pilih nombor terbesar:", ["9", "4", "7"], 0]
+        { type: "choice", title: "Berapakah 3 + 2 ?", opts: ["5", "4", "6"], correct: 0 },
+        { type: "build", title: "Susun nombor naik:", pool: ["7", "5", "6"], target: ["5", "6", "7"] },
+        { type: "choice", title: "Berapakah 5 - 2 ?", opts: ["3", "2", "4"], correct: 0 },
+        { type: "choice", title: "Bentuk bola ⚽ ialah...", opts: ["Sfera", "Kubus", "Segi Tiga"], correct: 0 },
+        { type: "choice", title: "Lengkapkan corak: 🔴 🔵 🔴 __", opts: ["🔵", "🔴", "🟡"], correct: 0 }
       ]
     },
     "Jawi": {
       "name": "Jawi (5T)", "emoji": "🕌",
       "activities": [
-        ["Huruf Ca", "Kenal چ."],["Huruf Dal, Dzal", "Kenal د, ذ."],
-        ["Huruf Ra, Zai", "Kenal ر, ز."],["Huruf Sin, Shin", "Kenal س, ش."],
-        ["Huruf Sad, Dad", "Kenal ص, ض."],["Sambung Huruf Asas", "Huruf boleh sambung."],
-        ["Suku Kata Jawi 'با'", "ب + ا = با."],["Suku Kata Jawi 'بو'", "ب + و = بو."],
-        ["Suku Kata Jawi 'بي'", "ب + ي = بي."],["Suku Kata 'تا', 'tu', 'ti'", "ت + ا / و / ي."],
-        ["Suku Kata 'كا', 'ku', 'ki'", "ك + ا / و / ي."],["Padankan Rumi-Jawi 1", "ba = با."],
-        ["Padankan Rumi-Jawi 2", "bu = بو."],["Padankan Rumi-Jawi 3", "bo = بو."],
-        ["Padankan Rumi-Jawi 4", "ca = چا."],["Ejaan 'Baju' (باجو)", "Mengecam ejaan."],
-        ["Ejaan 'Buku' (بوكو)", "Mengecam ejaan."],["Ejaan 'Kuda' (كودا)", "Mengecam ejaan."],
-        ["Huruf Vokal Jawi", "ا, و, ي."],["Jawi Bintang 5T", "Kuiz kemahiran Jawi."]
+        ["Bina Ejaan 'Baju'", "Cantum با + جو."],
+        ["Bina Ejaan 'Buku'", "Cantum بو + كو."],
+        ["Padan Rumi Ke Jawi", "Kenal ejaan."],
+        ["Huruf Vokal Jawi", "Alif, Wau, Ya."],
+        ["Susun Suku Kata Jawi", "Cantumkan perkataan."]
       ],
       "questions": [
-        ["Apakah huruf Jawi untuk vokal 'A'?", ["ا", "و", "ي"], 0],
-        ["Ejaan suku kata 'ba' dalam Jawi ialah...", ["با", "بو", "بي"], 0],
-        ["Cantumkan: ب + و =", ["بو", "با", "بي"], 0],
-        ["Manakah huruf 'Sin'?", ["س", "ش", "ص"], 0],
-        ["Huruf 'Cha' (چ) mempunyai berapa titik?", ["3", "1", "2"], 0],
-        ["Ejaan suku kata 'ku' dalam Jawi ialah...", ["كو", "كا", "كي"], 0],
-        ["Manakah ejaan Jawi bagi 'baju'?", ["باجو", "بوكو", "كودا"], 0],
-        ["Huruf Jawi 'و' mewakili bunyi vokal...", ["u / o", "a", "i"], 0],
-        ["Huruf Jawi 'ي' mewakili bunyi vokal...", ["i / e", "a", "u"], 0],
-        ["Pilih ejaan Jawi bagi 'buku':", ["بوكو", "باجو", "بوتي"], 0]
+        { type: "build", title: "Cantum ejaan Jawi 'Baju':", pool: ["جو", "با"], target: ["با", "جو"] },
+        { type: "build", title: "Cantum ejaan Jawi 'Buku':", pool: ["كو", "بو"], target: ["بو", "كو"] },
+        { type: "choice", title: "Huruf vokal Jawi untuk 'A' ialah...", opts: ["ا", "و", "ي"], correct: 0 },
+        { type: "choice", title: "Huruf 'Cha' (چ) ada berapa titik?", opts: ["3", "1", "2"], correct: 0 },
+        { type: "build", title: "Eja 'Kuda':", pool: ["دا", "كو"], target: ["كو", "دا"] }
       ]
     }
   },
@@ -639,155 +442,86 @@ const DATA = {
     "BM": {
       "name": "BM (6T)", "emoji": "📚",
       "activities": [
-        ["Pola KVKBK - 'pokok'", "Mengeja & membaca KVKBK."],
-        ["Pola KVKBK - 'katak'", "Mengeja & membaca KVKBK."],
-        ["Pola KVKBK - 'gajah'", "Mengeja & membaca KVKBK."],
-        ["Pola KVKBK - 'rumah'", "Mengeja & membaca KVKBK."],
-        ["Pola KVKBK - 'hujan'", "Mengeja & membaca KVKBK."],
-        ["Pola KVKBK - 'jarum'", "Mengeja & membaca KVKBK."],
-        ["Pola KVKKBK - 'sampah'", "Mengeja & membaca KVKKBK."],
-        ["Pola KVKKBK - 'bintang'", "Mengeja & membaca KVKKBK."],
-        ["Pola KVKKBK - 'mangkuk'", "Mengeja & membaca KVKKBK."],
-        ["Pola KVKKBK - 'cangkul'", "Mengeja & membaca KVKKBK."],
-        ["Konsonan Bergabung '-ng' 1", "Mengeja berakhiran -ng (pisang)."],
-        ["Konsonan Bergabung '-ng' 2", "Mengeja berakhiran -ng (burung)."],
-        ["Konsonan Bergabung '-ng' 3", "Mengeja berakhiran -ng (udang)."],
-        ["Konsonan Bergabung '-ng' 4", "Mengeja berakhiran -ng (musang)."],
-        ["Gabung KVK + KVKBK", "Membaca kata kompleks."],
-        ["Detektif KVKBK & KVKKBK", "Asingkan pola perkataan."],
-        ["Bina Ayat KVKBK", "Susun perkataan KVKBK."],
-        ["Bina Ayat KVKKBK", "Susun perkataan KVKKBK."],
-        ["Latihan Imbuhan Mudah", "Membaca kata berimbuhan."],
-        ["Juara BM 6 Tahun", "Cabaran membaca & mengeja."]
+        ["Eja Perkataan 'pokok'", "Cantumkan po + kok."],
+        ["Eja Perkataan 'katak'", "Cantumkan ka + tak."],
+        ["Eja Perkataan 'bintang'", "Cantumkan bin + tang."],
+        ["Eja Perkataan 'pisang'", "Cantumkan pi + sang."],
+        ["Bina Ayat Lengkap", "Susun perkataan membentuk ayat."]
       ],
       "questions": [
-        ["Pilih perkataan berpola KVKBK:", ["pokok", "bola", "bintang"], 0],
-        ["Ejaan yang betul bagi 🐸 ialah...", ["katak", "katakq", "kaktak"], 0],
-        ["Pilih perkataan berpola KVKKBK:", ["sampah", "gajah", "pisang"], 0],
-        ["Perkataan 'bintang' mempunyai pola struktur...", ["KVKKBK", "KVKBK", "KVKV"], 0],
-        ["Lengkapkan perkataan: pi + sa + __ = pisang", ["ng", "n", "m"], 0],
-        ["Manakah perkataan berakhiran bunyi '-ng'?", ["burung", "rumah", "katak"], 0],
-        ["Pilih perkataan KVKBK bagi tempat tinggal 🏠:", ["rumah", "ramah", "rumang"], 0],
-        ["Lengkapkan: mang + __ = mangkuk", ["kuk", "kak", "kok"], 0],
-        ["Pilih perkataan KVKKBK bagi alat berkebun ⛏️:", ["cangkul", "cawan", "pisau"], 0],
-        ["Manakah perkataan berakhiran bunyi '-ng'?", ["udang", "ulat", "ular"], 0]
+        { type: "build", title: "Cantumkan untuk eja 🌳 'pokok':", pool: ["kok", "po"], target: ["po", "kok"] },
+        { type: "build", title: "Cantumkan untuk eja 🐸 'katak':", pool: ["tak", "ka"], target: ["ka", "tak"] },
+        { type: "build", title: "Cantumkan untuk eja ⭐ 'bintang':", pool: ["tang", "bin"], target: ["bin", "tang"] },
+        { type: "build", title: "Cantumkan untuk eja 🍌 'pisang':", pool: ["sang", "pi"], target: ["pi", "sang"] },
+        { type: "build", title: "Susun perkataan jadi ayat lengkap:", pool: ["tinggi.", "Pokok", "itu"], target: ["Pokok", "itu", "tinggi."] }
       ]
     },
     "BI": {
       "name": "English (6Y)", "emoji": "🔤",
       "activities": [
-        ["Digraphs - 'sh'", "Ship, shoe, fish."], ["Digraphs - 'ch'", "Chip, chair, bench."],
-        ["Digraphs - 'th'", "Thumb, math, path."], ["Blends - 'st', 'sp'", "Star, spoon, spider."],
-        ["Blends - 'cl', 'fl'", "Clock, cloud, flag."], ["Long Vowels - Silent e", "Cake, kite, bone."],
-        ["Action Sentences", "The boy is running."], ["Prepositions - in/on/under", "Where is the cat?"],
-        ["Pronouns - He/She/They", "Choose correct pronoun."], ["Has vs Have", "He has / They have."],
-        ["Simple Comprehension", "Short story and answer."], ["Occupations", "Doctor, teacher."],
-        ["Places in Town", "School, hospital."], ["Transportation", "Airplane, train."],
-        ["Weather & Seasons", "Sunny, rainy."], ["Time - O'clock", "Read analog clock."],
-        ["Plural Words (-es)", "Boxes, buses."], ["Opposites Advanced", "Heavy vs Light."],
-        ["Sentence Building", "Arrange words."], ["English Expert 6Y", "Final English challenge."]
+        ["Spell Word 'SHIP'", "Spell S-H-I-P."],
+        ["Build Preposition Sentence", "The cat is under table."],
+        ["Pronouns Practice", "Choose He / She / They."],
+        ["Spell Word 'STAR'", "Spell S-T-A-R."],
+        ["Arrange Full Sentence", "Build proper sentence."]
       ],
       "questions": [
-        ["Choose the word with 'sh' sound:", ["ship", "chip", "tip"], 0],
-        ["Where is the cat? The cat is ___ the table. 🐈👇🪑", ["under", "on", "in"], 0],
-        ["Choose the correct pronoun for a girl:", ["She", "He", "It"], 0],
-        ["Complete: A doctor works in a ___", ["hospital", "school", "zoo"], 0],
-        ["Which word has a silent 'e'?", ["cake", "cat", "car"], 0],
-        ["Complete: He ___ a red car.", ["has", "have", "is"], 0],
-        ["Choose the correct blend for ⭐️:", ["star", "scar", "smar"], 0],
-        ["What is the plural of 'box'?", ["boxes", "boxs", "boxing"], 0],
-        ["Read and choose: 'The sun is shining. It is ___'", ["sunny", "rainy", "snowy"], 0],
-        ["Arrange: [is] [This] [my] [book]", ["This is my book", "My book is this", "Book my is this"], 0]
+        { type: "build", title: "Spell 🚢 'SHIP':", pool: ["P", "S", "H", "I"], target: ["S", "H", "I", "P"] },
+        { type: "build", title: "Build sentence 🐈👇🪑:", pool: ["under", "cat", "The", "is", "table"], target: ["The", "cat", "is", "under", "table"] },
+        { type: "choice", title: "Choose pronoun for a girl 👧:", opts: ["She", "He", "They"], correct: 0 },
+        { type: "build", title: "Spell ⭐️ 'STAR':", pool: ["R", "S", "T", "A"], target: ["S", "T", "A", "R"] },
+        { type: "build", title: "Arrange in correct order:", pool: ["book", "is", "This", "my"], target: ["This", "is", "my", "book"] }
       ]
     },
     "Sains": {
       "name": "Sains (6T)", "emoji": "🔬",
       "activities": [
-        ["Sistem Suria Asas", "Planet dan matahari."],["Fasa Bulan", "Bulan sabit, bulan penuh."],
-        ["Eksperimen Ketumpatan", "Tenggelam dan terapung."],["Pengaliran Elektrik", "Litar elektrik mudah."],
-        ["Pantulan Cahaya", "Cermin dan pemantulan."],["Resapan Air", "Bahan serap vs kalis."],
-        ["Pertumbuhan Tumbuhan", "Biji benih ke pokok."],["Organ Dalaman Asas", "Jantung, paru-paru."],
-        ["Rantai Makanan Mudah", "Rumput -> Rusa -> Singa."],["Pemeliharaan Alam", "Kebersihan alam."],
-        ["Perubahan Bahan", "Ais mencair, air mengewap."],["Tenaga Boleh Baharu", "Angin, matahari."],
-        ["Sifat Udara", "Udara memenuhi ruang."],["Daya Tolakan & Tarikan", "Menolak dan menarik."],
-        ["Kuning & Putih Telur", "Pemerhatian struktur."],["Mikroorganisma Mudah", "Kuman dan kebersihan."],
-        ["Bentuk Muka Bumi", "Gunung, sungai, laut."],["Suhu & Termometer", "Panas, suam, sejuk."],
-        ["Sains Sekeliling Kita", "Aplikasi sains harian."],["Pakar Sains Cilik 6T", "Ujian kepandaian sains."]
+        ["Sistem Suria", "Pilih planet tempat kita tinggal."],
+        ["Fasa Bahan", "Pilih perubahan cecair."],
+        ["Organ Dalaman", "Jantung & Paru-paru."],
+        ["Rantai Makanan", "Rumput -> Rusa -> Singa."],
+        ["Daya Tolak & Tarik", "Kelaskan tindakan."]
       ],
       "questions": [
-        ["Planet tempat kita tinggal ialah...", ["Bumi", "Marikh", "Utarid"], 0],
-        ["Ais yang dipanaskan akan bertukar menjadi...", ["cecair / air", "batu", "asap keras"], 0],
-        ["Organ memompa darah dalam badan kita ialah...", ["jantung", "paru-paru", "perut"], 0],
-        ["Apabila kita menutup pintu, kita guna daya...", ["tolakan", "tarikan", "geseran"], 0],
-        ["Tumbuhan memerlukan matahari, air dan ___", ["udara", "susu", "gula"], 0],
-        ["Apakah berlaku jika kuman masuk ke badan?", ["boleh sakit", "menjadi kuat", "tiada apa"], 0],
-        ["Bentuk muka bumi yang tinggi dan berbatu ialah...", ["gunung", "sungai", "tasik"], 0],
-        ["Alat menyukat suhu ialah...", ["termometer", "pembaris", "penimbang"], 0],
-        ["Objek manakah boleh mengalirkan elektrik?", ["paku besi", "pemadam plastik", "pensel kayu"], 0],
-        ["Bulan mendapat cahaya daripada...", ["pantulan matahari", "lampu", "api bumi"], 0]
+        { type: "choice", title: "Planet tempat kita tinggal 🌍 ialah...", opts: ["Bumi", "Marikh", "Utarid"], correct: 0 },
+        { type: "choice", title: "Ais dipanaskan bertukar menjadi...", opts: ["Air", "Batu", "Asap Keras"], correct: 0 },
+        { type: "choice", title: "Organ mengepam darah ❤️ ialah...", opts: ["Jantung", "Paru-paru", "Perut"], correct: 0 },
+        { type: "build", title: "Susun rantai makanan:", pool: ["Singa", "Rumput", "Rusa"], target: ["Rumput", "Rusa", "Singa"] },
+        { type: "choice", title: "Menutup pintu 🚪 menggunakan daya...", opts: ["Tolakan", "Tarikan", "Geseran"], correct: 0 }
       ]
     },
     "Math": {
       "name": "Math (6Y)", "emoji": "🔢",
       "activities": [
-        ["Nombor 1 hingga 50", "Membilang 1-50."],["Tambah Lingkungan 20", "Penambahan tanpa mengumpul."],
-        ["Tolak Lingkungan 20", "Penolakan tanpa mengumpul."],["Tambah Mengumpul Satu", "Latihan tambah mudah."],
-        ["Penyelesaian Masalah", "Soalan cerita."],["Waktu pada Muka Jam", "Membaca jam tepat."],
-        ["Setengah Jam (30 Minit)", "Membaca jam setengah."],["Mata Wang Malaysia", "Tambah nilai wang."],["Urusan Jual Beli", "Kira baki duit."],
-        ["Bentuk 3D & Sifatnya", "Sisi, bucu, permukaan."],["Carta Bar Mudah", "Membaca graf bergambar."],
-        ["Pola Nombor 2-2", "Membilang dua-dua."],["Pola Nombor 5-5", "Membilang lima-lima."],
-        ["Pola Nombor 10-10", "Membilang sepuluh."],["Pecahan 1/2 (Separuh)", "Konsep separuh."],
-        ["Pecahan 1/4 (Suku)", "Konsep suku."],["Ukuran Timbangan (kg/g)", "Berat dan ringan."],
-        ["Ukuran Isipadu (L/mL)", "Banyak dan sedikit."],["Kedudukan & Arah", "Kiri, kanan, atas, bawah."],["Math Genius 6Y", "Cabaran akhir matematik."]
+        ["Tambah Lingkungan 20", "Operasi penambahan."],
+        ["Tolak Lingkungan 20", "Operasi penolakan."],
+        ["Waktu Jam", "Baca jam analog."],
+        ["Kira Wang RM", "Kira jumlah duit."],
+        ["Pola Nombor 5-5", "Membilang lima-lima."]
       ],
       "questions": [
-        ["Berapakah 12 + 5 ?", ["17", "15", "18"], 0],
-        ["Berapakah 18 - 6 ?", ["12", "11", "13"], 0],
-        ["Jarum pendek di 3, jarum panjang di 12. Pukul berapa?", ["Pukul 3", "Pukul 12", "Pukul 6"], 0],
-        ["Ali ada RM5. Beli roti RM2. Berapa baki?", ["RM3", "RM2", "RM1"], 0],
-        ["Pilih pecahan yang mewakili 'separuh':", ["1/2", "1/4", "1/3"], 0],
-        ["Membilang 5-5: 5, 10, 15, __ ?", ["20", "25", "16"], 0],
-        ["Berapakah jumlah bucu bagi sebuah kubus?", ["8", "6", "4"], 0],
-        ["Berapakah 15 + 4 ?", ["19", "18", "20"], 0],
-        ["Antara 1/2 dan 1/4, mana potongan kek lebih besar?", ["1/2", "1/4", "Sama besar"], 0],
-        ["Berapakah 20 - 10 ?", ["10", "5", "15"], 0]
+        { type: "choice", title: "Berapakah 12 + 5 ?", opts: ["17", "15", "18"], correct: 0 },
+        { type: "choice", title: "Berapakah 18 - 6 ?", opts: ["12", "11", "13"], correct: 0 },
+        { type: "choice", title: "Jarum pendek di 3, jarum panjang di 12 🕒:", opts: ["Pukul 3", "Pukul 12", "Pukul 6"], correct: 0 },
+        { type: "choice", title: "Ali ada RM5, beli roti RM2. Baki duit Ali?", opts: ["RM3", "RM2", "RM1"], correct: 0 },
+        { type: "build", title: "Lengkapkan membilang 5-5:", pool: ["20", "10", "15"], target: ["10", "15", "20"] }
       ]
     },
     "Jawi": {
       "name": "Jawi (6T)", "emoji": "🕌",
       "activities": [
-        ["Suku Kata Tertutup 'KVK'", "Baca suku kata tertutup."],
-        ["Suku Kata Tertutup 'ك' & 'ق'", "Perbezaan kaf dan qaf."],
-        ["Mengeja Perkataan 'جم'", "Jam (ج-م)."],
-        ["Mengeja Perkataan 'ينݢ'", "Singa (س-ي-ڠ-ا)."],
-        ["Suku Kata 'ڠ' (Nga)", "Eja perkataan ada ڠ."],
-        ["Suku Kata 'ڽ' (Nya)", "Eja perkataan ada ڽ."],
-        ["Perkataan KVK+KVK", "2 suku kata tertutup."],
-        ["Bina Perkataan 'ميس'", "Meja (م-ي-ج-ا)."],
-        ["Bina Perkataan 'كڤالا'", "Kepala (ك-ڤ-ا-ل-ا)."],
-        ["Bina Perkataan 'سكوَله'", "Sekolah (س-ك-و-ل-هـ)."],
-        ["Padanan Ayat Rumi-Jawi", "Padan ayat pendek."],
-        ["Membaca Ayat Jawi 1", "Ini rumah saya."],
-        ["Membaca Ayat Jawi 2", "Saya suka belajar."],
-        ["Huruf Sambung Jawi", "Kaidah penulisan."],
-        ["Angka Jawi 1-10", "١ , ٢ , ٣ , ٤ , ٥ ..."],
-        ["Ejaan Imbuhan Jawi", "Awalan ber-, me-."],
-        ["Tanda Baca Jawi", "Titik & koma Jawi."],
-        ["Tulis Nama Dalam Jawi", "Asas ejaan nama."],
-        ["Jawi & Al-Quran Asas", "Tajwid ringkas."],
-        ["Pakar Jawi Cilik 6T", "Ujian pencapaian Jawi."]
+        ["Eja Perkataan 'Jam'", "Cantum ج + م."],
+        ["Eja Perkataan 'Singa'", "Cantum suku kata Jawi."],
+        ["Angka Jawi 1-3", "Susun ١ , ٢ , ٣."],
+        ["Bina Ayat Jawi", "Susun perkataan Jawi."],
+        ["Ejaan Perkataan Mudah", "Kenal pasti ejaan."]
       ],
       "questions": [
-        ["Ejaan Jawi bagi perkataan 'Jam' ialah...", ["جم", "جام", "جوم"], 0],
-        ["Huruf Jawi bagi bunyi 'Nga' ialah...", ["ڠ", "ڽ", "ݢ"], 0],
-        ["Huruf Jawi bagi bunyi 'Nya' ialah...", ["ڽ", "ڠ", "ڤ"], 0],
-        ["Ejaan Jawi bagi 'rumah' ialah...", ["رومه", "روماہ", "رومح"], 0],
-        ["Angka Jawi '٣' mewakili nombor...", ["3", "2", "5"], 0],
-        ["Manakah ejaan Jawi bagi 'sekolah'?", ["سكوله", "سكولا", "سيكوله"], 0],
-        ["Cantumkan: س + ى + ڠ + ا =", ["سيڠا", "سيڠ", "ساڠا"], 0],
-        ["Angka Jawi '٥' mewakili nombor...", ["5", "0", "2"], 0],
-        ["Pilih ejaan Jawi bagi 'bintang':", ["بينتڠ", "بينتنگ", "بينتاڠ"], 0],
-        ["Ayat Jawi bermaksud 'Ini buku'?", ["اين بوكو", "ايم باجو", "ايت كودا"], 0]
+        { type: "build", title: "Eja 'Jam' ⏰ dalam Jawi:", pool: ["م", "ج"], target: ["ج", "م"] },
+        { type: "choice", title: "Huruf Jawi bagi bunyi 'Nga' ialah...", opts: ["ڠ", "ڽ", "ݢ"], correct: 0 },
+        { type: "build", title: "Susun angka Jawi 1 hingga 3:", pool: ["٣", "١", "٢"], target: ["١", "٢", "٣"] },
+        { type: "build", title: "Bina ayat Jawi 'Ini buku':", pool: ["بوكو", "اين"], target: ["اين", "بوكو"] },
+        { type: "choice", title: "Ejaan Jawi bagi 'rumah' ialah...", opts: ["رومه", "روماہ", "رومح"], correct: 0 }
       ]
     }
   }
@@ -799,9 +533,7 @@ window.onload = function() {
 
 function loadAllProfilesData() {
   const stored = localStorage.getItem("app_multi_profiles");
-  if (stored) {
-    profilesList = JSON.parse(stored);
-  }
+  if (stored) profilesList = JSON.parse(stored);
   showNetflixScreen();
 }
 
@@ -822,7 +554,6 @@ function showNetflixScreen() {
     grid.appendChild(btn);
   });
 
-  // Butang Tambah Profil
   const addBtn = document.createElement("button");
   addBtn.className = "profile-avatar-btn";
   addBtn.onclick = openAddModal;
@@ -862,10 +593,7 @@ function selectModalAge(age, btn) {
 
 function createNewProfile() {
   const name = document.getElementById("studentNameInput").value.trim();
-  if (!name) {
-    alert("Sila masukkan nama pelajar!");
-    return;
-  }
+  if (!name) { alert("Sila masukkan nama!"); return; }
 
   const randomAvatar = AVATARS[Math.floor(Math.random() * AVATARS.length)];
   const newProf = {
@@ -962,7 +690,7 @@ function startActivity(key, i) {
   activityIndex = i;
   qIndex = 0; score = 0; answered = false;
 
-  qs = shuffle(DATA[activeProfile.age][key].questions).slice(0, 10);
+  qs = shuffle(DATA[activeProfile.age][key].questions).slice(0, 5);
   document.getElementById("cardsGrid").style.display = "none";
   const game = document.getElementById("gameScreen");
   game.classList.add("show");
@@ -972,58 +700,111 @@ function startActivity(key, i) {
 
 function renderQuestion() {
   answered = false;
+  userBuiltSequence = [];
   const s = DATA[activeProfile.age][currentSubject];
   const a = s.activities[activityIndex];
   const q = qs[qIndex];
   const game = document.getElementById("gameScreen");
 
+  let contentHTML = "";
+
+  if (q.type === "choice") {
+    let opts = shuffle(q.opts.map((v, idx) => ({v, correct: idx === q.correct})));
+    let optsHTML = opts.map(o => `<button class="answer-btn" onclick="chooseChoice(this, ${o.correct}, '${q.opts[q.correct]}')">${o.v}</button>`).join("");
+    contentHTML = `<div class="answers-grid">${optsHTML}</div>`;
+  } else if (q.type === "build") {
+    let poolShuffled = shuffle(q.pool);
+    let poolHTML = poolShuffled.map((item) => `<button class="tile" onclick="pickTile(this, '${item}')">${item}</button>`).join("");
+    contentHTML = `
+      <div class="builder-box" id="builderBox"><span style="color:#aaa; font-size:0.85rem;">Tekan kad di bawah...</span></div>
+      <div class="tiles-pool" id="tilesPool">${poolHTML}</div>
+      <button class="primary-btn" style="margin-bottom:12px;" onclick="checkBuildAnswer()">Semak Ejaan / Urutan 🔍</button>
+    `;
+  }
+
   game.innerHTML = `
     <div class="game-top">
       <button class="back-btn" onclick="cancelGame()">← Tutup</button>
       <span class="pill">⭐ ${score}</span>
-      <span class="pill">Soalan ${qIndex+1}/10</span>
+      <span class="pill">Soalan ${qIndex+1}/${qs.length}</span>
     </div>
-    <div class="progress"><div class="bar" style="width:${(qIndex/10)*100}%"></div></div>
+    <div class="progress"><div class="bar" style="width:${(qIndex/qs.length)*100}%"></div></div>
     <div class="question-title">${a[0]}</div>
-    <div class="question-text">${q[0]}</div>
-    <div class="answers" id="answersBox"></div>
+    <div class="question-text">${q.title}</div>
+    ${contentHTML}
     <div class="feedback" id="feedbackText"></div>
     <button class="primary-btn hidden" id="nextBtn" onclick="nextQuestion()">Seterusnya ➜</button>
   `;
-
-  let opts = shuffle(q[1].map((v, idx) => ({v, correct: idx === q[2]})));
-  opts.forEach(o => {
-    let b = document.createElement("button");
-    b.className = "answer-btn";
-    b.textContent = o.v;
-    b.onclick = () => choose(b, o.correct, q);
-    document.getElementById("answersBox").appendChild(b);
-  });
 }
 
-function choose(btn, correct, q) {
+function chooseChoice(btn, correct, correctVal) {
   if(answered) return;
   answered = true;
   document.querySelectorAll(".answer-btn").forEach(b => b.disabled = true);
 
   if(correct) {
-    score += 10;
+    score += 20;
     btn.classList.add("correct");
-    document.getElementById("feedbackText").innerText = `Hebat ${activeProfile.name}! Jawapan betul! 🎉⭐`;
+    document.getElementById("feedbackText").innerText = `Pandai ${activeProfile.name}! Jawapan betul! 🎉⭐`;
   } else {
     btn.classList.add("wrong");
-    document.getElementById("feedbackText").innerText = `Salah! Jawapan: ` + q[1][q[2]];
-    document.querySelectorAll(".answer-btn").forEach(b => {
-      if(b.textContent === q[1][q[2]]) b.classList.add("correct");
-    });
+    document.getElementById("feedbackText").innerText = `Salah! Jawapan betul ialah: ` + correctVal;
   }
 
   document.getElementById("nextBtn").classList.remove("hidden");
-  document.getElementById("nextBtn").innerText = qIndex === 9 ? "Lihat Keputusan 🏆" : "Seterusnya ➜";
+  document.getElementById("nextBtn").innerText = qIndex === (qs.length - 1) ? "Lihat Keputusan 🏆" : "Seterusnya ➜";
+}
+
+function pickTile(btn, item) {
+  if (answered) return;
+  const box = document.getElementById("builderBox");
+  if (box.querySelector("span")) box.innerHTML = "";
+
+  userBuiltSequence.push(item);
+  btn.style.visibility = "hidden";
+
+  const newTile = document.createElement("button");
+  newTile.className = "tile";
+  newTile.innerText = item;
+  newTile.onclick = function() {
+    if (answered) return;
+    userBuiltSequence = userBuiltSequence.filter(i => i !== item);
+    btn.style.visibility = "visible";
+    newTile.remove();
+    if (userBuiltSequence.length === 0) box.innerHTML = `<span style="color:#aaa; font-size:0.85rem;">Tekan kad di bawah...</span>`;
+  };
+  box.appendChild(newTile);
+}
+
+function checkBuildAnswer() {
+  if (answered) return;
+  const q = qs[qIndex];
+  
+  if (userBuiltSequence.length === 0) {
+    alert("Sila pilih kepingan kad terlebih dahulu!");
+    return;
+  }
+
+  answered = true;
+  const isCorrect = JSON.stringify(userBuiltSequence) === JSON.stringify(q.target);
+
+  if (isCorrect) {
+    score += 20;
+    document.getElementById("builderBox").style.borderColor = "#4c9659";
+    document.getElementById("builderBox").style.background = "#ccebd0";
+    document.getElementById("feedbackText").innerText = `Tahniah ${activeProfile.name}! Susunan betul! 🎉⭐`;
+  } else {
+    document.getElementById("builderBox").style.borderColor = "#d66c68";
+    document.getElementById("builderBox").style.background = "#ffe0df";
+    document.getElementById("feedbackText").innerText = `Salah! Jawapan betul: ` + q.target.join(" ");
+  }
+
+  document.getElementById("nextBtn").classList.remove("hidden");
+  document.getElementById("nextBtn").innerText = qIndex === (qs.length - 1) ? "Lihat Keputusan 🏆" : "Seterusnya ➜";
 }
 
 function nextQuestion() {
-  if(qIndex < 9) {
+  if(qIndex < (qs.length - 1)) {
     qIndex++;
     renderQuestion();
     return;
@@ -1032,7 +813,6 @@ function nextQuestion() {
   let starsEarned = Math.floor(score / 20);
   if (starsEarned === 0 && score > 0) starsEarned = 1;
 
-  // Kemaskini Profil Aktif
   activeProfile.stars += starsEarned;
 
   const aName = DATA[activeProfile.age][currentSubject].activities[activityIndex][0];
