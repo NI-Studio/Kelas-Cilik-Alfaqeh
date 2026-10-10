@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Akademi Cilik Ceria | App Mobile</title>
+<title>Akademi Cilik Ceria | Multi-Profil Mobile</title>
 <style>
 :root {
   --brown: #6f4e37;
@@ -29,21 +29,59 @@ body {
   min-height: 100vh;
 }
 
-/* Modal Nama & Umur Pelajar */
+/* SKRIN SELEKSI PROFIL NETFLIX STYLE */
+.netflix-screen {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #2b1f1d;
+  color: white;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  z-index: 1000; padding: 24px; text-align: center;
+  overflow-y: auto;
+}
+.netflix-screen h2 { font-size: 1.6rem; color: #f7dce4; margin-bottom: 24px; }
+
+.profiles-grid {
+  display: flex; flex-wrap: wrap; gap: 18px; justify-content: center;
+  max-width: 360px; width: 100%; margin-bottom: 24px;
+}
+.profile-avatar-btn {
+  background: none; border: none; color: white; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 8px; width: 90px;
+}
+.avatar-box {
+  width: 80px; height: 80px; border-radius: 20px;
+  background: linear-gradient(135deg, #f7dce4, #f8e4d2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.2rem; border: 3px solid transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s;
+}
+.profile-avatar-btn:active .avatar-box { transform: scale(0.95); border-color: #6f4e37; }
+.profile-avatar-btn span { font-size: 0.9rem; font-weight: bold; }
+.profile-avatar-btn .age-tag { font-size: 0.7rem; opacity: 0.8; font-weight: normal; }
+
+.add-profile-btn {
+  background: rgba(255,255,255,0.1); border: 2px dashed rgba(255,255,255,0.3);
+  border-radius: 20px; width: 80px; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: white; cursor: pointer;
+}
+
+/* Modal Tambah Profil Baharu */
 .name-modal {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(68, 53, 43, 0.85);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   display: flex; align-items: center; justify-content: center;
-  z-index: 999; padding: 20px;
+  z-index: 1001; padding: 20px;
 }
 .name-box {
   background: white; padding: 24px; border-radius: 28px;
   width: 100%; max-width: 340px; text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  color: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-.name-box h2 { color: var(--brown); margin: 0 0 8px 0; font-size: 1.4rem; }
+.name-box h3 { color: var(--brown); margin: 0 0 8px 0; font-size: 1.3rem; }
 .name-box p { font-size: 0.85rem; color: #796b60; margin-bottom: 12px; }
 .name-box input {
   width: 100%; padding: 12px; border: 2px solid var(--pink);
@@ -52,17 +90,13 @@ body {
 }
 .name-box input:focus { border-color: var(--brown); }
 
-.age-options {
-  display: flex; gap: 8px; margin-bottom: 18px; justify-content: center;
-}
+.age-options { display: flex; gap: 8px; margin-bottom: 18px; justify-content: center; }
 .age-option-btn {
   flex: 1; padding: 10px 4px; border: 2px solid var(--pink);
   background: white; border-radius: 12px; color: var(--brown);
   font-weight: bold; font-size: 0.85rem; cursor: pointer;
 }
-.age-option-btn.selected {
-  background: var(--brown); color: white; border-color: var(--brown);
-}
+.age-option-btn.selected { background: var(--brown); color: white; border-color: var(--brown); }
 
 /* Header Mobile */
 header {
@@ -76,7 +110,7 @@ header {
 header h1 { margin: 0; color: var(--brown); font-size: 1.25rem; font-weight: 800; }
 header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 
-/* Wrapper Halaman Tab */
+/* Wrapper Tab */
 .tab-content { display: none; padding: 16px; max-width: 500px; margin: 0 auto; }
 .tab-content.active { display: block; }
 
@@ -91,7 +125,6 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 .hero p { margin: 0; font-size: 0.8rem; color: #665244; line-height: 1.3; }
 .hero .mascot { font-size: 2.8rem; }
 
-/* Tag Umur Terkunci */
 .locked-age-tag {
   text-align: center; margin-bottom: 12px; font-weight: bold;
   color: var(--brown); background: white; padding: 6px 12px;
@@ -112,7 +145,7 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 }
 .subject-btn.active { background: var(--brown); color: white; }
 
-/* Kad Aktiviti Grid */
+/* Kad Grid */
 .grid { display: flex; flex-direction: column; gap: 10px; }
 .card {
   background: white; border-radius: 16px; padding: 14px 16px;
@@ -120,7 +153,7 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 .card-info { flex: 1; }
-.num { font-size: 0.7rem; color: #927d6d; font-weight: bold; letter-spacing: 0.5px; }
+.num { font-size: 0.7rem; color: #927d6d; font-weight: bold; }
 .card h3 { font-size: 0.95rem; margin: 2px 0 4px; color: var(--brown); }
 .card p { margin: 0; font-size: 0.78rem; color: #796b60; line-height: 1.2; }
 .start-btn {
@@ -128,16 +161,10 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
   padding: 8px 14px; font-weight: bold; font-size: 0.8rem; flex-shrink: 0; cursor: pointer;
 }
 
-/* Modul Soalan Game */
-.game {
-  display: none; background: white; border-radius: 22px;
-  padding: 16px; box-shadow: var(--shadow); text-align: center;
-}
+/* Modul Game */
+.game { display: none; background: white; border-radius: 22px; padding: 16px; box-shadow: var(--shadow); text-align: center; }
 .game.show { display: block; }
-.game-top {
-  display: flex; justify-content: space-between; align-items: center;
-  font-size: 0.8rem; margin-bottom: 12px;
-}
+.game-top { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; margin-bottom: 12px; }
 .pill { background: #dcebdc; border-radius: 999px; padding: 4px 10px; font-weight: bold; }
 .back-btn { background: #f1e7dd; color: var(--brown); border: 0; border-radius: 999px; padding: 6px 12px; font-weight: bold; font-size: 0.75rem; cursor: pointer; }
 .progress { height: 6px; background: #f0e8e1; border-radius: 99px; margin: 10px 0 16px; overflow: hidden; }
@@ -156,7 +183,7 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 .feedback { min-height: 24px; font-weight: bold; font-size: 0.85rem; color: var(--brown); margin-bottom: 12px; }
 .primary-btn { background: var(--brown); color: white; border: 0; border-radius: 999px; padding: 12px 20px; font-weight: bold; font-size: 0.9rem; width: 100%; cursor: pointer; }
 
-/* Skrin Sejarah (History) */
+/* History & Profile UI */
 .history-list { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
 .history-item {
   background: white; border-radius: 16px; padding: 12px 16px;
@@ -168,29 +195,20 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 .history-score .score-num { font-weight: 800; color: #4c9659; font-size: 0.95rem; }
 .history-score .stars { font-size: 0.75rem; color: #e0a100; }
 
-/* Skrin Profil */
-.profile-card {
-  background: white; border-radius: 22px; padding: 20px;
-  text-align: center; box-shadow: var(--shadow); margin-bottom: 16px;
-}
+.profile-card { background: white; border-radius: 22px; padding: 20px; text-align: center; box-shadow: var(--shadow); margin-bottom: 16px; }
 .avatar { font-size: 3.5rem; margin-bottom: 8px; }
 .profile-card h2 { margin: 0 0 4px; font-size: 1.3rem; color: var(--brown); }
 .profile-card p { margin: 0; font-size: 0.85rem; color: #826c5c; }
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-.stat-box {
-  background: white; border-radius: 18px; padding: 14px;
-  text-align: center; box-shadow: var(--shadow);
-}
+.stat-box { background: white; border-radius: 18px; padding: 14px; text-align: center; box-shadow: var(--shadow); }
 .stat-box h3 { margin: 0; font-size: 1.4rem; color: var(--brown); }
 .stat-box p { margin: 4px 0 0; font-size: 0.75rem; color: #826c5c; font-weight: bold; }
 
-.reset-btn {
-  background: #ffe0df; color: #d66c68; border: 1.5px solid #d66c68;
-  border-radius: 14px; padding: 10px; font-weight: bold; font-size: 0.8rem;
-  width: 100%; cursor: pointer;
-}
+.action-btn-group { display: flex; flex-direction: column; gap: 10px; }
+.switch-prof-btn { background: var(--brown); color: white; border: none; border-radius: 14px; padding: 12px; font-weight: bold; cursor: pointer; }
+.delete-prof-btn { background: #ffe0df; color: #d66c68; border: 1.5px solid #d66c68; border-radius: 14px; padding: 10px; font-weight: bold; font-size: 0.8rem; cursor: pointer; }
 
-/* FIXED BOTTOM NAVIGATION BAR */
+/* Bottom Nav Bar */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; width: 100%;
   height: calc(58px + var(--safe-bottom));
@@ -215,31 +233,38 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 </head>
 <body>
 
-<!-- Modal Nama & Pilih Umur -->
-<div id="nameModal" class="name-modal" style="display: none;">
+<!-- SKRIN PEMILIHAN PROFIL (NETFLIX STYLE) -->
+<div id="netflixScreen" class="netflix-screen">
+  <h2>Siapa Yang Nak Belajar? 🎈</h2>
+  <div class="profiles-grid" id="profilesGrid"></div>
+</div>
+
+<!-- Modal Tambah Profil Baharu -->
+<div id="addProfileModal" class="name-modal" style="display: none;">
   <div class="name-box">
-    <h2>Selamat Datang! 🎈</h2>
-    <p>Masukkan nama dan pilih umur adik:</p>
+    <h3>Tambah Profil Baharu ➕</h3>
+    <p>Masukkan nama dan umur pelajar:</p>
     <input type="text" id="studentNameInput" placeholder="Contoh: Adam / Sara" autofocus>
     
-    <p style="margin-bottom: 6px; font-weight: bold;">Pilih Umur:</p>
+    <p style="margin-bottom: 6px; font-weight: bold; font-size: 0.85rem;">Pilih Umur:</p>
     <div class="age-options">
       <button class="age-option-btn selected" onclick="selectModalAge(4, this)">4 Tahun</button>
       <button class="age-option-btn" onclick="selectModalAge(5, this)">5 Tahun</button>
       <button class="age-option-btn" onclick="selectModalAge(6, this)">6 Tahun</button>
     </div>
 
-    <button class="primary-btn" onclick="saveStudentProfile()">Mula Belajar 🚀</button>
+    <button class="primary-btn" onclick="createNewProfile()">Simpan Profil 🚀</button>
+    <button class="primary-btn" style="background: #ccc; color: #333; margin-top: 8px;" onclick="closeAddModal()">Batal</button>
   </div>
 </div>
 
-<!-- Header -->
+<!-- Header App -->
 <header>
   <h1>🌈 Akademi Cilik Ceria</h1>
   <p>Pembelajaran Interaktif Mobil</p>
 </header>
 
-<!-- TAB 1: DASHBOARD / AKTIVITI -->
+<!-- TAB 1: DASHBOARD -->
 <div id="tab-dashboard" class="tab-content active">
   <section class="hero">
     <div>
@@ -249,24 +274,20 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
     <div class="mascot">🧸</div>
   </section>
 
-  <!-- Tag Umur Terkunci (Umur Terpilih Sahaja) -->
   <div class="age-container">
     <div class="locked-age-tag" id="lockedAgeDisplay">Kategori: 4 Tahun</div>
   </div>
 
-  <!-- Pilihan Subjek -->
   <div class="subject-nav" id="subjectNav"></div>
 
-  <!-- Senarai Aktiviti / Permainan -->
   <section id="subjectContainer">
     <div class="grid" id="cardsGrid"></div>
   </section>
 
-  <!-- Modul Game Screen -->
   <section id="gameScreen" class="game"></section>
 </div>
 
-<!-- TAB 2: SEJARAH (ACTIVITY HISTORY) -->
+<!-- TAB 2: SEJARAH -->
 <div id="tab-history" class="tab-content">
   <h2 style="color: var(--brown); margin-top:0; font-size: 1.2rem;">📜 Rekod Aktiviti</h2>
   <div id="historyList" class="history-list">
@@ -277,7 +298,7 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 <!-- TAB 3: PROFIL -->
 <div id="tab-profile" class="tab-content">
   <div class="profile-card">
-    <div class="avatar">🌟</div>
+    <div class="avatar" id="profileAvatarIcon">🌟</div>
     <h2 id="profileName">Nama Pelajar</h2>
     <p id="profileAge">Pelajar 4 Tahun</p>
   </div>
@@ -293,7 +314,10 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
     </div>
   </div>
 
-  <button class="reset-btn" onclick="resetProfile()">Tukar Nama / Umur 🔄</button>
+  <div class="action-btn-group">
+    <button class="switch-prof-btn" onclick="showNetflixScreen()">Tukar Profil 👥</button>
+    <button class="delete-prof-btn" onclick="deleteCurrentProfile()">Padam Profil Ini 🗑️</button>
+  </div>
 </div>
 
 <!-- FIXED BOTTOM NAVIGATION BAR -->
@@ -313,9 +337,12 @@ header p { margin: 2px 0 0; color: #826c5c; font-size: 0.75rem; }
 </nav>
 
 <script>
-let studentName = "";
+// PENGURUSAN MULTI-PROFIL LOCALSTORAGE
+let profilesList = []; // Senarai objek profil [{id, name, age, avatar, stars, history}]
+let currentProfileId = null;
+let activeProfile = null;
+
 let selectedModalAge = 4;
-let currentAge = 4;
 let currentSubject = "BM";
 let activityIndex = null;
 let qIndex = 0;
@@ -323,35 +350,23 @@ let score = 0;
 let qs = [];
 let answered = false;
 
-// Data Sejarah & Bintang
-let historyRecords = [];
-let totalStarsEarned = 0;
+const AVATARS = ["🧸", "🐰", "🦊", "🦁", "🐼", "🦄", "🐯"];
 
 const DATA = {
   "4": {
     "BM": {
       "name": "BM (4T)", "emoji": "📚",
       "activities": [
-        ["Kenal Vokal A", "Cari huruf dan bunyi vokal A."],
-        ["Kenal Vokal I", "Cari huruf dan bunyi vokal I."],
-        ["Kenal Vokal U", "Cari huruf dan bunyi vokal U."],
-        ["Bunyi Suku Kata Ba", "Kenal bunyi suku kata terbuka ba, bi, bu."],
-        ["Bunyi Suku Kata Ca", "Kenal bunyi suku kata terbuka ca, ci, cu."],
-        ["Bunyi Suku Kata Da", "Kenal bunyi suku kata terbuka da, di, du."],
-        ["Bunyi Suku Kata Ka", "Kenal bunyi suku kata terbuka ka, ki, ku."],
-        ["Bunyi Suku Kata Ma", "Kenal bunyi suku kata terbuka ma, mi, mu."],
-        ["Suku Kata Terbuka 'ba'", "Pilih perkataan mudah berawalan ba."],
-        ["Suku Kata Terbuka 'bo'", "Pilih perkataan mudah berawalan bo."],
-        ["Suku Kata Terbuka 'cu'", "Pilih perkataan mudah berawalan cu."],
-        ["Suku Kata Terbuka 'ku'", "Pilih perkataan mudah berawalan ku."],
-        ["Cantum Suku Kata 'bola'", "Cantum bo + la."],
-        ["Cantum Suku Kata 'baju'", "Cantum ba + ju."],
-        ["Cantum Suku Kata 'kuda'", "Cantum ku + da."],
-        ["Cantum Suku Kata 'buku'", "Cantum bu + ku."],
-        ["Padan Gambar 'batu'", "Padankan suku kata terbuka dengan gambar."],
-        ["Padan Gambar 'topi'", "Padankan suku kata terbuka dengan gambar."],
-        ["Padan Gambar 'roti'", "Padankan suku kata terbuka dengan gambar."],
-        ["Kuiz Suku Kata Terbuka 4T", "Ujian mudah suku kata terbuka."]
+        ["Kenal Vokal A", "Cari huruf dan bunyi vokal A."], ["Kenal Vokal I", "Cari huruf dan bunyi vokal I."],
+        ["Kenal Vokal U", "Cari huruf dan bunyi vokal U."], ["Bunyi Suku Kata Ba", "Kenal bunyi ba, bi, bu."],
+        ["Bunyi Suku Kata Ca", "Kenal bunyi ca, ci, cu."], ["Bunyi Suku Kata Da", "Kenal bunyi da, di, du."],
+        ["Bunyi Suku Kata Ka", "Kenal bunyi ka, ki, ku."], ["Bunyi Suku Kata Ma", "Kenal bunyi ma, mi, mu."],
+        ["Suku Kata Terbuka 'ba'", "Pilih perkataan berawalan ba."], ["Suku Kata Terbuka 'bo'", "Pilih perkataan berawalan bo."],
+        ["Suku Kata Terbuka 'cu'", "Pilih perkataan berawalan cu."], ["Suku Kata Terbuka 'ku'", "Pilih perkataan berawalan ku."],
+        ["Cantum Suku Kata 'bola'", "Cantum bo + la."], ["Cantum Suku Kata 'baju'", "Cantum ba + ju."],
+        ["Cantum Suku Kata 'kuda'", "Cantum ku + da."], ["Cantum Suku Kata 'buku'", "Cantum bu + ku."],
+        ["Padan Gambar 'batu'", "Padankan suku kata dengan gambar."], ["Padan Gambar 'topi'", "Padankan suku kata dengan gambar."],
+        ["Padan Gambar 'roti'", "Padankan suku kata dengan gambar."], ["Kuiz Suku Kata Terbuka 4T", "Ujian mudah suku kata."]
       ],
       "questions": [
         ["Apakah vokal awal bagi 'ayam'?", ["a", "i", "u"], 0],
@@ -422,16 +437,16 @@ const DATA = {
     "Math": {
       "name": "Math (4Y)", "emoji": "🔢",
       "activities": [
-        ["Nombor 1", "Kenal bentuk nombor 1."],["Nombor 2", "Kenal bentuk nombor 2."],
-        ["Nombor 3", "Kenal bentuk nombor 3."],["Nombor 4", "Kenal bentuk nombor 4."],
-        ["Nombor 5", "Kenal bentuk nombor 5."],["Kira 1 hingga 3", "Bilang objek 1-3."],
+        ["Nombor 1", "Kenal nombor 1."],["Nombor 2", "Kenal nombor 2."],
+        ["Nombor 3", "Kenal nombor 3."],["Nombor 4", "Kenal nombor 4."],
+        ["Nombor 5", "Kenal nombor 5."],["Kira 1 hingga 3", "Bilang objek 1-3."],
         ["Kira 1 hingga 5", "Bilang objek 1-5."],["Bentuk Bulatan", "Kenal bentuk bulat."],
-        ["Bentuk Segi Empat", "Kenal bentuk segi empat."],["Bentuk Segi Tiga", "Kenal bentuk segi tiga."],
+        ["Bentuk Segi Empat", "Kenal segi empat."],["Bentuk Segi Tiga", "Kenal segi tiga."],
         ["Saiz Besar", "Pilih objek besar."],["Saiz Kecil", "Pilih objek kecil."],
-        ["Tinggi dan Rendah", "Bandingkan ketinggian."],["Panjang dan Pendek", "Bandingkan panjang."],
-        ["Sama Banyak", "Padankan kumpulan yang sama."],["Sedikit dan Banyak", "Bandingkan kuantiti."],
+        ["Tinggi dan Rendah", "Banding ketinggian."],["Panjang dan Pendek", "Banding panjang."],
+        ["Sama Banyak", "Padan kumpulan sama."],["Sedikit dan Banyak", "Banding kuantiti."],
         ["Warna Merah", "Kelaskan warna merah."],["Warna Kuning", "Kelaskan warna kuning."],
-        ["Corak Mudah", "Ikut urutan corak 2 warna."],["Math Junior 4Y", "Cabaran matematik asas."]
+        ["Corak Mudah", "Urutan corak 2 warna."],["Math Junior 4Y", "Cabaran math asas."]
       ],
       "questions": [
         ["Pilih nombor 1:", ["1", "2", "3"], 0],
@@ -451,14 +466,14 @@ const DATA = {
       "activities": [
         ["Huruf Alif", "Kenal huruf ا."],["Huruf Ba", "Kenal huruf ب."],
         ["Huruf Ta", "Kenal huruf ت."],["Huruf Tha", "Kenal huruf ث."],
-        ["Huruf Jim", "Kenal huruf ج."],["Bunyi Alif", "Sebut bunyi huruf ا."],
-        ["Bunyi Ba", "Sebut bunyi huruf ب."],["Cari Alif", "Kenal pasti huruf ا."],
-        ["Cari Ba", "Kenal pasti huruf ب."],["Titik Huruf Ba", "Kenal 1 titik di bawah."],
-        ["Titik Huruf Ta", "Kenal 2 titik di atas."],["Titik Huruf Tha", "Kenal 3 titik di atas."],
+        ["Huruf Jim", "Kenal huruf ج."],["Bunyi Alif", "Sebut bunyi ا."],
+        ["Bunyi Ba", "Sebut bunyi ب."],["Cari Alif", "Kenal pasti ا."],
+        ["Cari Ba", "Kenal pasti ب."],["Titik Huruf Ba", "Kenal 1 titik bawah."],
+        ["Titik Huruf Ta", "Kenal 2 titik atas."],["Titik Huruf Tha", "Kenal 3 titik atas."],
         ["Padan Alif", "Padankan ا dengan ا."],["Padan Ba", "Padankan ب dengan ب."],
-        ["Warna Huruf", "Kenal huruf mengikut warna."],["Huruf Tunggal 1", "Mengecam ا , ب , ت."],
-        ["Huruf Tunggal 2", "Mengecam ث , ج , ح."],["Dengar & Pilih", "Pilih huruf yang disebut."],
-        ["Memori Jawi 4T", "Ingat pasangan huruf."],["Jawi Asas 4T", "Ujian asas huruf Jawi."]
+        ["Warna Huruf", "Kenal huruf ikut warna."],["Huruf Tunggal 1", "Mengecam ا , ب , ت."],
+        ["Huruf Tunggal 2", "Mengecam ث , ج , ح."],["Dengar & Pilih", "Pilih huruf disebut."],
+        ["Memori Jawi 4T", "Ingat pasangan huruf."],["Jawi Asas 4T", "Ujian asas Jawi."]
       ],
       "questions": [
         ["Manakah huruf Alif?", ["ا", "ب", "ت"], 0],
@@ -478,26 +493,26 @@ const DATA = {
     "BM": {
       "name": "BM (5T)", "emoji": "📚",
       "activities": [
-        ["Suku Kata Terbuka 'KVKV'", "Baca perkataan seperti 'buku', 'kuda'."],
-        ["Suku Kata Terbuka 'KVKVKV'", "Baca perkataan seperti 'kereta', 'kelapa'."],
+        ["Suku Kata Terbuka 'KVKV'", "Baca perkataan 'buku', 'kuda'."],
+        ["Suku Kata Terbuka 'KVKVKV'", "Baca perkataan 'kereta'."],
         ["Gabung Suku Kata Terbuka 1", "Gabung ka + yu = kayu."],
         ["Gabung Suku Kata Terbuka 2", "Gabung bu + mi = bumi."],
         ["Gabung Suku Kata Terbuka 3", "Gabung ba + ca = baca."],
         ["Gabung Suku Kata Terbuka 4", "Gabung pa + su = pasu."],
-        ["Lengkapkan Suku Kata 'ro__'", "Cari suku kata terbuka melengkapkan 'roti'."],
-        ["Lengkapkan Suku Kata 'ja__'", "Cari suku kata terbuka melengkapkan 'jari'."],
-        ["Lengkapkan Suku Kata 'su__'", "Cari suku kata terbuka melengkapkan 'susu'."],
-        ["Perkataan 'saya'", "Latihan membaca dan memilih suku kata terbuka."],
-        ["Perkataan 'dahi'", "Latihan membaca dan memilih suku kata terbuka."],
-        ["Perkataan 'gigi'", "Latihan membaca dan memilih suku kata terbuka."],
-        ["Perkataan 'cawan'", "Kenal pasti suku kata terbuka awal 'ca'."],
+        ["Lengkapkan Suku Kata 'ro__'", "Lengkapkan 'roti'."],
+        ["Lengkapkan Suku Kata 'ja__'", "Lengkapkan 'jari'."],
+        ["Lengkapkan Suku Kata 'su__'", "Lengkapkan 'susu'."],
+        ["Perkataan 'saya'", "Membaca suku kata terbuka."],
+        ["Perkataan 'dahi'", "Membaca suku kata terbuka."],
+        ["Perkataan 'gigi'", "Membaca suku kata terbuka."],
+        ["Perkataan 'cawan'", "Suku kata terbuka awal 'ca'."],
         ["Cari Suku Kata Terbuka 'la'", "Pilih perkataan berakhiran 'la'."],
         ["Cari Suku Kata Terbuka 'ri'", "Pilih perkataan berakhiran 'ri'."],
         ["Ayat Mudah Terbuka 1", "Baca: 'Ini buku'."],
         ["Ayat Mudah Terbuka 2", "Baca: 'Baju biru'."],
         ["Ayat Mudah Terbuka 3", "Baca: 'Kuda padi'."],
         ["Susun Perkataan Terbuka", "Susun suku kata jadi perkataan."],
-        ["Juara Suku Kata Terbuka 5T", "Cabaran mantap suku kata terbuka."]
+        ["Juara Suku Kata Terbuka 5T", "Cabaran mantap suku kata."]
       ],
       "questions": [
         ["Cantumkan: ke + re + ta =", ["kereta", "kereti", "kerata"], 0],
@@ -517,11 +532,11 @@ const DATA = {
       "activities": [
         ["CVC Words - 'a'", "Read cat, bat, mat."], ["CVC Words - 'e'", "Read red, bed, pen."],
         ["CVC Words - 'i'", "Read pin, fin, bin."], ["CVC Words - 'o'", "Read dog, log, pot."],
-        ["CVC Words - 'u'", "Read sun, bus, cup."], ["Colour Words", "Spelling red, blue, green."],
-        ["Numbers 1 to 10", "Counting number words."], ["Family Members", "Mother, father, etc."],
+        ["CVC Words - 'u'", "Read sun, bus, cup."], ["Colour Words", "Spelling red, blue."],
+        ["Numbers 1 to 10", "Counting number words."], ["Family Members", "Mother, father."],
         ["Days of the Week", "Monday, Tuesday."], ["Shapes Hunt", "Circle, square."],
         ["Action Verbs", "Run, jump, walk."], ["Animals & Sounds", "Dog barks, Cat meows."],
-        ["In the Classroom", "Pencil, book, chair."], ["My Body", "Head, shoulders."],
+        ["In the Classroom", "Pencil, book."], ["My Body", "Head, shoulders."],
         ["Opposites 1", "Hot vs Cold."], ["Opposites 2", "Fast vs Slow."],
         ["Simple Sentence 1", "It is a cat."], ["Simple Sentence 2", "I like apples."],
         ["Missing Letter CVC", "Fill in vowel."], ["English Champ 5Y", "Fun interactive quiz."]
@@ -568,16 +583,16 @@ const DATA = {
     "Math": {
       "name": "Math (5Y)", "emoji": "🔢",
       "activities": [
-        ["Nombor 1 hingga 10", "Kenal & tulis 1-10."],["Nombor 11 hingga 20", "Kenal & tulis 11-20."],
+        ["Nombor 1 hingga 10", "Kenal 1-10."],["Nombor 11 hingga 20", "Kenal 11-20."],
         ["Tambah Mudah (+1)", "Konsep tambah satu."],["Tambah hingga 10", "Operasi tambah."],
         ["Tolak Mudah (-1)", "Konsep buang satu."],["Tolak hingga 10", "Operasi tolak."],
         ["Susun Nombor Naik", "Susun 1 hingga 10."],["Susun Nombor Turun", "Susun 10 hingga 1."],
-        ["Banding Kuantiti", "Lebih banyak / sedikit."],["Bentuk 2D", "Segi empat tepat, bujong."],
+        ["Banding Kuantiti", "Lebih banyak / sedikit."],["Bentuk 2D", "Segi empat, bujong."],
         ["Bentuk 3D Asas", "Kubu, sfera."],["Ukuran Panjang", "Unit bukan piawai."],
-        ["Masa & Waktu", "Pagi, tengah hari, malam."],["Mata Wang RM1 & RM5", "Kenal nilai wang."],
+        ["Masa & Waktu", "Pagi, tengah hari."],["Mata Wang RM1 & RM5", "Kenal nilai wang."],
         ["Pola Corak ABAB", "Lengkapkan urutan."],["Pola Corak AABB", "Lengkapkan urutan."],
-        ["Garis Nombor", "Lompat pada garis nombor."],["Kumpulan 10", "Membilang sepuluh."],
-        ["Masalah Bergambar", "Soalan cerita mudah."],["Math Master 5Y", "Ujian kepintaran math."]
+        ["Garis Nombor", "Lompat garis nombor."],["Kumpulan 10", "Membilang sepuluh."],
+        ["Masalah Bergambar", "Soalan cerita."],["Math Master 5Y", "Ujian math."]
       ],
       "questions": [
         ["Berapakah 3 + 2 ?", ["5", "4", "6"], 0],
@@ -778,10 +793,66 @@ const DATA = {
   }
 };
 
-// Mula Aplikasi & Semak LocalStorage
 window.onload = function() {
-  loadStoredData();
+  loadAllProfilesData();
 };
+
+function loadAllProfilesData() {
+  const stored = localStorage.getItem("app_multi_profiles");
+  if (stored) {
+    profilesList = JSON.parse(stored);
+  }
+  showNetflixScreen();
+}
+
+function showNetflixScreen() {
+  document.getElementById("netflixScreen").style.display = "flex";
+  const grid = document.getElementById("profilesGrid");
+  grid.innerHTML = "";
+
+  profilesList.forEach(p => {
+    const btn = document.createElement("button");
+    btn.className = "profile-avatar-btn";
+    btn.onclick = () => selectProfile(p.id);
+    btn.innerHTML = `
+      <div class="avatar-box">${p.avatar}</div>
+      <span>${p.name}</span>
+      <span class="age-tag">${p.age} Tahun</span>
+    `;
+    grid.appendChild(btn);
+  });
+
+  // Butang Tambah Profil
+  const addBtn = document.createElement("button");
+  addBtn.className = "profile-avatar-btn";
+  addBtn.onclick = openAddModal;
+  addBtn.innerHTML = `
+    <div class="add-profile-btn">+</div>
+    <span>Tambah</span>
+  `;
+  grid.appendChild(addBtn);
+}
+
+function selectProfile(id) {
+  currentProfileId = id;
+  activeProfile = profilesList.find(p => p.id === id);
+  
+  document.getElementById("netflixScreen").style.display = "none";
+  document.getElementById("welcomeText").innerText = `Hai, ${activeProfile.name}! 👋`;
+  document.getElementById("lockedAgeDisplay").innerText = `Kategori Umur: ${activeProfile.age} Tahun`;
+  
+  updateProfileUI();
+  initApp();
+}
+
+function openAddModal() {
+  document.getElementById("studentNameInput").value = "";
+  document.getElementById("addProfileModal").style.display = "flex";
+}
+
+function closeAddModal() {
+  document.getElementById("addProfileModal").style.display = "none";
+}
 
 function selectModalAge(age, btn) {
   selectedModalAge = age;
@@ -789,58 +860,39 @@ function selectModalAge(age, btn) {
   btn.classList.add("selected");
 }
 
-function loadStoredData() {
-  const savedName = localStorage.getItem("app_student_name");
-  const savedAge = localStorage.getItem("app_student_age");
-  const savedHistory = localStorage.getItem("app_history_records");
-  const savedStars = localStorage.getItem("app_total_stars");
+function createNewProfile() {
+  const name = document.getElementById("studentNameInput").value.trim();
+  if (!name) {
+    alert("Sila masukkan nama pelajar!");
+    return;
+  }
 
-  if (savedHistory) historyRecords = JSON.parse(savedHistory);
-  if (savedStars) totalStarsEarned = parseInt(savedStars, 10);
+  const randomAvatar = AVATARS[Math.floor(Math.random() * AVATARS.length)];
+  const newProf = {
+    id: "prof_" + Date.now(),
+    name: name,
+    age: selectedModalAge,
+    avatar: randomAvatar,
+    stars: 0,
+    history: []
+  };
 
-  if (savedName && savedName.trim() !== "" && savedAge) {
-    studentName = savedName;
-    currentAge = parseInt(savedAge, 10);
-    
-    document.getElementById("nameModal").style.display = "none";
-    document.getElementById("welcomeText").innerText = `Hai, ${studentName}! 👋`;
-    document.getElementById("lockedAgeDisplay").innerText = `Kategori Umur: ${currentAge} Tahun`;
-    
-    updateProfileUI();
-    initApp();
-  } else {
-    document.getElementById("nameModal").style.display = "flex";
+  profilesList.push(newProf);
+  saveAllProfilesToStorage();
+  closeAddModal();
+  selectProfile(newProf.id);
+}
+
+function deleteCurrentProfile() {
+  if (confirm(`Adakah anda pasti mahu memadam profil ${activeProfile.name}?`)) {
+    profilesList = profilesList.filter(p => p.id !== currentProfileId);
+    saveAllProfilesToStorage();
+    showNetflixScreen();
   }
 }
 
-function saveStudentProfile() {
-  const input = document.getElementById("studentNameInput").value.trim();
-  if (input !== "") {
-    studentName = input;
-    currentAge = selectedModalAge;
-    
-    localStorage.setItem("app_student_name", studentName);
-    localStorage.setItem("app_student_age", currentAge.toString());
-    
-    document.getElementById("nameModal").style.display = "none";
-    document.getElementById("welcomeText").innerText = `Hai, ${studentName}! 👋`;
-    document.getElementById("lockedAgeDisplay").innerText = `Kategori Umur: ${currentAge} Tahun`;
-    
-    updateProfileUI();
-    initApp();
-  } else {
-    alert("Sila masukkan nama terlebih dahulu!");
-  }
-}
-
-function resetProfile() {
-  if (confirm("Adakah anda pasti mahu menukar nama atau kategori umur?")) {
-    localStorage.removeItem("app_student_name");
-    localStorage.removeItem("app_student_age");
-    localStorage.removeItem("app_history_records");
-    localStorage.removeItem("app_total_stars");
-    location.reload();
-  }
+function saveAllProfilesToStorage() {
+  localStorage.setItem("app_multi_profiles", JSON.stringify(profilesList));
 }
 
 function initApp() {
@@ -865,7 +917,7 @@ function renderSubjectNav() {
   const keys = ["BM", "BI", "Sains", "Math", "Jawi"];
   
   keys.forEach(k => {
-    const s = DATA[currentAge][k];
+    const s = DATA[activeProfile.age][k];
     const btn = document.createElement("button");
     btn.className = `subject-btn ${k === currentSubject ? "active" : ""}`;
     btn.innerHTML = `${s.emoji} ${s.name}`;
@@ -880,10 +932,10 @@ function showSubject(key) {
   document.getElementById("cardsGrid").style.display = "flex";
   
   document.querySelectorAll(".subject-btn").forEach(b => {
-    b.classList.toggle("active", b.textContent.includes(DATA[currentAge][key].name));
+    b.classList.toggle("active", b.textContent.includes(DATA[activeProfile.age][key].name));
   });
 
-  const s = DATA[currentAge][key];
+  const s = DATA[activeProfile.age][key];
   const grid = document.getElementById("cardsGrid");
   grid.innerHTML = "";
 
@@ -910,7 +962,7 @@ function startActivity(key, i) {
   activityIndex = i;
   qIndex = 0; score = 0; answered = false;
 
-  qs = shuffle(DATA[currentAge][key].questions).slice(0, 10);
+  qs = shuffle(DATA[activeProfile.age][key].questions).slice(0, 10);
   document.getElementById("cardsGrid").style.display = "none";
   const game = document.getElementById("gameScreen");
   game.classList.add("show");
@@ -920,7 +972,7 @@ function startActivity(key, i) {
 
 function renderQuestion() {
   answered = false;
-  const s = DATA[currentAge][currentSubject];
+  const s = DATA[activeProfile.age][currentSubject];
   const a = s.activities[activityIndex];
   const q = qs[qIndex];
   const game = document.getElementById("gameScreen");
@@ -957,7 +1009,7 @@ function choose(btn, correct, q) {
   if(correct) {
     score += 10;
     btn.classList.add("correct");
-    document.getElementById("feedbackText").innerText = `Hebat ${studentName}! Jawapan betul! 🎉⭐`;
+    document.getElementById("feedbackText").innerText = `Hebat ${activeProfile.name}! Jawapan betul! 🎉⭐`;
   } else {
     btn.classList.add("wrong");
     document.getElementById("feedbackText").innerText = `Salah! Jawapan: ` + q[1][q[2]];
@@ -977,19 +1029,18 @@ function nextQuestion() {
     return;
   }
 
-  // Pengiraan Bintang
-  let starsEarned = Math.floor(score / 20); // Max 5 bintang
+  let starsEarned = Math.floor(score / 20);
   if (starsEarned === 0 && score > 0) starsEarned = 1;
 
-  totalStarsEarned += starsEarned;
+  // Kemaskini Profil Aktif
+  activeProfile.stars += starsEarned;
 
-  // Simpan dalam Rekod Sejarah
-  const aName = DATA[currentAge][currentSubject].activities[activityIndex][0];
-  const sName = DATA[currentAge][currentSubject].name;
+  const aName = DATA[activeProfile.age][currentSubject].activities[activityIndex][0];
+  const sName = DATA[activeProfile.age][currentSubject].name;
   const now = new Date();
   const timeString = now.toLocaleDateString('ms-MY', { day:'numeric', month:'short' }) + `, ` + now.toLocaleTimeString('ms-MY', { hour:'2-digit', minute:'2-digit' });
 
-  historyRecords.unshift({
+  activeProfile.history.unshift({
     subject: sName,
     activity: aName,
     score: score,
@@ -997,14 +1048,12 @@ function nextQuestion() {
     time: timeString
   });
 
-  // Simpan ke LocalStorage Kekal
-  localStorage.setItem("app_history_records", JSON.stringify(historyRecords));
-  localStorage.setItem("app_total_stars", totalStarsEarned.toString());
+  saveAllProfilesToStorage();
 
   const game = document.getElementById("gameScreen");
   game.innerHTML = `
     <div style="font-size: 3.5rem;">🏆</div>
-    <h2 style="margin: 4px 0; color: var(--brown);">Tahniah, ${studentName}!</h2>
+    <h2 style="margin: 4px 0; color: var(--brown);">Tahniah, ${activeProfile.name}!</h2>
     <p style="font-size: 0.85rem; color: #796b60;">Aktiviti <b>${aName}</b> selesai.</p>
     <div style="font-size: 1.4rem; font-weight:800; margin: 12px 0;">Markah: ${score}/100</div>
     <div style="font-size: 1.1rem; color: #e0a100; margin-bottom: 16px;">+${starsEarned} Bintang Diberi! ⭐</div>
@@ -1019,13 +1068,13 @@ function cancelGame() {
 
 function renderHistoryUI() {
   const container = document.getElementById("historyList");
-  if(historyRecords.length === 0) {
+  if(!activeProfile || activeProfile.history.length === 0) {
     container.innerHTML = `<div class="empty-state">Belum ada aktiviti dimainkan. Jom mula belajar! 🚀</div>`;
     return;
   }
 
   container.innerHTML = "";
-  historyRecords.forEach(rec => {
+  activeProfile.history.forEach(rec => {
     let starStr = "⭐".repeat(rec.stars);
     const item = document.createElement("div");
     item.className = "history-item";
@@ -1044,10 +1093,12 @@ function renderHistoryUI() {
 }
 
 function updateProfileUI() {
-  document.getElementById("profileName").innerText = studentName || "Pelajar Cilik";
-  document.getElementById("profileAge").innerText = `Kategori ${currentAge} Tahun`;
-  document.getElementById("totalStars").innerText = `${totalStarsEarned} ⭐`;
-  document.getElementById("totalCompleted").innerText = historyRecords.length;
+  if (!activeProfile) return;
+  document.getElementById("profileAvatarIcon").innerText = activeProfile.avatar;
+  document.getElementById("profileName").innerText = activeProfile.name;
+  document.getElementById("profileAge").innerText = `Kategori ${activeProfile.age} Tahun`;
+  document.getElementById("totalStars").innerText = `${activeProfile.stars} ⭐`;
+  document.getElementById("totalCompleted").innerText = activeProfile.history.length;
 }
 </script>
 </body>
